@@ -9,9 +9,9 @@ namespace Taha.DatabaseInitilization.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             ContextKey = "TahaDatabaseContext";
-            AutomaticMigrationDataLossAllowed = true;
+            AutomaticMigrationDataLossAllowed = false;
         }
 
         protected override void Seed(TahaDatabaseContext context)

@@ -25,6 +25,7 @@ namespace Taha.Domains
         [Required]
         public DateTime SellStarDate { get; set; }
 
+        [StringLength(50)]
         public string ShipingWeight { get; set; }
 
         public byte[] Photo { get; set; }
@@ -33,6 +34,6 @@ namespace Taha.Domains
 
         public DateTime? DiscontinuedDate { get; set; }
 
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace ConsoleApplication1
             //}
 
             var rep = new CategoryRepository();
-            var res = rep.GetAll();
+            var res = rep.GetAll( orderBy:(t=>t.OrderBy(u=>u.Periority)));
             foreach (var item in res.Result)
             {
                 Console.WriteLine(item.Name + " > " + item.Periority + " > Insert Date" + item.InsertDate);

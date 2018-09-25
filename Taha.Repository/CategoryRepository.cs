@@ -47,7 +47,7 @@ namespace Taha.Repository
             }
 
             return resylt;
-        }
+        }      
 
         public RepositoryResult<Category> Delete(List<Guid> ID)
         {
