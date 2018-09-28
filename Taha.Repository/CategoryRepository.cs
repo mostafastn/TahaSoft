@@ -37,6 +37,7 @@ namespace Taha.Repository
                     }
 
                     resylt.Result = query.ToList();
+                    resylt.succeed = true;
                 }
 
 
