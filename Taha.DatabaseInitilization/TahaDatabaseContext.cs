@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Taha.Core.DBContext;
+﻿using System.Data.Entity;
 using Taha.DataLayerMappings;
 using Taha.Domains;
+using Taha.Framework.DBContext;
 
 namespace Taha.DatabaseInitilization
 {

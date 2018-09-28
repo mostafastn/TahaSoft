@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Taha.Core.Repository;
 using Taha.DatabaseInitilization;
 using Taha.Domains;
+using Taha.Framework.Repository;
 
 namespace Taha.Repository
 {

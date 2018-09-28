@@ -66,9 +66,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Taha.Core\Taha.Core.csproj">
-      <Project>{B6F52C45-7986-41A4-A80B-B2A161C278E2}</Project>
-      <Name>Taha.Core</Name>
+    <ProjectReference Include="..\Taha.Framework\Taha.Framework.csproj">
+      <Project>{0322A770-ED58-480F-BBDA-E38334213538}</Project>
+      <Name>Taha.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

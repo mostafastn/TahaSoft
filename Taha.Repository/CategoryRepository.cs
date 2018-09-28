@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Taha.Core.Repository;
 using Taha.DatabaseInitilization;
 using Taha.Domains;
+using Taha.Framework.Repository;
 
 namespace Taha.Repository
 {
     public class CategoryRepository : IRepository<Category>
     {
-        public RepositoryResult<IEnumerable<Category>> GetAll(Expression<Func<Category, bool>> filter = null, 
-            Func<IQueryable<Category>, IOrderedQueryable<Category>> orderBy = null, 
+        public RepositoryResult<IEnumerable<Category>> GetAll(Expression<Func<Category, bool>> filter = null,
+            Func<IQueryable<Category>, IOrderedQueryable<Category>> orderBy = null,
             params Expression<Func<Category, object>>[] np)
         {
             var resylt = new RepositoryResult<IEnumerable<Category>>()
@@ -27,19 +25,18 @@ namespace Taha.Repository
                 using (var context = new TahaDatabaseContext())
                 {
                     var query = context.Categories.AsQueryable();
-                    if (filter!=null)
+                    if (filter != null)
                     {
                         query = query.Where(filter);
                     }
-                    if (orderBy!=null)
+                    if (orderBy != null)
                     {
                         query = orderBy(query);
                     }
 
                     resylt.Result = query.ToList();
-                    resylt.succeed = true;
                 }
-
+                resylt.succeed = true;
 
             }
             catch (Exception ex)
@@ -48,7 +45,7 @@ namespace Taha.Repository
             }
 
             return resylt;
-        }      
+        }
 
         public RepositoryResult<Category> Delete(List<Guid> ID)
         {

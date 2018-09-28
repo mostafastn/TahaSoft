@@ -64,13 +64,13 @@
       <Project>{9F2E4C82-8DE3-4778-ABEC-71A20954A8BC}</Project>
       <Name>Taha.DataLayerMappings</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Taha.Core\Taha.Core.csproj">
-      <Project>{B6F52C45-7986-41A4-A80B-B2A161C278E2}</Project>
-      <Name>Taha.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Taha.Domains\Taha.Domains.csproj">
       <Project>{5F97C120-40EC-4CB3-B3A7-0108E2B3453F}</Project>
       <Name>Taha.Domains</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Taha.Framework\Taha.Framework.csproj">
+      <Project>{0322A770-ED58-480F-BBDA-E38334213538}</Project>
+      <Name>Taha.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

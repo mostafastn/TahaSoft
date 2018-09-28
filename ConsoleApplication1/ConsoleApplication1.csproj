@@ -74,6 +74,10 @@
       <Project>{5F97C120-40EC-4CB3-B3A7-0108E2B3453F}</Project>
       <Name>Taha.Domains</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Taha.Framework\Taha.Framework.csproj">
+      <Project>{0322A770-ED58-480F-BBDA-E38334213538}</Project>
+      <Name>Taha.Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Taha.Repository\Taha.Repository.csproj">
       <Project>{739BE212-C08A-421E-81AA-E563E76BACAE}</Project>
       <Name>Taha.Repository</Name>

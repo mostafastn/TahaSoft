@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Taha.DatabaseInitilization;
-using Taha.Domains;
 using Taha.Repository;
 
 namespace ConsoleApplication1
@@ -35,6 +29,10 @@ namespace ConsoleApplication1
             {
                 Console.WriteLine(item.Name + " > " + item.Periority + " > Insert Date" + item.InsertDate);
             }
+
+            var repp = new impBaseRepository();
+            var ress = repp.GetAll(orderBy: (t => t.OrderBy(u => u.Periority)));
+            
             Console.ReadLine();
 
 

@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryRepositoryTest.cs" />
+    <Compile Include="impBaseRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,9 +71,17 @@
       <Project>{B6F52C45-7986-41A4-A80B-B2A161C278E2}</Project>
       <Name>Taha.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Taha.DatabaseInitilization\Taha.DatabaseInitilization.csproj">
+      <Project>{a50a3225-8982-4de8-861c-2b3b4dc8aafa}</Project>
+      <Name>Taha.DatabaseInitilization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Taha.Domains\Taha.Domains.csproj">
       <Project>{5f97c120-40ec-4cb3-b3a7-0108e2b3453f}</Project>
       <Name>Taha.Domains</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Taha.Framework\Taha.Framework.csproj">
+      <Project>{0322A770-ED58-480F-BBDA-E38334213538}</Project>
+      <Name>Taha.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\Taha.Repository\Taha.Repository.csproj">
       <Project>{739BE212-C08A-421E-81AA-E563E76BACAE}</Project>

@@ -51,16 +51,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBContext\BaseContext.cs" />
-    <Compile Include="Entity\BaseEntity.cs" />
-    <Compile Include="Infrastructure\Utility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\IRepository.cs" />
-    <Compile Include="Repository\RepositoryResult.cs" />
+    <Compile Include="Repository\BaseRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Taha.DatabaseInitilization\Taha.DatabaseInitilization.csproj">
+      <Project>{a50a3225-8982-4de8-861c-2b3b4dc8aafa}</Project>
+      <Name>Taha.DatabaseInitilization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Taha.Framework\Taha.Framework.csproj">
+      <Project>{0322A770-ED58-480F-BBDA-E38334213538}</Project>
+      <Name>Taha.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

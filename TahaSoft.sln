@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taha.Repository", "Taha.Rep
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taha.Test.Repository", "Taha.Test.Repository\Taha.Test.Repository.csproj", "{5A85CD9C-8739-4A62-A2A7-E28E6AD641ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taha.Framework", "Taha.Framework\Taha.Framework.csproj", "{0322A770-ED58-480F-BBDA-E38334213538}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{5A85CD9C-8739-4A62-A2A7-E28E6AD641ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A85CD9C-8739-4A62-A2A7-E28E6AD641ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A85CD9C-8739-4A62-A2A7-E28E6AD641ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0322A770-ED58-480F-BBDA-E38334213538}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0322A770-ED58-480F-BBDA-E38334213538}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0322A770-ED58-480F-BBDA-E38334213538}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0322A770-ED58-480F-BBDA-E38334213538}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

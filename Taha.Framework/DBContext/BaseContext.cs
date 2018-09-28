@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.Migrations;
 
-namespace Taha.Core.DBContext
+namespace Taha.Framework.DBContext
 {
     public class BaseContext<TContext, TConfig> : DbContext
         where TContext : DbContext
