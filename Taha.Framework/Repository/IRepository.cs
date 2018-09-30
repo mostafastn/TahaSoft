@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Taha.Framework.Repository
 {
-    public interface IRepository<T>
+    public interface IRepository<T> 
        where T : class
     {
 
@@ -15,7 +15,7 @@ namespace Taha.Framework.Repository
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             params Expression<Func<T, object>>[] np);
         RepositoryResult<T> GetByID(Guid ID);
-        RepositoryResult<T> Insert(List<T> value);
+        RepositoryResult<IEnumerable<T>> Insert(List<T> value);
         RepositoryResult<T> Update(List<T> value);
         RepositoryResult<T> Delete(List<Guid> ID);
         RepositoryResult<T> Save();

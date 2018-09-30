@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taha.DataLayerMappings", "DataLayerMappings\Taha.DataLayerMappings.csproj", "{9F2E4C82-8DE3-4778-ABEC-71A20954A8BC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{56A3E785-6FC2-4F5F-944D-B54882AD6542}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taha.Domains", "Taha.Domains\Taha.Domains.csproj", "{5F97C120-40EC-4CB3-B3A7-0108E2B3453F}"
@@ -19,16 +17,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taha.Test.Repository", "Tah
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taha.Framework", "Taha.Framework\Taha.Framework.csproj", "{0322A770-ED58-480F-BBDA-E38334213538}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taha.DataLayerMappings", "Taha.DataLayerMappings\Taha.DataLayerMappings.csproj", "{9F2E4C82-8DE3-4778-ABEC-71A20954A8BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9F2E4C82-8DE3-4778-ABEC-71A20954A8BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F2E4C82-8DE3-4778-ABEC-71A20954A8BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F2E4C82-8DE3-4778-ABEC-71A20954A8BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F2E4C82-8DE3-4778-ABEC-71A20954A8BC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{56A3E785-6FC2-4F5F-944D-B54882AD6542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{56A3E785-6FC2-4F5F-944D-B54882AD6542}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56A3E785-6FC2-4F5F-944D-B54882AD6542}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,6 +53,10 @@ Global
 		{0322A770-ED58-480F-BBDA-E38334213538}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0322A770-ED58-480F-BBDA-E38334213538}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0322A770-ED58-480F-BBDA-E38334213538}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F2E4C82-8DE3-4778-ABEC-71A20954A8BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F2E4C82-8DE3-4778-ABEC-71A20954A8BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F2E4C82-8DE3-4778-ABEC-71A20954A8BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F2E4C82-8DE3-4778-ABEC-71A20954A8BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

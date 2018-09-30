@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Common.CommandTrees;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using Taha.Framework.Repository;
@@ -9,7 +11,7 @@ using Taha.DatabaseInitilization;
 namespace Taha.Core.Repository
 {
     public class BaseRepository<TContext, TEntyti> : IRepository<TEntyti>
-        where TContext : DbContext ,new()
+        where TContext : DbContext, new()
         where TEntyti : class
     {
         private TContext context;
@@ -32,21 +34,51 @@ namespace Taha.Core.Repository
 
             try
             {
-                using (var context = new TContext())
+                var query = entyti.AsQueryable();
+                if (filter != null)
                 {
-                    var query = entyti.AsQueryable();
-                    if (filter != null)
-                    {
-                        query = query.Where(filter);
-                    }
-                    if (orderBy != null)
-                    {
-                        query = orderBy(query);
-                    }
-
-                    resylt.Result = query.ToList();
+                    query = query.Where(filter);
                 }
+                if (orderBy != null)
+                {
+                    query = orderBy(query);
+                }
+
+                resylt.Result = query.ToList();
+
                 resylt.succeed = true;
+            }
+            catch (Exception ex)
+            {
+                resylt.Message = ex.Message;
+            }
+
+            return resylt;
+        }
+
+        public RepositoryResult<IEnumerable<TEntyti>> Insert(List<TEntyti> value)
+        {
+            var resylt = new RepositoryResult<IEnumerable<TEntyti>>()
+            {
+                Result = null,
+                Message = "",
+                succeed = false
+            };
+
+            try
+            {
+                if (value != null && !value.Any(t => t == null))
+                {
+                    entyti.AddRange(value);
+                    context.SaveChanges();
+                    resylt.Result = value;
+                    resylt.succeed = true;
+                }
+                else
+                {
+                    resylt.succeed = false;
+                    resylt.Message = "value or one of the items is null";
+                }
             }
             catch (Exception ex)
             {
@@ -71,10 +103,6 @@ namespace Taha.Core.Repository
             throw new NotImplementedException();
         }
 
-        public RepositoryResult<TEntyti> Insert(List<TEntyti> value)
-        {
-            throw new NotImplementedException();
-        }
 
         public RepositoryResult<TEntyti> Save()
         {
@@ -85,5 +113,7 @@ namespace Taha.Core.Repository
         {
             throw new NotImplementedException();
         }
+
+
     }
 }

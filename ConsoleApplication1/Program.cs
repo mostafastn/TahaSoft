@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Taha.Domains;
 using Taha.Repository;
 
 namespace ConsoleApplication1
@@ -8,31 +10,31 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
+            var repository = new CategoryRepository();
 
-            //using (var context = new TahaDatabaseContext())
-            //{
-            //    var categoryList = new List<Category>() {
-            //        new Category() { Name="عطر",Periority=1},
-            //        new Category() { Name="ادکلن",Periority=2},
-            //        new Category() { Name="کریستال",Periority=3 },
-            //        new Category() { Name="اسپری",Periority=4  }
-            //    };
-            //    context.Categories.AddRange(categoryList);
-            //    context.SaveChanges();
-            //    Console.WriteLine("kir");
-            //    Console.ReadLine();
-            //}
-
-            var rep = new CategoryRepository();
-            var res = rep.GetAll( orderBy:(t=>t.OrderBy(u=>u.Periority)));
-            foreach (var item in res.Result)
+            var categoryList = new List<Category>()
             {
-                Console.WriteLine(item.Name + " > " + item.Periority + " > Insert Date" + item.InsertDate);
+                new Category() {Name = "product A", Periority = 1},
+                new Category() {Name = "product B", Periority = 2},
+                new Category() {Name = "product C", Periority = 3},
+                new Category() {Name = "product D", Periority = 4}
+            };
+
+            var result = repository.Insert(categoryList);
+            if (result.succeed)
+            {
+                Console.WriteLine(" Insert Date " + result.Result.Count());
             }
 
-            var repp = new impBaseRepository();
-            var ress = repp.GetAll(orderBy: (t => t.OrderBy(u => u.Periority)));
-            
+            var res = repository.GetAll(orderBy: (t => t.OrderBy(u => u.Periority)));
+            if (res.succeed)
+            {
+                foreach (var item in res.Result)
+                {
+                    Console.WriteLine(item.Name + " > " + item.Periority + " > Insert Date" + item.InsertDate);
+                }
+            }
+
             Console.ReadLine();
 
 
