@@ -11,6 +11,9 @@ namespace Taha.Framework.Infrastructure
     // Bad code! Do not use!
     public sealed class Utility
     {
+
+        #region attempted thread-safety using double-check locking
+
         private static Utility _Curent = null;
         private static readonly object padlock = new object();
 
@@ -32,9 +35,13 @@ namespace Taha.Framework.Infrastructure
                 return _Curent;
             }
         }
+
+        #endregion
+
         public DateTime Now()
         {
             return System.DateTime.Now;
         }
+
     }
 }

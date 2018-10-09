@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core.Common.CommandTrees;
-using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection.Emit;
 using Taha.Framework.Repository;
-using Taha.DatabaseInitilization;
 
 namespace Taha.Core.Repository
 {
@@ -14,14 +12,42 @@ namespace Taha.Core.Repository
         where TContext : DbContext, new()
         where TEntyti : class
     {
-        private TContext context;
         private DbSet<TEntyti> entyti;
+
+
+        #region attempted thread-safety using double-check locking
+
+        private static TContext _CurentContext = null;
+        private static readonly object padlock = new object();
+
+        public static TContext CurentContext
+        {
+            get
+            {
+                if (_CurentContext == null)
+                {
+                    lock (padlock)
+                    {
+                        if (_CurentContext == null)
+                        {
+                            _CurentContext = new TContext();
+                        }
+                    }
+                }
+                return _CurentContext;
+            }
+        }
+
+        #endregion
+
+        #region Constructor
 
         public BaseRepository()
         {
-            context = new TContext();
-            entyti = context.Set<TEntyti>();
+            entyti = _CurentContext.Set<TEntyti>();
         }
+
+        #endregion
 
         public RepositoryResult<IEnumerable<TEntyti>> GetAll(Expression<Func<TEntyti, bool>> filter = null, Func<IQueryable<TEntyti>, IOrderedQueryable<TEntyti>> orderBy = null, params Expression<Func<TEntyti, object>>[] np)
         {
@@ -70,7 +96,7 @@ namespace Taha.Core.Repository
                 if (value != null && !value.Any(t => t == null))
                 {
                     entyti.AddRange(value);
-                    context.SaveChanges();
+                    _CurentContext.SaveChanges();
                     resylt.Result = value;
                     resylt.succeed = true;
                 }
