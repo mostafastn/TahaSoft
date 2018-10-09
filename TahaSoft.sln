@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taha.Framework", "Taha.Fram
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taha.DataLayerMappings", "Taha.DataLayerMappings\Taha.DataLayerMappings.csproj", "{9F2E4C82-8DE3-4778-ABEC-71A20954A8BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taha.WebAPI", "Taha.WebAPI\Taha.WebAPI.csproj", "{0E7A0FAF-DEC6-4CD4-BB39-602D3227FCED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taha.WebAPI.Tests", "Taha.WebAPI.Tests\Taha.WebAPI.Tests.csproj", "{96BC1F46-92BA-4D9A-9A27-AE6AB74E769C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,14 @@ Global
 		{9F2E4C82-8DE3-4778-ABEC-71A20954A8BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F2E4C82-8DE3-4778-ABEC-71A20954A8BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F2E4C82-8DE3-4778-ABEC-71A20954A8BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E7A0FAF-DEC6-4CD4-BB39-602D3227FCED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E7A0FAF-DEC6-4CD4-BB39-602D3227FCED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E7A0FAF-DEC6-4CD4-BB39-602D3227FCED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E7A0FAF-DEC6-4CD4-BB39-602D3227FCED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96BC1F46-92BA-4D9A-9A27-AE6AB74E769C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96BC1F46-92BA-4D9A-9A27-AE6AB74E769C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96BC1F46-92BA-4D9A-9A27-AE6AB74E769C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96BC1F46-92BA-4D9A-9A27-AE6AB74E769C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
