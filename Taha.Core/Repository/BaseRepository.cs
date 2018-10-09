@@ -20,7 +20,7 @@ namespace Taha.Core.Repository
         private static TContext _CurentContext = null;
         private static readonly object padlock = new object();
 
-        public static TContext CurentContext
+        private static TContext curentContext
         {
             get
             {
@@ -44,7 +44,7 @@ namespace Taha.Core.Repository
 
         public BaseRepository()
         {
-            entyti = _CurentContext.Set<TEntyti>();
+            entyti = curentContext.Set<TEntyti>();
         }
 
         #endregion
@@ -96,7 +96,7 @@ namespace Taha.Core.Repository
                 if (value != null && !value.Any(t => t == null))
                 {
                     entyti.AddRange(value);
-                    _CurentContext.SaveChanges();
+                    curentContext.SaveChanges();
                     resylt.Result = value;
                     resylt.succeed = true;
                 }
