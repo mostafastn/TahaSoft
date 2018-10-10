@@ -1,5 +1,11 @@
 ﻿using System;
+using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Taha.WebAPI.Controllers;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Results;
+using System.Web.Http.Routing;
 
 namespace Taha.WebAPI.Tests
 {
@@ -9,18 +15,37 @@ namespace Taha.WebAPI.Tests
         [TestMethod]
         public void TestMethod1()
         {
+           
             // Arrange
-            //double beginningBalance = 11.99;
-            //double debitAmount = 4.55;
-            //double expected = 7.44;
-            //BankAccount account = new BankAccount("Mr. Bryan Walton", beginningBalance);
+            var controller = new CategoryController
+            {
+                Request = new HttpRequestMessage(),
+                Configuration = new HttpConfiguration()
+            };
 
-            //// Act
-            //account.Debit(debitAmount);
+            // Act
+            var response = controller.GetAll();
 
-            //// Assert
-            //double actual = account.Balance;
-            //Assert.AreEqual(expected, actual, 0.001, "Account not debited correctly");
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void TestMethod2()
+        {
+
+            // Arrange
+            var controller = new CategoryController
+            {
+                Request = new HttpRequestMessage(),
+                Configuration = new HttpConfiguration()
+            };
+
+            // Act
+            var response = controller.GetAllHttpActionResult();
+
+            // Assert
+            Assert.AreEqual( response , OkNegotiatedContentResult<>);
         }
     }
 }

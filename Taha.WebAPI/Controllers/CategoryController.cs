@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Results;
 using Taha.Repository;
 using Taha.WebAPI.Models;
 
@@ -36,6 +37,16 @@ namespace Taha.WebAPI.Controllers
             }
             return response;
 
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetAllHttpActionResult()
+        {
+            var categoryRepository = new CategoryRepository();
+            var result = categoryRepository.GetAll(orderBy: (t => t.OrderBy(u => u.Periority)));
+                return Ok();
+            else
+                return NotFound();
         }
     }
 }
