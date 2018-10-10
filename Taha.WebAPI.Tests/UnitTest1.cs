@@ -45,7 +45,7 @@ namespace Taha.WebAPI.Tests
             var response = controller.GetAllHttpActionResult();
 
             // Assert
-            Assert.AreEqual( response , OkNegotiatedContentResult<>);
+            Assert.AreEqual( response , true);
         }
     }
 }

@@ -44,7 +44,8 @@ namespace Taha.WebAPI.Controllers
         {
             var categoryRepository = new CategoryRepository();
             var result = categoryRepository.GetAll(orderBy: (t => t.OrderBy(u => u.Periority)));
-                return Ok();
+            if (result.succeed)
+                return Ok(result.Result);
             else
                 return NotFound();
         }
