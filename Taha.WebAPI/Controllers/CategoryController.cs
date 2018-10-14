@@ -42,6 +42,7 @@ namespace Taha.WebAPI.Controllers
         [HttpGet]
         public IHttpActionResult GetAllHttpActionResult()
         {
+
             var categoryRepository = new CategoryRepository();
             var result = categoryRepository.GetAll(orderBy: (t => t.OrderBy(u => u.Periority)));
             if (result.succeed)
