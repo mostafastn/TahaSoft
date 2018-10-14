@@ -53,6 +53,8 @@
   <ItemGroup>
     <Compile Include="Category.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="DataLayerMappings\LineItemMap.cs" />
+    <Compile Include="DataLayerMappings\ShippingAddressMap.cs" />
     <Compile Include="LineItem.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Payment.cs" />
@@ -71,6 +73,7 @@
       <Name>Taha.Framework</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

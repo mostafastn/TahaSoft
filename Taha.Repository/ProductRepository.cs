@@ -1,6 +1,6 @@
-﻿using Taha.Core.Repository;
-using Taha.DatabaseInitilization;
-using Taha.Domains;
+﻿using Taha.DatabaseInitilization;
+using Taha.DatabaseInitilization.Domains;
+using Taha.Framework.Repository;
 
 namespace Taha.Repository
 {

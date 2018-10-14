@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Taha.WebAPI.Controllers;
@@ -6,6 +7,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Results;
 using System.Web.Http.Routing;
+using Taha.DatabaseInitilization.Domains;
+using Taha.Framework.Repository;
 
 namespace Taha.WebAPI.Tests
 {
@@ -15,7 +18,7 @@ namespace Taha.WebAPI.Tests
         [TestMethod]
         public void TestMethod1()
         {
-           
+
             // Arrange
             var controller = new CategoryController
             {
@@ -42,10 +45,13 @@ namespace Taha.WebAPI.Tests
             };
 
             // Act
-            var response = controller.GetAllHttpActionResult();
+            var response = controller.GetAllHttpActionResult() as OkNegotiatedContentResult<IEnumerable<Category>>;
 
             // Assert
-            Assert.AreEqual( response , true);
+            Assert.IsNotNull(response);
+
+
+
         }
     }
 }

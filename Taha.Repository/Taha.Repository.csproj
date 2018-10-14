@@ -57,17 +57,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Taha.Core\Taha.Core.csproj">
-      <Project>{B6F52C45-7986-41A4-A80B-B2A161C278E2}</Project>
-      <Name>Taha.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Taha.DatabaseInitilization\Taha.DatabaseInitilization.csproj">
       <Project>{A50A3225-8982-4DE8-861C-2B3B4DC8AAFA}</Project>
       <Name>Taha.DatabaseInitilization</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Taha.Domains\Taha.Domains.csproj">
-      <Project>{5F97C120-40EC-4CB3-B3A7-0108E2B3453F}</Project>
-      <Name>Taha.Domains</Name>
     </ProjectReference>
     <ProjectReference Include="..\Taha.Framework\Taha.Framework.csproj">
       <Project>{0322A770-ED58-480F-BBDA-E38334213538}</Project>

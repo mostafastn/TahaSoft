@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
-using Taha.DataLayerMappings;
-using Taha.Domains;
+using Taha.DatabaseInitilization.DataLayerMappings;
+using Taha.DatabaseInitilization.Domains;
 using Taha.Framework.DBContext;
 
 namespace Taha.DatabaseInitilization
