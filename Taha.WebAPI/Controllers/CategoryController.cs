@@ -13,7 +13,7 @@ namespace Taha.WebAPI.Controllers
     public class CategoryController : ApiController
     {
         [HttpGet]
-        public HttpResponseMessage GetAll()
+        public HttpResponseMessage GetAllHttpResponseMessage()
         {
             var response = new HttpResponseMessage(HttpStatusCode.MethodNotAllowed);
 
@@ -40,15 +40,55 @@ namespace Taha.WebAPI.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult GetAllHttpActionResult()
+        public IHttpActionResult GetAll()
         {
-
             var categoryRepository = new CategoryRepository();
             var result = categoryRepository.GetAll(orderBy: (t => t.OrderBy(u => u.Periority)));
             if (result.succeed)
                 return Ok(result.Result);
             else
                 return NotFound();
+        }
+
+
+        [HttpPost]
+        public IHttpActionResult Insert(Category category)
+        {
+            if (category == null)
+                return BadRequest("Value is null");
+
+            var domainCategory = new Taha.DatabaseInitilization.Domains.Category
+            {
+                Name = category.Name,
+                Periority = category.Periority
+            };
+            var categoryRepository = new CategoryRepository();
+            var result = categoryRepository.Insert(
+                new List<DatabaseInitilization.Domains.Category>() {domainCategory});
+            if (result.succeed)
+                return Ok(result.Result);
+            else
+                return BadRequest(result.Message);
+        }
+
+        [HttpPut]
+        public IHttpActionResult Update(Category category)
+        {
+            if (category==null)
+                return BadRequest("Value is null");
+
+            var domainCategory = new Taha.DatabaseInitilization.Domains.Category
+                {
+                    ID = category.ID,
+                    Name =  category.Name,
+                    Periority = category.Periority
+                };
+            var categoryRepository = new CategoryRepository();
+            var result = categoryRepository.Update(domainCategory);
+            if (result.succeed)
+                return Ok(result.Result);
+            else
+                return BadRequest(result.Message);
         }
     }
 }

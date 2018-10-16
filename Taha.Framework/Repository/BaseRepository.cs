@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection.Emit;
-using Taha.Framework.Repository;
+using Taha.Framework.Entity;
 
 namespace Taha.Framework.Repository
 {
     public class BaseRepository<TContext, TEntyti> : IRepository<TEntyti>
         where TContext : DbContext, new()
-        where TEntyti : class
+        where TEntyti : BaseEntity
     {
         private DbSet<TEntyti> entyti;
 
@@ -114,6 +113,47 @@ namespace Taha.Framework.Repository
             return resylt;
         }
 
+
+        public RepositoryResult<TEntyti> Update(TEntyti value)
+        {
+            var resylt = new RepositoryResult<TEntyti>()
+            {
+                Result = null,
+                Message = "",
+                succeed = false
+            };
+
+            try
+            {
+                var obj = entyti.FirstOrDefault(t => t.ID == value.ID);
+
+                if (value != null && obj != null)
+                {
+                    curentContext.Entry(obj).CurrentValues.SetValues(value);
+                    curentContext.SaveChanges();
+                    resylt.Result = value;
+                    resylt.succeed = true;
+                }
+                else
+                {
+                    resylt.succeed = false;
+                    resylt.Message = "value is null";
+                }
+            }
+            catch (Exception ex)
+            {
+                resylt.Message = ex.Message;
+            }
+
+            return resylt;
+        }
+
+        public RepositoryResult<TEntyti> Update(List<TEntyti> value)
+        {
+            throw new NotImplementedException();
+        }
+
+
         public RepositoryResult<TEntyti> Delete(List<Guid> ID)
         {
             throw new NotImplementedException();
@@ -129,17 +169,9 @@ namespace Taha.Framework.Repository
             throw new NotImplementedException();
         }
 
-
         public RepositoryResult<TEntyti> Save()
         {
             throw new NotImplementedException();
         }
-
-        public RepositoryResult<TEntyti> Update(List<TEntyti> value)
-        {
-            throw new NotImplementedException();
-        }
-
-
     }
 }
