@@ -13,40 +13,22 @@ namespace Taha.Framework.Repository
     {
         private DbSet<TEntyti> entyti;
 
+        #region Singleton - using .NET 4's Lazy<T> type
 
-        #region attempted thread-safety using double-check locking
-
-        private static TContext _CurentContext = null;
-        private static readonly object padlock = new object();
-
-        private static TContext curentContext
-        {
-            get
-            {
-                if (_CurentContext == null)
-                {
-                    lock (padlock)
-                    {
-                        if (_CurentContext == null)
-                        {
-                            _CurentContext = new TContext();
-                        }
-                    }
-                }
-                return _CurentContext;
-            }
-        }
+        private static readonly Lazy<TContext> lazy =
+            new Lazy<TContext>(() => new TContext());
+        public static TContext curentContext { get { return lazy.Value; } }
 
         #endregion
 
         #region Constructor
 
-        public BaseRepository()
+        protected BaseRepository()
         {
             entyti = curentContext.Set<TEntyti>();
         }
-
         #endregion
+
 
         public RepositoryResult<IEnumerable<TEntyti>> GetAll(Expression<Func<TEntyti, bool>> filter = null, Func<IQueryable<TEntyti>, IOrderedQueryable<TEntyti>> orderBy = null, params Expression<Func<TEntyti, object>>[] np)
         {
@@ -113,7 +95,6 @@ namespace Taha.Framework.Repository
             return resylt;
         }
 
-
         public RepositoryResult<TEntyti> Update(TEntyti value)
         {
             var resylt = new RepositoryResult<TEntyti>()
@@ -148,9 +129,45 @@ namespace Taha.Framework.Repository
             return resylt;
         }
 
-        public RepositoryResult<TEntyti> Update(List<TEntyti> value)
+        public RepositoryResult<IEnumerable<TEntyti>> Update(List<TEntyti> value)
         {
-            throw new NotImplementedException();
+            var resylt = new RepositoryResult<IEnumerable<TEntyti>>()
+            {
+                Result = null,
+                Message = "",
+                succeed = false
+            };
+
+            try
+            {
+                var valueIDs = value.Select(t => t.ID);
+                var objs = entyti.Where(t => valueIDs.Contains(t.ID)).ToList();
+
+                //TODO :: Check if any object find
+
+                if (valueIDs != null && objs != null)
+                {
+                    objs.ForEach(t =>
+                    {
+                        var a = value.Where(u => u.ID == t.ID);
+                        curentContext.Entry(t).CurrentValues.SetValues(a);
+                    });
+                    curentContext.SaveChanges();
+                    resylt.Result = value;
+                    resylt.succeed = true;
+                }
+                else
+                {
+                    resylt.succeed = false;
+                    resylt.Message = "value is null";
+                }
+            }
+            catch (Exception ex)
+            {
+                resylt.Message = ex.Message;
+            }
+
+            return resylt;
         }
 
 

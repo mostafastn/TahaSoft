@@ -49,6 +49,16 @@ namespace Taha.WebAPI.Controllers
             else
                 return NotFound();
         }
+        [HttpGet]
+        public IHttpActionResult complicateObjectTest()
+        {
+            var categoryRepository = new CategoryRepository();
+            var result = categoryRepository.complicateObjectTest();
+            if (result.succeed)
+                return Ok(result.Result);
+            else
+                return NotFound();
+        }
 
 
         [HttpPost]
@@ -64,7 +74,7 @@ namespace Taha.WebAPI.Controllers
             };
             var categoryRepository = new CategoryRepository();
             var result = categoryRepository.Insert(
-                new List<DatabaseInitilization.Domains.Category>() {domainCategory});
+                new List<DatabaseInitilization.Domains.Category>() { domainCategory });
             if (result.succeed)
                 return Ok(result.Result);
             else
@@ -74,15 +84,36 @@ namespace Taha.WebAPI.Controllers
         [HttpPut]
         public IHttpActionResult Update(Category category)
         {
-            if (category==null)
+            if (category == null)
                 return BadRequest("Value is null");
 
             var domainCategory = new Taha.DatabaseInitilization.Domains.Category
-                {
-                    ID = category.ID,
-                    Name =  category.Name,
-                    Periority = category.Periority
-                };
+            {
+                ID = category.ID,
+                Name = category.Name,
+                Periority = category.Periority
+            };
+            var categoryRepository = new CategoryRepository();
+            var result = categoryRepository.Update(domainCategory);
+            if (result.succeed)
+                return Ok(result.Result);
+            else
+                return BadRequest(result.Message);
+        }
+
+        [HttpPut]
+        public IHttpActionResult UpdateAll(IEnumerable<Category> categories)
+        {
+            if (categories == null)
+                return BadRequest("Value is null");
+
+            var domainCategory = categories.Select(t => new Taha.DatabaseInitilization.Domains.Category
+            {
+                ID = t.ID,
+                Name = t.Name,
+                Periority = t.Periority
+            }).ToList();
+
             var categoryRepository = new CategoryRepository();
             var result = categoryRepository.Update(domainCategory);
             if (result.succeed)
