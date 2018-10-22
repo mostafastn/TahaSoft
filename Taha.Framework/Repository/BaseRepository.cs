@@ -7,11 +7,11 @@ using Taha.Framework.Entity;
 
 namespace Taha.Framework.Repository
 {
-    public class BaseRepository<TContext, TEntyti> : IRepository<TEntyti>
+    public class BaseRepository<TContext, TEntity> : IRepository<TEntity>
         where TContext : DbContext, new()
-        where TEntyti : BaseEntity
+        where TEntity : BaseEntity
     {
-        private DbSet<TEntyti> entyti;
+        private DbSet<TEntity> entyti;
 
         #region Singleton - using .NET 4's Lazy<T> type
 
@@ -25,14 +25,14 @@ namespace Taha.Framework.Repository
 
         protected BaseRepository()
         {
-            entyti = curentContext.Set<TEntyti>();
+            entyti = curentContext.Set<TEntity>();
         }
         #endregion
 
 
-        public RepositoryResult<IEnumerable<TEntyti>> GetAll(Expression<Func<TEntyti, bool>> filter = null, Func<IQueryable<TEntyti>, IOrderedQueryable<TEntyti>> orderBy = null, params Expression<Func<TEntyti, object>>[] np)
+        public RepositoryResult<IEnumerable<TEntity>> GetAll(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, object>>[] np)
         {
-            var resylt = new RepositoryResult<IEnumerable<TEntyti>>()
+            var resylt = new RepositoryResult<IEnumerable<TEntity>>()
             {
                 Result = null,
                 Message = "",
@@ -63,9 +63,9 @@ namespace Taha.Framework.Repository
             return resylt;
         }
 
-        public RepositoryResult<IEnumerable<TEntyti>> Insert(List<TEntyti> value)
+        public RepositoryResult<IEnumerable<TEntity>> Insert(List<TEntity> value)
         {
-            var resylt = new RepositoryResult<IEnumerable<TEntyti>>()
+            var resylt = new RepositoryResult<IEnumerable<TEntity>>()
             {
                 Result = null,
                 Message = "",
@@ -95,9 +95,9 @@ namespace Taha.Framework.Repository
             return resylt;
         }
 
-        public RepositoryResult<TEntyti> Update(TEntyti value)
+        public RepositoryResult<TEntity> Update(TEntity value)
         {
-            var resylt = new RepositoryResult<TEntyti>()
+            var resylt = new RepositoryResult<TEntity>()
             {
                 Result = null,
                 Message = "",
@@ -129,9 +129,9 @@ namespace Taha.Framework.Repository
             return resylt;
         }
 
-        public RepositoryResult<IEnumerable<TEntyti>> Update(List<TEntyti> value)
+        public RepositoryResult<IEnumerable<TEntity>> Update(List<TEntity> value)
         {
-            var resylt = new RepositoryResult<IEnumerable<TEntyti>>()
+            var resylt = new RepositoryResult<IEnumerable<TEntity>>()
             {
                 Result = null,
                 Message = "",
@@ -140,18 +140,26 @@ namespace Taha.Framework.Repository
 
             try
             {
-                var valueIDs = value.Select(t => t.ID);
-                var objs = entyti.Where(t => valueIDs.Contains(t.ID)).ToList();
-
-                //TODO :: Check if any object find
-
-                if (valueIDs != null && objs != null)
+                if (value != null)
                 {
-                    objs.ForEach(t =>
+                    var failList = new List<TEntity>();
+
+                    value.ForEach(t =>
+                     {
+                         var obj = entyti.FirstOrDefault(u => u.ID == t.ID);
+                         if (obj != null)
+                             curentContext.Entry(obj).CurrentValues.SetValues(t);
+                         else
+                             failList.Add(t);
+                     });
+
+                    if (failList != null)
                     {
-                        var a = value.Where(u => u.ID == t.ID);
-                        curentContext.Entry(t).CurrentValues.SetValues(a);
-                    });
+                        resylt.Result = failList;
+                        resylt.succeed = false;
+                        resylt.Message = "cannot find this values in database";
+                    }
+
                     curentContext.SaveChanges();
                     resylt.Result = value;
                     resylt.succeed = true;
@@ -171,22 +179,22 @@ namespace Taha.Framework.Repository
         }
 
 
-        public RepositoryResult<TEntyti> Delete(List<Guid> ID)
+        public RepositoryResult<TEntity> Delete(List<Guid> ID)
         {
             throw new NotImplementedException();
         }
 
-        public RepositoryResult<TEntyti> GetByID(Guid ID)
+        public RepositoryResult<TEntity> GetByID(Guid ID)
         {
             throw new NotImplementedException();
         }
 
-        public RepositoryResult<TEntyti> GetSingel(Expression<Func<TEntyti, bool>> where, params Expression<Func<TEntyti, object>>[] np)
+        public RepositoryResult<TEntity> GetSingel(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] np)
         {
             throw new NotImplementedException();
         }
 
-        public RepositoryResult<TEntyti> Save()
+        public RepositoryResult<TEntity> Save()
         {
             throw new NotImplementedException();
         }
