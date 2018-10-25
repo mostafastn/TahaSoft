@@ -11,7 +11,7 @@ namespace Taha.Framework.Repository
         where TContext : DbContext, new()
         where TEntity : BaseEntity
     {
-        private DbSet<TEntity> entyti;
+        private DbSet<TEntity> entity;
 
         #region Singleton - using .NET 4's Lazy<T> type
 
@@ -25,12 +25,13 @@ namespace Taha.Framework.Repository
 
         protected BaseRepository()
         {
-            entyti = curentContext.Set<TEntity>();
+            entity = curentContext.Set<TEntity>();
         }
+
         #endregion
 
 
-        public RepositoryResult<IEnumerable<TEntity>> GetAll(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, object>>[] np)
+        public virtual RepositoryResult<IEnumerable<TEntity>> GetAll(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, object>>[] np)
         {
             var resylt = new RepositoryResult<IEnumerable<TEntity>>()
             {
@@ -41,7 +42,7 @@ namespace Taha.Framework.Repository
 
             try
             {
-                var query = entyti.AsQueryable();
+                var query = entity.AsQueryable();
                 if (filter != null)
                 {
                     query = query.Where(filter);
@@ -63,7 +64,7 @@ namespace Taha.Framework.Repository
             return resylt;
         }
 
-        public RepositoryResult<IEnumerable<TEntity>> Insert(List<TEntity> value)
+        public virtual RepositoryResult<IEnumerable<TEntity>> Insert(List<TEntity> value)
         {
             var resylt = new RepositoryResult<IEnumerable<TEntity>>()
             {
@@ -76,7 +77,7 @@ namespace Taha.Framework.Repository
             {
                 if (value != null && !value.Any(t => t == null))
                 {
-                    entyti.AddRange(value);
+                    entity.AddRange(value);
                     curentContext.SaveChanges();
                     resylt.Result = value;
                     resylt.succeed = true;
@@ -95,41 +96,7 @@ namespace Taha.Framework.Repository
             return resylt;
         }
 
-        public RepositoryResult<TEntity> Update(TEntity value)
-        {
-            var resylt = new RepositoryResult<TEntity>()
-            {
-                Result = null,
-                Message = "",
-                succeed = false
-            };
-
-            try
-            {
-                var obj = entyti.FirstOrDefault(t => t.ID == value.ID);
-
-                if (value != null && obj != null)
-                {
-                    curentContext.Entry(obj).CurrentValues.SetValues(value);
-                    curentContext.SaveChanges();
-                    resylt.Result = value;
-                    resylt.succeed = true;
-                }
-                else
-                {
-                    resylt.succeed = false;
-                    resylt.Message = "value is null";
-                }
-            }
-            catch (Exception ex)
-            {
-                resylt.Message = ex.Message;
-            }
-
-            return resylt;
-        }
-
-        public RepositoryResult<IEnumerable<TEntity>> Update(List<TEntity> value)
+        public virtual RepositoryResult<IEnumerable<TEntity>> Update(List<TEntity> value)
         {
             var resylt = new RepositoryResult<IEnumerable<TEntity>>()
             {
@@ -144,14 +111,17 @@ namespace Taha.Framework.Repository
                 {
                     var failList = new List<TEntity>();
 
+                    var ids = value.Select(t => t.ID).ToList();
+                    var objs = entity.Where(u => ids.Contains(u.ID)).ToList();
+
                     value.ForEach(t =>
-                     {
-                         var obj = entyti.FirstOrDefault(u => u.ID == t.ID);
-                         if (obj != null)
-                             curentContext.Entry(obj).CurrentValues.SetValues(t);
-                         else
-                             failList.Add(t);
-                     });
+                    {
+                        var obj = objs.FirstOrDefault(u => u.ID == t.ID);
+                        if (obj != null)
+                            curentContext.Entry(obj).CurrentValues.SetValues(t);
+                        else
+                            failList.Add(t);
+                    });
 
                     if (failList != null)
                     {
@@ -161,7 +131,7 @@ namespace Taha.Framework.Repository
                     }
 
                     curentContext.SaveChanges();
-                    resylt.Result = value;
+                    resylt.Result = null;
                     resylt.succeed = true;
                 }
                 else
@@ -179,22 +149,50 @@ namespace Taha.Framework.Repository
         }
 
 
-        public RepositoryResult<TEntity> Delete(List<Guid> ID)
+        public virtual RepositoryResult<IEnumerable<Guid>> Delete(List<Guid> IDs)
+        {
+            var resylt = new RepositoryResult<IEnumerable<Guid>>()
+            {
+                Result = null,
+                Message = "",
+                succeed = false
+            };
+
+            try
+            {
+                if (IDs != null)
+                {
+                    var failList = new List<TEntity>();
+                    
+                    var objs = entity.Where(u => IDs.Contains(u.ID)).ToList();
+                    entity.RemoveRange(objs);
+                    
+                    curentContext.SaveChanges();
+                    resylt.succeed = true;
+                }
+                else
+                {
+                    resylt.Message = "value is null";
+                }
+            }
+            catch (Exception ex)
+            {
+                resylt.Message = ex.Message;
+            }
+
+            return resylt;
+        }
+
+        public virtual RepositoryResult<TEntity> GetByID(Guid ID)
         {
             throw new NotImplementedException();
         }
 
-        public RepositoryResult<TEntity> GetByID(Guid ID)
+        public virtual RepositoryResult<TEntity> GetSingel(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] np)
         {
             throw new NotImplementedException();
         }
-
-        public RepositoryResult<TEntity> GetSingel(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] np)
-        {
-            throw new NotImplementedException();
-        }
-
-        public RepositoryResult<TEntity> Save()
+        public virtual RepositoryResult<TEntity> Save()
         {
             throw new NotImplementedException();
         }

@@ -62,47 +62,27 @@ namespace Taha.WebAPI.Controllers
 
 
         [HttpPost]
-        public IHttpActionResult Insert(Category category)
+        public IHttpActionResult Insert(IEnumerable<Category> categories)
         {
-            if (category == null)
+            if (categories == null)
                 return BadRequest("Value is null");
 
-            var domainCategory = new Taha.DatabaseInitilization.Domains.Category
+            var domainCategory = categories.Select(t => new Taha.DatabaseInitilization.Domains.Category
             {
-                Name = category.Name,
-                Periority = category.Periority
-            };
+                Name = t.Name,
+                Periority = t.Periority
+            }).ToList();
+
             var categoryRepository = new CategoryRepository();
-            var result = categoryRepository.Insert(
-                new List<DatabaseInitilization.Domains.Category>() { domainCategory });
+            var result = categoryRepository.Insert(domainCategory);
             if (result.succeed)
                 return Ok(result.Result);
             else
                 return BadRequest(result.Message);
         }
-
+        
         [HttpPut]
-        public IHttpActionResult Update(Category category)
-        {
-            if (category == null)
-                return BadRequest("Value is null");
-
-            var domainCategory = new Taha.DatabaseInitilization.Domains.Category
-            {
-                ID = category.ID,
-                Name = category.Name,
-                Periority = category.Periority
-            };
-            var categoryRepository = new CategoryRepository();
-            var result = categoryRepository.Update(domainCategory);
-            if (result.succeed)
-                return Ok(result.Result);
-            else
-                return BadRequest(result.Message);
-        }
-
-        [HttpPut]
-        public IHttpActionResult UpdateAll(IEnumerable<Category> categories)
+        public IHttpActionResult Update(IEnumerable<Category> categories)
         {
             if (categories == null)
                 return BadRequest("Value is null");
@@ -116,6 +96,20 @@ namespace Taha.WebAPI.Controllers
 
             var categoryRepository = new CategoryRepository();
             var result = categoryRepository.Update(domainCategory);
+            if (result.succeed)
+                return Ok(result.Result);
+            else
+                return BadRequest(result.Message);
+        }
+        
+        [HttpPut]
+        public IHttpActionResult Delete(IEnumerable<Guid> categorieIDs)
+        {
+            if (categorieIDs == null)
+                return BadRequest("Value is null");
+            
+            var categoryRepository = new CategoryRepository();
+            var result = categoryRepository.Delete(categorieIDs.ToList());
             if (result.succeed)
                 return Ok(result.Result);
             else

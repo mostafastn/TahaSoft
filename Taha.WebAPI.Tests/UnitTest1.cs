@@ -7,9 +7,7 @@ using Taha.WebAPI.Controllers;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Results;
-using System.Web.Http.Routing;
 using Taha.DatabaseInitilization.Domains;
-using Taha.Framework.Repository;
 
 namespace Taha.WebAPI.Tests
 {
@@ -79,8 +77,15 @@ namespace Taha.WebAPI.Tests
             };
 
             // Act
-            var category = new Taha.WebAPI.Models.Category() { Name = "CategoryTest", Periority = 5 };
-            var response = controller.Insert(category) as OkNegotiatedContentResult<IEnumerable<Category>>;
+            var categories = new List<Models.Category>()
+            {
+                new Models.Category() {Name = "CategoryTest A",Periority = 1},
+                new Models.Category() {Name = "CategoryTest B",Periority = 2},
+                new Models.Category() {Name = "CategoryTest C",Periority = 3},
+                new Models.Category() {Name = "CategoryTest D",Periority = 4},
+            };
+            
+            var response = controller.Insert(categories) as OkNegotiatedContentResult<IEnumerable<Category>>;
 
             // Assert
             Assert.IsNotNull(response);
@@ -88,29 +93,6 @@ namespace Taha.WebAPI.Tests
 
         [TestMethod]
         public void TestUpdate()
-        {
-            // Arrange
-            var controller = new CategoryController
-            {
-                Request = new HttpRequestMessage(),
-                Configuration = new HttpConfiguration()
-            };
-
-            // Act
-            var category = new Taha.WebAPI.Models.Category()
-            {
-                ID = Guid.Parse("1c7705f5-ef74-4522-85ae-2e28ac0f5bbc"),
-                Name = "CategoryA",
-                Periority = 5
-            };
-            var response = controller.Update(category) as OkNegotiatedContentResult<Category>;
-
-            // Assert
-            Assert.IsNotNull(response);
-        }
-
-        [TestMethod]
-        public void TestUpdateAll()
         {
             // Arrange
             var controller = new CategoryController
@@ -131,8 +113,31 @@ namespace Taha.WebAPI.Tests
                                         Name = t.Name,
                                         Periority = t.Periority * 10
                                     }).ToList();
-            
-            var response = controller.UpdateAll(modelsCategories) as OkNegotiatedContentResult<IEnumerable<Category>>;
+
+            var response = controller.Update(modelsCategories) as OkNegotiatedContentResult<IEnumerable<Category>>;
+
+            // Assert
+            Assert.IsNotNull(response);
+        }
+
+
+        [TestMethod]
+        public void TestDelete()
+        {
+            // Arrange
+            var controller = new CategoryController
+            {
+                Request = new HttpRequestMessage(),
+                Configuration = new HttpConfiguration()
+            };
+
+            // Act
+
+            var categoriesResult = controller.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
+            var categories = categoriesResult.Content.ToList();
+            var categoriesID = categories.Select(t => t.ID).ToList();
+
+            var response = controller.Delete(categoriesID) as OkNegotiatedContentResult<IEnumerable<Guid>>;
 
             // Assert
             Assert.IsNotNull(response);

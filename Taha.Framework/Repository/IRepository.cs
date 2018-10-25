@@ -16,9 +16,8 @@ namespace Taha.Framework.Repository
             params Expression<Func<T, object>>[] np);
         RepositoryResult<T> GetByID(Guid ID);
         RepositoryResult<IEnumerable<T>> Insert(List<T> value);
-        RepositoryResult<T> Update(T value);
         RepositoryResult<IEnumerable<T>> Update(List<T> value);
-        RepositoryResult<T> Delete(List<Guid> ID);
+        RepositoryResult<IEnumerable<Guid>> Delete(List<Guid> ID);
         RepositoryResult<T> Save();
 
         RepositoryResult<T> GetSingel(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] np);
