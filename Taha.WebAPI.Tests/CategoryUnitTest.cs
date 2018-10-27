@@ -12,7 +12,7 @@ using Taha.DatabaseInitilization.Domains;
 namespace Taha.WebAPI.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class CategoryUnitTest
     {
         [TestMethod]
         public void TestGetAllHttpResponseMessage()

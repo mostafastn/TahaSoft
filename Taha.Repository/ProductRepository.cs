@@ -4,7 +4,7 @@ using Taha.Framework.Repository;
 
 namespace Taha.Repository
 {
-    class ProductRepository : BaseRepository<TahaDatabaseContext, Product>
+   public class ProductRepository : BaseRepository<TahaDatabaseContext, Product>
     {
 
     }

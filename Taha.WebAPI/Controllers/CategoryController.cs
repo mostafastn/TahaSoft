@@ -59,8 +59,7 @@ namespace Taha.WebAPI.Controllers
             else
                 return NotFound();
         }
-
-
+        
         [HttpPost]
         public IHttpActionResult Insert(IEnumerable<Category> categories)
         {
