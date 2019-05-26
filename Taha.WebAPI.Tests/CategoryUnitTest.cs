@@ -49,6 +49,23 @@ namespace Taha.WebAPI.Tests
 
         }
 
+    //[TestMethod]
+    //    public void TestcatControllerGetAll()
+    //    {
+    //        // Arrange
+    //        var controller = new catController
+    //        {
+    //            Request = new HttpRequestMessage(),
+    //            Configuration = new HttpConfiguration()
+    //        };
+
+    //        // Act
+    //        var response = controller.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
+
+    //        // Assert
+    //        Assert.IsNotNull(response);
+
+    //    }
         [TestMethod]
         public void complicateObjectTest()
         {
