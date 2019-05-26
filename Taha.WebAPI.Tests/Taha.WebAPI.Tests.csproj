@@ -76,6 +76,10 @@
       <Project>{0322A770-ED58-480F-BBDA-E38334213538}</Project>
       <Name>Taha.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Taha.Repository\Taha.Repository.csproj">
+      <Project>{739be212-c08a-421e-81aa-e563e76bacae}</Project>
+      <Name>Taha.Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Taha.WebAPI\Taha.WebAPI.csproj">
       <Project>{0E7A0FAF-DEC6-4CD4-BB39-602D3227FCED}</Project>
       <Name>Taha.WebAPI</Name>
