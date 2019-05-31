@@ -66,6 +66,27 @@ namespace Taha.WebAPI.Tests
             Assert.IsNotNull(response);
 
         }
+
+        [TestMethod]
+        public void TestcatControllerGetByID()
+        {
+            // Arrange
+            var controller = new CategoryBaseController
+            {
+                Request = new HttpRequestMessage(),
+                Configuration = new HttpConfiguration()
+            };
+
+            var id = Guid.Empty;
+            Guid.TryParse("f7fdd643-9b4f-4723-acd4-e5af80a430e2", out id);
+            
+            // Act
+            var response = controller.GetByID(id) as OkNegotiatedContentResult<Category>;
+
+            // Assert
+            Assert.IsNotNull(response);
+
+        }
         [TestMethod]
         public void complicateObjectTest()
         {
@@ -126,7 +147,7 @@ namespace Taha.WebAPI.Tests
             var modelsCategories = (from t in categories
                                     select new Models.Category
                                     {
-                                        ID = t.ID,
+                                        ID = t.FLDID,
                                         Name = t.Name,
                                         Periority = t.Periority * 10
                                     }).ToList();
@@ -152,7 +173,7 @@ namespace Taha.WebAPI.Tests
 
             var categoriesResult = controller.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
             var categories = categoriesResult.Content.ToList();
-            var categoriesID = categories.Select(t => t.ID).ToList();
+            var categoriesID = categories.Select(t => t.FLDID).ToList();
 
             var response = controller.Delete(categoriesID) as OkNegotiatedContentResult<IEnumerable<Guid>>;
 

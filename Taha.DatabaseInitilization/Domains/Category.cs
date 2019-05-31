@@ -10,6 +10,7 @@ namespace Taha.DatabaseInitilization.Domains
         {
             Products = new List<Product>();
         }
+
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }

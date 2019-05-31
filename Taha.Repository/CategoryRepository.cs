@@ -14,7 +14,7 @@ namespace Taha.Repository
 
         public RepositoryResult<IEnumerable<object>> complicateObjectTest()
         {
-            var categories = curentContext.Categories.Where(t => t.DeleteDate==null ).ToList();
+            var categories = curentContext.Categories.Where(t => t.FLDDeleteDate==null ).ToList();
             
             var b = from con in curentContext.Categories
                 join conn in curentContext.Categories on con.Periority equals conn.Periority

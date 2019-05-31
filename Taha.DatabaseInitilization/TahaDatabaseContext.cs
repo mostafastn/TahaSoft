@@ -15,10 +15,14 @@ namespace Taha.DatabaseInitilization
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<TBL_Menu> TBL_Menu { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
+
         {
             modelBuilder.Configurations.Add(new LineItemMap());
             modelBuilder.Configurations.Add(new ShippingAddressMap());
+            modelBuilder.Configurations.Add(new MenuMap());
 
         }
     }

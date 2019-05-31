@@ -88,7 +88,7 @@ namespace Taha.WebAPI.Controllers
 
             var domainCategory = categories.Select(t => new Taha.DatabaseInitilization.Domains.Category
             {
-                ID = t.ID,
+                FLDID = t.ID,
                 Name = t.Name,
                 Periority = t.Periority
             }).ToList();

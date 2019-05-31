@@ -11,8 +11,8 @@ namespace Taha.Framework.Entity
     {
         public BaseEntity()
         {
-            this.ID = Guid.NewGuid();
-            this.InsertDate = Infrastructure.Utility.Curent.Now();
+            this.FLDID = Guid.NewGuid();
+            this.FLDInsertDate = Infrastructure.Utility.Curent.Now();
         }
 
 
@@ -23,22 +23,22 @@ namespace Taha.Framework.Entity
 
         [Key]
         [Required]
-        public Guid ID { get; set; }
+        public Guid FLDID { get; set; }
         /// <summary>
         /// زمان درج
         /// </summary>
         [Required]
-        public DateTime InsertDate { get; set; }
+        public DateTime FLDInsertDate { get; set; }
 
         /// <summary>
         /// زمان اصلاح
         /// </summary>
-        public DateTime? UpdateDate { get; set; }
+        public DateTime? FLDUpdateDate { get; set; }
 
         /// <summary>
         /// زمان حذف
         /// </summary>
-        public DateTime? DeleteDate { get; set; }
+        public DateTime? FLDDeleteDate { get; set; }
 
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Taha.Framework.Entity
         {
             get
             {
-                return this.UpdateDate != null;
+                return this.FLDUpdateDate != null;
             }
         }
         /// <summary>
@@ -58,7 +58,7 @@ namespace Taha.Framework.Entity
         {
             get
             {
-                return this.DeleteDate != null;
+                return this.FLDDeleteDate != null;
             }
         }
     }

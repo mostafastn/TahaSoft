@@ -58,7 +58,7 @@ namespace Taha.WebAPI.Controllers
 
             var domainProduct = products.Select(t => new Taha.DatabaseInitilization.Domains.Product
             {
-                ID = t.ID,
+                FLDID = t.ID,
                 Name = t.Name,
                 CategoryID = t.CategoryID,
                 Price = t.Price,

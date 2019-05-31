@@ -33,7 +33,7 @@ namespace Taha.Framework.Repository
 
         public virtual RepositoryResult<IEnumerable<TEntity>> GetAll(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, object>>[] np)
         {
-            var resylt = new RepositoryResult<IEnumerable<TEntity>>()
+            var result = new RepositoryResult<IEnumerable<TEntity>>()
             {
                 Result = null,
                 Message = "",
@@ -52,21 +52,21 @@ namespace Taha.Framework.Repository
                     query = orderBy(query);
                 }
 
-                resylt.Result = query.ToList();
+                result.Result = query.ToList();
 
-                resylt.succeed = true;
+                result.succeed = true;
             }
             catch (Exception ex)
             {
-                resylt.Message = ex.Message;
+                result.Message = ex.Message;
             }
 
-            return resylt;
+            return result;
         }
 
         public virtual RepositoryResult<IEnumerable<TEntity>> Insert(List<TEntity> value)
         {
-            var resylt = new RepositoryResult<IEnumerable<TEntity>>()
+            var result = new RepositoryResult<IEnumerable<TEntity>>()
             {
                 Result = null,
                 Message = "",
@@ -79,26 +79,26 @@ namespace Taha.Framework.Repository
                 {
                     entity.AddRange(value);
                     curentContext.SaveChanges();
-                    resylt.Result = value;
-                    resylt.succeed = true;
+                    result.Result = value;
+                    result.succeed = true;
                 }
                 else
                 {
-                    resylt.succeed = false;
-                    resylt.Message = "value or one of the items is null";
+                    result.succeed = false;
+                    result.Message = "value or one of the items is null";
                 }
             }
             catch (Exception ex)
             {
-                resylt.Message = ex.Message;
+                result.Message = ex.Message;
             }
 
-            return resylt;
+            return result;
         }
 
         public virtual RepositoryResult<IEnumerable<TEntity>> Update(List<TEntity> value)
         {
-            var resylt = new RepositoryResult<IEnumerable<TEntity>>()
+            var result = new RepositoryResult<IEnumerable<TEntity>>()
             {
                 Result = null,
                 Message = "",
@@ -111,12 +111,12 @@ namespace Taha.Framework.Repository
                 {
                     var failList = new List<TEntity>();
 
-                    var ids = value.Select(t => t.ID).ToList();
-                    var objs = entity.Where(u => ids.Contains(u.ID)).ToList();
+                    var ids = value.Select(t => t.FLDID).ToList();
+                    var objs = entity.Where(u => ids.Contains(u.FLDID)).ToList();
 
                     value.ForEach(t =>
                     {
-                        var obj = objs.FirstOrDefault(u => u.ID == t.ID);
+                        var obj = objs.FirstOrDefault(u => u.FLDID == t.FLDID);
                         if (obj != null)
                             curentContext.Entry(obj).CurrentValues.SetValues(t);
                         else
@@ -125,33 +125,32 @@ namespace Taha.Framework.Repository
 
                     if (failList != null)
                     {
-                        resylt.Result = failList;
-                        resylt.succeed = false;
-                        resylt.Message = "cannot find this values in database";
+                        result.Result = failList;
+                        result.succeed = false;
+                        result.Message = "cannot find this values in database";
                     }
 
                     curentContext.SaveChanges();
-                    resylt.Result = null;
-                    resylt.succeed = true;
+                    result.Result = null;
+                    result.succeed = true;
                 }
                 else
                 {
-                    resylt.succeed = false;
-                    resylt.Message = "value is null";
+                    result.succeed = false;
+                    result.Message = "value is null";
                 }
             }
             catch (Exception ex)
             {
-                resylt.Message = ex.Message;
+                result.Message = ex.Message;
             }
 
-            return resylt;
+            return result;
         }
-
 
         public virtual RepositoryResult<IEnumerable<Guid>> Delete(List<Guid> IDs)
         {
-            var resylt = new RepositoryResult<IEnumerable<Guid>>()
+            var result = new RepositoryResult<IEnumerable<Guid>>()
             {
                 Result = null,
                 Message = "",
@@ -163,29 +162,58 @@ namespace Taha.Framework.Repository
                 if (IDs != null)
                 {
                     var failList = new List<TEntity>();
-                    
-                    var objs = entity.Where(u => IDs.Contains(u.ID)).ToList();
+
+                    var objs = entity.Where(u => IDs.Contains(u.FLDID)).ToList();
                     entity.RemoveRange(objs);
-                    
+
                     curentContext.SaveChanges();
-                    resylt.succeed = true;
+                    result.succeed = true;
                 }
                 else
                 {
-                    resylt.Message = "value is null";
+                    result.Message = "value is null";
                 }
             }
             catch (Exception ex)
             {
-                resylt.Message = ex.Message;
+                result.Message = ex.Message;
             }
 
-            return resylt;
+            return result;
         }
 
         public virtual RepositoryResult<TEntity> GetByID(Guid ID)
         {
-            throw new NotImplementedException();
+            var result = new RepositoryResult<TEntity>()
+            {
+                Result = null,
+                Message = "",
+                succeed = false
+            };
+
+            try
+            {
+                if (ID == Guid.Empty)
+                    result.Message = "Invalid ID";
+                else
+                {
+                    var obj = entity.FirstOrDefault(t => t.FLDID == ID);
+                    if (obj == null)
+                        result.Message = "Cannot Find this Item in Database";
+                    else
+                    {
+                        result.Result = obj;
+                        result.succeed = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Message = ex.Message;
+            }
+
+            return result;
+
         }
 
         public virtual RepositoryResult<TEntity> GetSingel(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] np)

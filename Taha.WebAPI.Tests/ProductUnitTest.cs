@@ -69,7 +69,7 @@ namespace Taha.WebAPI.Tests
             {
                 new Models.Product() {
                     Name = "ProductTest A",
-                    CategoryID = firstCategory.ID,
+                    CategoryID = firstCategory.FLDID,
                     Price = 100,
                     Photo = null,
                     DiscontinuedDate = Utility.Curent.Now().AddYears(1),
@@ -79,7 +79,7 @@ namespace Taha.WebAPI.Tests
                 },
                 new Models.Product() {
                     Name = "ProductTest B",
-                    CategoryID = firstCategory.ID,
+                    CategoryID = firstCategory.FLDID,
                     Price = 200,
                     Photo = null,
                     DiscontinuedDate = Utility.Curent.Now().AddYears(1),
@@ -89,7 +89,7 @@ namespace Taha.WebAPI.Tests
                 },
                 new Models.Product() {
                     Name = "ProductTest C",
-                    CategoryID = firstCategory.ID,
+                    CategoryID = firstCategory.FLDID,
                     Price = 300,
                     Photo = null,
                     DiscontinuedDate = Utility.Curent.Now().AddYears(1),
@@ -99,7 +99,7 @@ namespace Taha.WebAPI.Tests
                 },
                 new Models.Product() {
                     Name = "ProductTest D",
-                    CategoryID = firstCategory.ID,
+                    CategoryID = firstCategory.FLDID,
                     Price = 400,
                     Photo = null,
                     DiscontinuedDate = Utility.Curent.Now().AddYears(1),
@@ -111,7 +111,7 @@ namespace Taha.WebAPI.Tests
 
             var response = controller.Insert(products) as OkNegotiatedContentResult<IEnumerable<Product>>;
 
-            categoryController.Delete(resCategory.Content.ToList().Select(t=>t.ID));
+            categoryController.Delete(resCategory.Content.ToList().Select(t=>t.FLDID));
 
             // Assert
             Assert.IsNotNull(response);
@@ -135,7 +135,7 @@ namespace Taha.WebAPI.Tests
             var modelsCategories = (from t in categories
                                     select new Models.Product
                                     {
-                                        ID = t.ID,
+                                        ID = t.FLDID,
                                         Name = t.Name,
                                         CategoryID = t.CategoryID,
                                         Price = t.Price * 10,
@@ -166,7 +166,7 @@ namespace Taha.WebAPI.Tests
 
             var categoriesResult = controller.GetAll() as OkNegotiatedContentResult<IEnumerable<Product>>;
             var categories = categoriesResult.Content.ToList();
-            var categoriesID = categories.Select(t => t.ID).ToList();
+            var categoriesID = categories.Select(t => t.FLDID).ToList();
 
             var response = controller.Delete(categoriesID) as OkNegotiatedContentResult<IEnumerable<Guid>>;
 
