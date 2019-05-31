@@ -24,29 +24,10 @@ namespace Taha.DatabaseInitilization.Domains
         [Required]
         [MaxLength(50)]
         public string FLDName { get; set; }
-
-        [Required]
-        public Guid FLDParentID { get; set; }
+        
+        public Guid? FLDParentID { get; set; }
 
         public virtual TBL_Menu Parent { get; }
         public virtual ICollection<TBL_Menu> ChilList { get;}
-
-
-    }
-
-
-    public class ArticleComment
-    {
-        public ArticleComment()
-        {
-            Replies = new HashSet<ArticleComment>();
-        }
-
-        public int ArticleCommentId { get; set; }
-        public int? ParentArticleCommentId { get; set; }
-        public virtual ArticleComment ParentArticleComment { get; set; }
-        public virtual ICollection<ArticleComment> Replies { get; set; }
-
-        //The rest of the properties omitted for clarity...
     }
 }

@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
 using Taha.DatabaseInitilization.Domains;
-using Taha.Framework.Entity;
-using Taha.Framework.Repository;
 using Taha.Framework.WebAPI;
 using Taha.Repository;
-using Taha.WebAPI.Controllers;
+using Taha.WebAPI.Models;
+using Category = Taha.DatabaseInitilization.Domains.Category;
 
 namespace Taha.WebAPI.Controllers
 {
-    public class CategoryBaseController : BaseController<CategoryRepository,Category>
+    public class CategoryBaseController : BaseController<CategoryRepository, Category, Models.Category>
     {
-
+        public override List<DatabaseInitilization.Domains.Category> CastToEntity(List<Models.Category> value)
+        {
+            throw new NotImplementedException();
+        }
     }
 
-  
+
 }

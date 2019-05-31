@@ -10,15 +10,32 @@ using Taha.Framework.Repository;
 namespace Taha.Framework.WebAPI
 {
 
-    public class BaseController<TRepository, TEntity> : ApiController, IController
+    public abstract class BaseController<TRepository, TEntity, TModel> : ApiController, IController<TModel>
         where TRepository : IRepository<TEntity>, new()
         where TEntity : BaseEntity
+        where TModel : class
     {
+        #region propertise
+
         private TRepository _Repository;
+        
+        #endregion
+
+        #region Contructor
+        
         public BaseController()
         {
             _Repository = new TRepository();
         }
+
+        #endregion
+
+        #region Abstract Methods
+
+        public abstract List<TEntity> CastToEntity(List<TModel> value);
+
+        #endregion
+
         public IHttpActionResult GetAll()
         {
             var result = _Repository.GetAll();
@@ -35,6 +52,24 @@ namespace Taha.Framework.WebAPI
                 return Ok(result.Result);
             else
                 return NotFound();
+        }
+
+        public IHttpActionResult Insert(List<TModel> value)
+        {
+
+            if (value == null)
+                return BadRequest("Value is null");
+
+            var domainCategory = CastToEntity(value);
+
+            var result = _Repository.Insert(domainCategory);
+            if (result.succeed)
+                return Ok(result.Result);
+            else
+                return BadRequest(result.Message);
+
+
+            throw new NotImplementedException();
         }
     }
 }

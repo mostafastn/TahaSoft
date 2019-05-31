@@ -12,9 +12,16 @@ namespace Taha.DatabaseInitilization.DataLayerMappings
     {
         public MenuMap()
         {
+            //HasMany(e => e.ChilList)
+            //    .WithRequired(e => e.Parent) //Each comment from Replies points back to its parent
+            //    .HasForeignKey(e => e.FLDParentID);
+
+
             HasMany(e => e.ChilList)
-                .WithRequired(e => e.Parent) //Each comment from Replies points back to its parent
+                .WithOptional(e => e.Parent)
                 .HasForeignKey(e => e.FLDParentID);
+
+
         }
     }
 }
