@@ -7,9 +7,10 @@ using Taha.Framework.Entity;
 
 namespace Taha.Framework.Repository
 {
-    public class BaseRepository<TContext, TEntity> : IRepository<TEntity>
+    public abstract class BaseRepository<TContext, TEntity, TModel> : IRepository<TEntity, TModel>
         where TContext : DbContext, new()
         where TEntity : BaseEntity
+        where TModel : class
     {
         private DbSet<TEntity> entity;
 
@@ -30,10 +31,18 @@ namespace Taha.Framework.Repository
 
         #endregion
 
+        #region Abstract Methods
 
-        public virtual RepositoryResult<IEnumerable<TEntity>> GetAll(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, object>>[] np)
+        public abstract IEnumerable<TEntity> ToEntity(IEnumerable<TModel> value);
+        public abstract TEntity ToEntity(TModel value);
+        public abstract IEnumerable<TModel> ToObject(IEnumerable<TEntity> value);
+        public abstract TModel ToObject(TEntity value);
+
+        #endregion
+
+        public virtual RepositoryResult<IEnumerable<TModel>> GetAll(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, object>>[] np)
         {
-            var result = new RepositoryResult<IEnumerable<TEntity>>()
+            var result = new RepositoryResult<IEnumerable<TModel>>()
             {
                 Result = null,
                 Message = "",
@@ -52,7 +61,7 @@ namespace Taha.Framework.Repository
                     query = orderBy(query);
                 }
 
-                result.Result = query.ToList();
+                result.Result = ToObject(query.ToList());
 
                 result.succeed = true;
             }
@@ -64,9 +73,9 @@ namespace Taha.Framework.Repository
             return result;
         }
 
-        public virtual RepositoryResult<IEnumerable<TEntity>> Insert(List<TEntity> value)
+        public virtual RepositoryResult<IEnumerable<TModel>> Insert(List<TModel> value)
         {
-            var result = new RepositoryResult<IEnumerable<TEntity>>()
+            var result = new RepositoryResult<IEnumerable<TModel>>()
             {
                 Result = null,
                 Message = "",
@@ -77,7 +86,8 @@ namespace Taha.Framework.Repository
             {
                 if (value != null && !value.Any(t => t == null))
                 {
-                    entity.AddRange(value);
+                    var entities = ToEntity(value).ToList();
+                    entity.AddRange(entities);
                     curentContext.SaveChanges();
                     result.Result = value;
                     result.succeed = true;
@@ -96,9 +106,9 @@ namespace Taha.Framework.Repository
             return result;
         }
 
-        public virtual RepositoryResult<IEnumerable<TEntity>> Update(List<TEntity> value)
+        public virtual RepositoryResult<IEnumerable<TModel>> Update(List<TModel> value)
         {
-            var result = new RepositoryResult<IEnumerable<TEntity>>()
+            var result = new RepositoryResult<IEnumerable<TModel>>()
             {
                 Result = null,
                 Message = "",
@@ -109,18 +119,20 @@ namespace Taha.Framework.Repository
             {
                 if (value != null)
                 {
-                    var failList = new List<TEntity>();
+                    var entities = ToEntity(value).ToList();
 
-                    var ids = value.Select(t => t.FLDID).ToList();
+                    var failList = new List<TModel>();
+
+                    var ids = entities.Select(t => t.FLDID).ToList();
                     var objs = entity.Where(u => ids.Contains(u.FLDID)).ToList();
 
-                    value.ForEach(t =>
+                    entities.ForEach(t =>
                     {
                         var obj = objs.FirstOrDefault(u => u.FLDID == t.FLDID);
                         if (obj != null)
                             curentContext.Entry(obj).CurrentValues.SetValues(t);
                         else
-                            failList.Add(t);
+                            failList.Add(ToObject( t));
                     });
 
                     if (failList != null)
@@ -182,9 +194,9 @@ namespace Taha.Framework.Repository
             return result;
         }
 
-        public virtual RepositoryResult<TEntity> GetByID(Guid ID)
+        public virtual RepositoryResult<TModel> GetByID(Guid ID)
         {
-            var result = new RepositoryResult<TEntity>()
+            var result = new RepositoryResult<TModel>()
             {
                 Result = null,
                 Message = "",
@@ -202,7 +214,7 @@ namespace Taha.Framework.Repository
                         result.Message = "Cannot Find this Item in Database";
                     else
                     {
-                        result.Result = obj;
+                        result.Result = ToObject(new List<TEntity>() { obj }).FirstOrDefault();
                         result.succeed = true;
                     }
                 }
@@ -216,13 +228,15 @@ namespace Taha.Framework.Repository
 
         }
 
-        public virtual RepositoryResult<TEntity> GetSingel(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] np)
+        public virtual RepositoryResult<TModel> GetSingel(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] np)
         {
             throw new NotImplementedException();
         }
-        public virtual RepositoryResult<TEntity> Save()
+        public virtual RepositoryResult<TModel> Save()
         {
             throw new NotImplementedException();
         }
+
+       
     }
 }

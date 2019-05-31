@@ -15,7 +15,7 @@ namespace Taha.Framework.WebAPI
         IHttpActionResult GetAll();
         IHttpActionResult GetByID(Guid ID);
         IHttpActionResult Insert(List<T> value);
-        //IHttpActionResult Update(List<T> value);
+        IHttpActionResult Update(List<T> value);
         //IHttpActionResult Delete(List<Guid> ID);
         //IHttpActionResult Save();
 

@@ -7,20 +7,21 @@ using System.Threading.Tasks;
 
 namespace Taha.Framework.Repository
 {
-    public interface IRepository<T>
+    public interface IRepository<T, U>
        where T : class
+       where U : class
     {
 
-        RepositoryResult<IEnumerable<T>> GetAll(Expression<Func<T, bool>> filter = null,
+        RepositoryResult<IEnumerable<U>> GetAll(Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             params Expression<Func<T, object>>[] np);
-        RepositoryResult<T> GetByID(Guid ID);
-        RepositoryResult<IEnumerable<T>> Insert(List<T> value);
-        RepositoryResult<IEnumerable<T>> Update(List<T> value);
+        RepositoryResult<U> GetByID(Guid ID);
+        RepositoryResult<IEnumerable<U>> Insert(List<U> value);
+        RepositoryResult<IEnumerable<U>> Update(List<U> value);
         RepositoryResult<IEnumerable<Guid>> Delete(List<Guid> ID);
-        RepositoryResult<T> Save();
+        RepositoryResult<U> Save();
 
-        RepositoryResult<T> GetSingel(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] np);
+        RepositoryResult<U> GetSingel(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] np);
 
     }
 }

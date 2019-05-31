@@ -10,7 +10,11 @@ namespace Taha.WebAPI.Controllers
 {
     public class CategoryBaseController : BaseController<CategoryRepository, Category, Models.Category>
     {
-        public override List<DatabaseInitilization.Domains.Category> CastToEntity(List<Models.Category> value)
+        public override IEnumerable<Category> ToEntity(IEnumerable<Models.Category> value)
+        {
+            throw new NotImplementedException();
+        }
+        public override IEnumerable<Models.Category> ToObject(IEnumerable<Category> value)
         {
             throw new NotImplementedException();
         }

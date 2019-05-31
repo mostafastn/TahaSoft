@@ -1,26 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Web.Http;
 using Taha.DatabaseInitilization.Domains;
+using Taha.Framework.Entity;
+using Taha.Framework.Repository;
 using Taha.Framework.WebAPI;
+using Taha.Repository.Models;
 using Taha.Repository.Repositorys;
 using Taha.WebAPI.Models;
 
 namespace Taha.WebAPI.Controllers
 {
-    public class MenuController : BaseController<MenuRepository, TBL_Menu, Menu>
+    public class MenuController : ApiController, IController<TreeMenu>
     {
-        public override List<TBL_Menu> CastToEntity(List<Menu> value)
+        public IHttpActionResult GetAll()
         {
+            var menuRepository = new MenuRepository();
+            var result = menuRepository.GetAll(orderBy: (t => t.OrderByDescending(u => u.FLDInsertDate)));
+            if (result.succeed)
+                return Ok(result.Result);
+            else
+                return NotFound();
+        }
 
-            var tblMenus =  value.Select(t=> new TBL_Menu()
-            {
-                FLDID = t.ID,
-                FLDParentID = t.ParentID,
-                FLDName = t.Name
-            }).ToList();
+        public IHttpActionResult GetByID(Guid ID)
+        {
+            throw new NotImplementedException();
+        }
 
-           return tblMenus;
+        public IHttpActionResult Insert(List<TreeMenu> value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IHttpActionResult Update(List<TreeMenu> value)
+        {
+            throw new NotImplementedException();
         }
     }
+
+
+
 }
