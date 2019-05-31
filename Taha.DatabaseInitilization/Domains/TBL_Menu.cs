@@ -26,7 +26,6 @@ namespace Taha.DatabaseInitilization.Domains
         public string FLDName { get; set; }
 
         [Required]
-        //[ForeignKey("Parent")]    // EF need for self reference
         public Guid FLDParentID { get; set; }
 
         public virtual TBL_Menu Parent { get; }
