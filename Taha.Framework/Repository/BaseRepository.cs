@@ -38,6 +38,9 @@ namespace Taha.Framework.Repository
         public abstract IEnumerable<TModel> ToObject(IEnumerable<TEntity> value);
         public abstract TModel ToObject(TEntity value);
 
+        public abstract IQueryable<TEntity> ToEntityQueryable(IQueryable<TModel> values);
+        public abstract IQueryable<TModel> ToObjectQueryable(IQueryable<TEntity> values);
+
         #endregion
 
         public virtual RepositoryResult<IEnumerable<TModel>> GetAll(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, object>>[] np)
@@ -52,6 +55,7 @@ namespace Taha.Framework.Repository
             try
             {
                 var query = entity.AsQueryable();
+                
                 if (filter != null)
                 {
                     query = query.Where(filter);
@@ -61,7 +65,7 @@ namespace Taha.Framework.Repository
                     query = orderBy(query);
                 }
 
-                result.Result = ToObject(query.ToList());
+                result.Result = ToObjectQueryable(query).ToList();
 
                 result.succeed = true;
             }

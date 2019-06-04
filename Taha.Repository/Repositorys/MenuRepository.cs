@@ -56,5 +56,29 @@ namespace Taha.Repository.Repositorys
 
             return menu;
         }
+
+        public override IQueryable<TBL_Menu> ToEntityQueryable(IQueryable<TreeMenu> values)
+        {
+            var tblMenus = values.Select(t => new TBL_Menu()
+            {
+                FLDID = t.ID,
+                FLDParentID = t.ParentID,
+                FLDName = t.Name
+            });
+
+            return tblMenus;
+        }
+
+        public override IQueryable<TreeMenu> ToObjectQueryable(IQueryable<TBL_Menu> values)
+        {
+            var menus = values.Select(t => new TreeMenu()
+            {
+                ID = t.FLDID,
+                ParentID = t.FLDParentID,
+                Name = t.FLDName
+            });
+
+            return menus;
+        }
     }
 }
