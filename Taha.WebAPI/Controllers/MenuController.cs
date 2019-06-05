@@ -18,7 +18,7 @@ namespace Taha.WebAPI.Controllers
         public IHttpActionResult GetAll()
         {
             var menuRepository = new MenuRepository();
-            var result = menuRepository.GetAll(orderBy: (t => t.OrderByDescending(u => u.FLDInsertDate)));
+            var result = menuRepository.GetAll(orderBy: (t => t.OrderBy(u => u.Name)));
             if (result.succeed)
                 return Ok(result.Result);
             else
@@ -32,12 +32,32 @@ namespace Taha.WebAPI.Controllers
 
         public IHttpActionResult Insert(List<TreeMenu> value)
         {
-            throw new NotImplementedException();
+            var repository = new MenuRepository();
+            var result = repository.Insert(value);
+            if (result.succeed)
+                return Ok(result.Result);
+            else
+                return BadRequest(result.Message);
         }
 
         public IHttpActionResult Update(List<TreeMenu> value)
         {
-            throw new NotImplementedException();
+            var repository = new MenuRepository();
+            var result = repository.Update(value);
+            if (result.succeed)
+                return Ok(result.Result);
+            else
+                return BadRequest(result.Message);
+        }
+
+        public IHttpActionResult Delete(List<Guid> IDs)
+        {
+            var repository = new MenuRepository();
+            var result = repository.Delete(IDs);
+            if (result.succeed)
+                return Ok(result.Result);
+            else
+                return BadRequest(result.Message);
         }
     }
 

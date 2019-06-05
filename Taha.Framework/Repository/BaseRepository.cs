@@ -7,7 +7,7 @@ using Taha.Framework.Entity;
 
 namespace Taha.Framework.Repository
 {
-    public abstract class BaseRepository<TContext, TEntity, TModel> : IRepository<TEntity, TModel>
+    public abstract class BaseRepository<TContext, TEntity, TModel> : IRepository<TModel>
         where TContext : DbContext, new()
         where TEntity : BaseEntity
         where TModel : class
@@ -43,7 +43,7 @@ namespace Taha.Framework.Repository
 
         #endregion
 
-        public virtual RepositoryResult<IEnumerable<TModel>> GetAll(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, object>>[] np)
+        public virtual RepositoryResult<IEnumerable<TModel>> GetAll(Expression<Func<TModel, bool>> filter = null, Func<IQueryable<TModel>, IOrderedQueryable<TModel>> orderBy = null, params Expression<Func<TModel, object>>[] np)
         {
             var result = new RepositoryResult<IEnumerable<TModel>>()
             {
@@ -54,18 +54,16 @@ namespace Taha.Framework.Repository
 
             try
             {
-                var query = entity.AsQueryable();
-                
-                if (filter != null)
-                {
-                    query = query.Where(filter);
-                }
-                if (orderBy != null)
-                {
-                    query = orderBy(query);
-                }
 
-                result.Result = ToObjectQueryable(query).ToList();
+                var query = ToObjectQueryable(entity.AsQueryable());
+
+                if (filter != null)
+                    query = query.Where(filter);
+
+                if (orderBy != null)
+                    query = orderBy(query);
+
+                result.Result = query.ToList();
 
                 result.succeed = true;
             }
@@ -90,8 +88,9 @@ namespace Taha.Framework.Repository
             {
                 if (value != null && !value.Any(t => t == null))
                 {
-                    var entities = ToEntity(value).ToList();
-                    entity.AddRange(entities);
+                    var queryable = ToEntityQueryable(value.AsQueryable());
+                    entity.AddRange(queryable);
+
                     curentContext.SaveChanges();
                     result.Result = value;
                     result.succeed = true;
@@ -123,32 +122,52 @@ namespace Taha.Framework.Repository
             {
                 if (value != null)
                 {
-                    var entities = ToEntity(value).ToList();
-
                     var failList = new List<TModel>();
+                    var failIDList = new List<Guid>();
 
-                    var ids = entities.Select(t => t.FLDID).ToList();
-                    var objs = entity.Where(u => ids.Contains(u.FLDID)).ToList();
+                    var entityList = ToEntityQueryable(value.AsQueryable()).ToList();
+                    var _ids = entityList.Select(t => t.FLDID).ToList();
+                    var _objs = entity.Where(u => _ids.Contains(u.FLDID)).ToList();
 
-                    entities.ForEach(t =>
+                    entityList.ToList().ForEach(t =>
                     {
-                        var obj = objs.FirstOrDefault(u => u.FLDID == t.FLDID);
+                        var obj = _objs.FirstOrDefault(u => u.FLDID == t.FLDID);
                         if (obj != null)
+                        {
+                            t.FLDUpdateDate = Infrastructure.Utility.Curent.Now();
                             curentContext.Entry(obj).CurrentValues.SetValues(t);
+                        }
                         else
-                            failList.Add(ToObject( t));
+                            failIDList.Add(t.FLDID);
                     });
 
-                    if (failList != null)
+                    var __failList = _objs.Where(t => failIDList.Contains(t.FLDID));
+                    failList = ToObjectQueryable(__failList.AsQueryable()).ToList();
+                    //var entities = ToEntity(value).ToList();
+                    //var ids = entities.Select(t => t.FLDID).ToList();
+                    //var objs = entity.Where(u => ids.Contains(u.FLDID)).ToList();
+
+                    //entities.ForEach(t =>
+                    //{
+                    //    var obj = objs.FirstOrDefault(u => u.FLDID == t.FLDID);
+                    //    if (obj != null)
+                    //        curentContext.Entry(obj).CurrentValues.SetValues(t);
+                    //    else
+                    //        failList.Add(ToObject( t));
+                    //});
+
+                    if (failList.Any())
                     {
                         result.Result = failList;
                         result.succeed = false;
                         result.Message = "cannot find this values in database";
                     }
-
-                    curentContext.SaveChanges();
-                    result.Result = null;
-                    result.succeed = true;
+                    else
+                    {
+                        curentContext.SaveChanges();
+                        result.Result = null;
+                        result.succeed = true;
+                    }
                 }
                 else
                 {
@@ -177,12 +196,11 @@ namespace Taha.Framework.Repository
             {
                 if (IDs != null)
                 {
-                    var failList = new List<TEntity>();
-
                     var objs = entity.Where(u => IDs.Contains(u.FLDID)).ToList();
                     entity.RemoveRange(objs);
 
                     curentContext.SaveChanges();
+                    result.Result = IDs;
                     result.succeed = true;
                 }
                 else
@@ -232,7 +250,7 @@ namespace Taha.Framework.Repository
 
         }
 
-        public virtual RepositoryResult<TModel> GetSingel(Expression<Func<TEntity, bool>> where, params Expression<Func<TEntity, object>>[] np)
+        public RepositoryResult<TModel> GetSingel(Expression<Func<TModel, bool>> where, params Expression<Func<TModel, object>>[] np)
         {
             throw new NotImplementedException();
         }
@@ -240,7 +258,5 @@ namespace Taha.Framework.Repository
         {
             throw new NotImplementedException();
         }
-
-       
     }
 }

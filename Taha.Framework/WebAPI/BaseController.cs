@@ -11,7 +11,7 @@ namespace Taha.Framework.WebAPI
 {
 
     public class BaseController<TRepository, TEntity, TModel> : ApiController, IController<TModel>
-        where TRepository : IRepository<TEntity, TModel>, new()
+        where TRepository : IRepository<TModel>, new()
         where TEntity : BaseEntity
         where TModel : class
     {
@@ -26,6 +26,11 @@ namespace Taha.Framework.WebAPI
         public BaseController()
         {
             _Repository = new TRepository();
+        }
+
+        public IHttpActionResult Delete(List<Guid> IDs)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
