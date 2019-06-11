@@ -15,9 +15,25 @@ namespace Taha.WebAPI.Controllers
 {
     public class MenuController : ApiController, IController<TreeMenu>
     {
+        #region Properties
+
+        private MenuRepository menuRepository;
+
+        #endregion
+
+        #region Constructor
+
+        public MenuController()
+        {
+            menuRepository = new MenuRepository();
+        }
+
+        #endregion
+
+        #region Impliment IController Methodes
+
         public IHttpActionResult GetAll()
         {
-            var menuRepository = new MenuRepository();
             var result = menuRepository.GetAll(orderBy: (t => t.OrderBy(u => u.Name)));
             if (result.succeed)
                 return Ok(result.Result);
@@ -27,13 +43,16 @@ namespace Taha.WebAPI.Controllers
 
         public IHttpActionResult GetByID(Guid ID)
         {
-            throw new NotImplementedException();
+            var result = menuRepository.GetByID(ID);
+            if (result.succeed)
+                return Ok(result.Result);
+            else
+                return NotFound();
         }
 
         public IHttpActionResult Insert(List<TreeMenu> value)
         {
-            var repository = new MenuRepository();
-            var result = repository.Insert(value);
+            var result = menuRepository.Insert(value);
             if (result.succeed)
                 return Ok(result.Result);
             else
@@ -42,8 +61,7 @@ namespace Taha.WebAPI.Controllers
 
         public IHttpActionResult Update(List<TreeMenu> value)
         {
-            var repository = new MenuRepository();
-            var result = repository.Update(value);
+            var result = menuRepository.Update(value);
             if (result.succeed)
                 return Ok(result.Result);
             else
@@ -52,13 +70,14 @@ namespace Taha.WebAPI.Controllers
 
         public IHttpActionResult Delete(List<Guid> IDs)
         {
-            var repository = new MenuRepository();
-            var result = repository.Delete(IDs);
+            var result = menuRepository.Delete(IDs);
             if (result.succeed)
                 return Ok(result.Result);
             else
                 return BadRequest(result.Message);
         }
+
+        #endregion
     }
 
 
