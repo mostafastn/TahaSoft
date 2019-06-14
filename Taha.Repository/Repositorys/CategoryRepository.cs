@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using Taha.DatabaseInitilization;
 using Taha.DatabaseInitilization.Domains;
 using Taha.Framework.Repository;

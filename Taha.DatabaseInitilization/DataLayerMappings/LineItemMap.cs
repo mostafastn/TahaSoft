@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity.ModelConfiguration;
-using Taha.DatabaseInitilization;
 using Taha.DatabaseInitilization.Domains;
 
 namespace Taha.DatabaseInitilization.DataLayerMappings

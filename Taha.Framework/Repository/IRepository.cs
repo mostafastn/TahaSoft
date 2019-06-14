@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Taha.Framework.Repository
 {
     public interface IRepository<T>
        where T : class
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="orderBy">Exampel: t => t.OrderBy(u => u.Item)</param>
+        /// <param name="np"></param>
+        /// <returns></returns>
         RepositoryResult<IEnumerable<T>> GetAll(Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             params Expression<Func<T, object>>[] np);
