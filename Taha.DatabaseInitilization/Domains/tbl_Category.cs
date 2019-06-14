@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Taha.Framework.Entity;
 
 namespace Taha.DatabaseInitilization.Domains
 {
-    public class TBL_Menu : BaseEntity
+    public class tbl_Category : BaseEntity
     {
         #region Constructor
-        public TBL_Menu()
+        public tbl_Category()
         {
             // this is necessary otherwise EF will throw null object reference error. you could also put ?? operator check for more interactive solution.  
-            ChilList = new HashSet<TBL_Menu>();
+            ChilList = new HashSet<tbl_Category>();
         }
-        
+
         #endregion
 
 
@@ -30,7 +26,8 @@ namespace Taha.DatabaseInitilization.Domains
 
         public Guid? fldParentID { get; set; }
 
-        public virtual TBL_Menu Parent { get; }
-        public virtual ICollection<TBL_Menu> ChilList { get;}
+        public virtual tbl_Category Parent { get; }
+        public virtual ICollection<tbl_Category> ChilList { get; }
+
     }
 }

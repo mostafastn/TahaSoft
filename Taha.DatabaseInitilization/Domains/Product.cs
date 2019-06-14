@@ -30,6 +30,6 @@ namespace Taha.DatabaseInitilization.Domains
 
         public DateTime? DiscontinuedDate { get; set; }
 
-        public virtual Category Category { get; set; }
+        public virtual tbl_Category Category { get; set; }
     }
 }

@@ -8,18 +8,13 @@ using Taha.DatabaseInitilization.Domains;
 
 namespace Taha.DatabaseInitilization.DataLayerMappings
 {
-    public class MenuMap : EntityTypeConfiguration<TBL_Menu>
+    class tbl_CategoryMap : EntityTypeConfiguration<tbl_Category>
     {
-        public MenuMap()
+        public tbl_CategoryMap()
         {
-            //HasMany(e => e.ChilList)
-            //    .WithRequired(e => e.Parent) //Each comment from Replies points back to its parent
-            //    .HasForeignKey(e => e.FLDParentID);
-
-
             HasMany(e => e.ChilList)
                 .WithOptional(e => e.Parent)
-                .HasForeignKey(e => e.FLDParentID);
+                .HasForeignKey(e => e.fldParentID);
 
 
         }

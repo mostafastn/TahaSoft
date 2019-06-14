@@ -19,7 +19,14 @@ namespace Taha.Framework.Repository
 
         private static readonly Lazy<TContext> lazy =
             new Lazy<TContext>(() => new TContext());
-        public static TContext curentContext { get { return lazy.Value; } }
+
+        public static TContext curentContext
+        {
+            get
+            {
+                return lazy.Value;
+            }
+        }
 
         #endregion
 
@@ -33,11 +40,6 @@ namespace Taha.Framework.Repository
         #endregion
 
         #region Abstract Methods
-
-        public abstract IEnumerable<TEntity> ToEntity(IEnumerable<TModel> value);
-        public abstract TEntity ToEntity(TModel value);
-        public abstract IEnumerable<TModel> ToObject(IEnumerable<TEntity> value);
-        public abstract TModel ToObject(TEntity value);
 
         public abstract IQueryable<TEntity> ToEntityQueryable(IQueryable<TModel> values);
         public abstract IQueryable<TModel> ToObjectQueryable(IQueryable<TEntity> values);
@@ -91,7 +93,6 @@ namespace Taha.Framework.Repository
                 {
                     var queryable = ToEntityQueryable(value.AsQueryable());
                     curentRepository.AddRange(queryable);
-
                     curentContext.SaveChanges();
                     result.Result = value;
                     result.succeed = true;
@@ -127,22 +128,22 @@ namespace Taha.Framework.Repository
                     var failIDList = new List<Guid>();
 
                     var entityList = ToEntityQueryable(value.AsQueryable()).ToList();
-                    var _ids = entityList.Select(t => t.FLDID).ToList();
-                    var _objs = curentRepository.Where(u => _ids.Contains(u.FLDID)).ToList();
+                    var _ids = entityList.Select(t => t.fldID).ToList();
+                    var _objs = curentRepository.Where(u => _ids.Contains(u.fldID)).ToList();
 
                     entityList.ToList().ForEach(t =>
                     {
-                        var obj = _objs.FirstOrDefault(u => u.FLDID == t.FLDID);
+                        var obj = _objs.FirstOrDefault(u => u.fldID == t.fldID);
                         if (obj != null)
                         {
-                            t.FLDUpdateDate = Infrastructure.Utility.Curent.Now();
+                            t.fldUpdateDate = Infrastructure.Utility.Curent.Now();
                             curentContext.Entry(obj).CurrentValues.SetValues(t);
                         }
                         else
-                            failIDList.Add(t.FLDID);
+                            failIDList.Add(t.fldID);
                     });
 
-                    var __failList = _objs.Where(t => failIDList.Contains(t.FLDID));
+                    var __failList = _objs.Where(t => failIDList.Contains(t.fldID));
                     failList = ToObjectQueryable(__failList.AsQueryable()).ToList();
                     //var entities = ToEntity(value).ToList();
                     //var ids = entities.Select(t => t.FLDID).ToList();
@@ -197,7 +198,7 @@ namespace Taha.Framework.Repository
             {
                 if (IDs != null)
                 {
-                    var objs = curentRepository.Where(u => IDs.Contains(u.FLDID)).ToList();
+                    var objs = curentRepository.Where(u => IDs.Contains(u.fldID)).ToList();
                     curentRepository.RemoveRange(objs);
 
                     curentContext.SaveChanges();
@@ -232,7 +233,7 @@ namespace Taha.Framework.Repository
                     result.Message = "Invalid ID";
                 else
                 {
-                    var obj = curentRepository.FirstOrDefault(t => t.FLDID == ID);
+                    var obj = curentRepository.FirstOrDefault(t => t.fldID == ID);
                     if (obj == null)
                         result.Message = "Cannot Find this Item in Database";
                     else

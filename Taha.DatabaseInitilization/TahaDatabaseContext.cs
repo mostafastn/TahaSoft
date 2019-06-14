@@ -7,22 +7,21 @@ namespace Taha.DatabaseInitilization
 {
     public class TahaDatabaseContext : BaseContext<TahaDatabaseContext, Migrations.Configuration>
     {
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<LineItem> LineItems { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<ShippingAddress> ShippingAddresses { get; set; }
-        public DbSet<Payment> Payments { get; set; }
-        public DbSet<Category> Categories { get; set; }
+      
+        public DbSet<tbl_Category> tbl_Category { get; set; }
 
         public DbSet<TBL_Menu> TBL_Menu { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
 
         {
-            modelBuilder.Configurations.Add(new LineItemMap());
-            modelBuilder.Configurations.Add(new ShippingAddressMap());
-            modelBuilder.Configurations.Add(new MenuMap());
+            #region test
+            
+            modelBuilder.Configurations.Add(new TBL_MenuMap());
+
+            #endregion
+
+            modelBuilder.Configurations.Add(new tbl_CategoryMap());
 
         }
     }

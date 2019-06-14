@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Web.Http;
-using Taha.DatabaseInitilization.Domains;
-using Taha.Framework.Entity;
-using Taha.Framework.Repository;
 using Taha.Framework.WebAPI;
 using Taha.Repository.Models;
 using Taha.Repository.Repositorys;
-using Taha.WebAPI.Models;
 
 namespace Taha.WebAPI.Controllers
 {
