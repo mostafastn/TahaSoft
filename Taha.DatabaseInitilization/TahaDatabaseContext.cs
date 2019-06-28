@@ -10,6 +10,7 @@ namespace Taha.DatabaseInitilization
 
         public DbSet<tbl_Category> tbl_Category { get; set; }
         public DbSet<tbl_Place> tbl_Place { get; set; }
+        public DbSet<tbl_CarouselSlide> tbl_CarouselSlide { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -56,6 +56,7 @@
     <Compile Include="DataLayerMappings\LineItemMap.cs" />
     <Compile Include="DataLayerMappings\TBL_MenuMap.cs" />
     <Compile Include="DataLayerMappings\ShippingAddressMap.cs" />
+    <Compile Include="Domains\tbl_CarouselSlide.cs" />
     <Compile Include="Domains\tbl_Place.cs" />
     <Compile Include="Domains\tbl_Category.cs" />
     <Compile Include="Domains\Customer.cs" />
