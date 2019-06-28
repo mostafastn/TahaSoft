@@ -7,21 +7,15 @@ namespace Taha.DatabaseInitilization
 {
     public class TahaDatabaseContext : BaseContext<TahaDatabaseContext, Migrations.Configuration>
     {
-      
-        public DbSet<tbl_Category> tbl_Category { get; set; }
 
-        public DbSet<TBL_Menu> TBL_Menu { get; set; }
+        public DbSet<tbl_Category> tbl_Category { get; set; }
+        public DbSet<tbl_Place> tbl_Place { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
-
         {
-            #region test
-            
-            modelBuilder.Configurations.Add(new TBL_MenuMap());
-
-            #endregion
 
             modelBuilder.Configurations.Add(new tbl_CategoryMap());
+            modelBuilder.Configurations.Add(new tbl_PlaceMap());
 
         }
     }

@@ -51,10 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataLayerMappings\tbl_PlaceMap.cs" />
     <Compile Include="DataLayerMappings\tbl_CategoryMap.cs" />
     <Compile Include="DataLayerMappings\LineItemMap.cs" />
     <Compile Include="DataLayerMappings\TBL_MenuMap.cs" />
     <Compile Include="DataLayerMappings\ShippingAddressMap.cs" />
+    <Compile Include="Domains\tbl_Place.cs" />
     <Compile Include="Domains\tbl_Category.cs" />
     <Compile Include="Domains\Customer.cs" />
     <Compile Include="Domains\LineItem.cs" />
@@ -63,6 +65,7 @@
     <Compile Include="Domains\Person.cs" />
     <Compile Include="Domains\Product.cs" />
     <Compile Include="Domains\ShippingAddress.cs" />
+    <Compile Include="Domains\tbl_Company.cs" />
     <Compile Include="Domains\TBL_Menu.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

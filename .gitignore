@@ -243,3 +243,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/Taha.DatabaseInitilization/Domains/tbl_Company.cs

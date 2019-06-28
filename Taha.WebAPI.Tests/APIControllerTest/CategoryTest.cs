@@ -13,14 +13,14 @@ using Taha.Repository.Models;
 namespace Taha.WebAPI.Tests.APIControllerTest
 {
     [TestClass]
-    public class CategoryTest
+    public class PlaceTest
     {
-        private CategoryController baseController;
+        private PlaceController baseController;
 
-        public CategoryTest()
+        public PlaceTest()
         {
             //Arrange
-            baseController = new CategoryController
+            baseController = new PlaceController
             {
                 Request = new HttpRequestMessage(),
                 Configuration = new HttpConfiguration()
@@ -31,16 +31,16 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_1_Insert()
         {
             //Act
-            var mineCategoryId = Guid.NewGuid();
-            var categorys = new List<Category>()
+            var minePlaceId = Guid.NewGuid();
+            var Places = new List<Place>()
             {
-                new Category() { ID = mineCategoryId , Name = "Main category", Periority = 0},
-                new Category() { ID = Guid.NewGuid(),Name = "categoryTest A", Periority = 1,ParentID = mineCategoryId },
-                new Category() { ID = Guid.NewGuid(),Name = "categoryTest B", Periority = 2,ParentID = mineCategoryId },
-                new Category() { ID = Guid.NewGuid(),Name = "categoryTest C", Periority = 3,ParentID = mineCategoryId },
+                new Place() { ID = minePlaceId , Name = "Main Place", Periority = 0},
+                new Place() { ID = Guid.NewGuid(),Name = "PlaceTest A", Periority = 1,ParentID = minePlaceId },
+                new Place() { ID = Guid.NewGuid(),Name = "PlaceTest B", Periority = 2,ParentID = minePlaceId },
+                new Place() { ID = Guid.NewGuid(),Name = "PlaceTest C", Periority = 3,ParentID = minePlaceId },
             };
 
-            var response = baseController.Insert(categorys) as OkNegotiatedContentResult<IEnumerable<Category>>;
+            var response = baseController.Insert(Places) as OkNegotiatedContentResult<IEnumerable<Place>>;
 
             //Assert
             Assert.IsNotNull(response);
@@ -51,12 +51,12 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         {
             //Act
 
-            var categoryResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
-            var categorys = categoryResult.Content.ToList();
+            var PlaceResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Place>>;
+            var Places = PlaceResult.Content.ToList();
 
-            categorys.ForEach(t => { t.Name = t.Name + " Updated "; });
+            Places.ForEach(t => { t.Name = t.Name + " Updated "; });
 
-            var response = baseController.Update(categorys) as OkNegotiatedContentResult<IEnumerable<Category>>;
+            var response = baseController.Update(Places) as OkNegotiatedContentResult<IEnumerable<Place>>;
 
             //Assert
             Assert.IsNotNull(response);
@@ -67,10 +67,10 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         {
             // Act
 
-            var categoryResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
+            var PlaceResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Place>>;
 
             // Assert
-            Assert.IsNotNull(categoryResult);
+            Assert.IsNotNull(PlaceResult);
         }
 
         [TestMethod]
@@ -78,24 +78,24 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         {
             // Act
 
-            var _categorys = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
-            var categorys = _categorys.Content.ToList();
+            var _Places = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Place>>;
+            var Places = _Places.Content.ToList();
 
-            var categoryResult = baseController.GetByID(categorys[0].ID) as OkNegotiatedContentResult<Category>;
+            var PlaceResult = baseController.GetByID(Places[0].ID) as OkNegotiatedContentResult<Place>;
 
             // Assert
-            Assert.IsNotNull(categoryResult);
+            Assert.IsNotNull(PlaceResult);
         }
 
         [TestMethod]
         public void Test_5_Delete()
         {
             //Act
-            var getAllResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
+            var getAllResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Place>>;
 
-            var categoryIDs = getAllResult.Content.Select(t => t.ID).ToList();
+            var PlaceIDs = getAllResult.Content.Select(t => t.ID).ToList();
 
-            var deleteResult = baseController.Delete(categoryIDs) as OkNegotiatedContentResult<IEnumerable<Guid>>;
+            var deleteResult = baseController.Delete(PlaceIDs) as OkNegotiatedContentResult<IEnumerable<Guid>>;
 
             //Assert
             Assert.IsNotNull(getAllResult);
