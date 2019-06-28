@@ -5,7 +5,7 @@ using Taha.Framework.Entity;
 
 namespace Taha.DatabaseInitilization.Domains
 {
-    public class c : BaseEntity
+    public class tbl_Place : BaseEntity
     {
         #region Constructor
         public tbl_Place()
