@@ -31,5 +31,7 @@ namespace Taha.DatabaseInitilization.Domains
         public virtual tbl_Category Parent { get; }
         public virtual ICollection<tbl_Category> ChilList { get; }
 
+        public virtual ICollection<tbl_Product> Product { get; set; }
+
     }
 }
