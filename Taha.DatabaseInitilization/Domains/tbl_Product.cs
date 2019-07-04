@@ -11,7 +11,7 @@ namespace Taha.DatabaseInitilization.Domains
     {
         [Required]
         public Guid fldCategoryID { get; set; }
-       
+
         [Required]
         [MaxLength(50)]
         public string fldName { get; set; }
@@ -21,10 +21,10 @@ namespace Taha.DatabaseInitilization.Domains
 
         [Required]
         public decimal fldDiscount { get; set; }
-        
-        
+
+
         public virtual tbl_Category Category { get; }
-        public virtual tbl_Coding Coding { get; }
+        public virtual tbl_Coding tbl_Coding { get; }
 
     }
 }

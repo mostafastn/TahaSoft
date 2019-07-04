@@ -7,11 +7,8 @@ namespace Taha.DatabaseInitilization.DataLayerMappings
     {
         public tbl_ProductMap()
         {
-            HasOptional(e => e.Coding)
-                .WithRequired(e => e.Product);
-
-            //HasOptional(x => x.Coding).WithMany()
-            //    .HasForeignKey(x => x.fldID);
+            HasOptional(e => e.tbl_Coding)
+                .WithRequired(e => e.tbl_Product);
         }
     }
 }

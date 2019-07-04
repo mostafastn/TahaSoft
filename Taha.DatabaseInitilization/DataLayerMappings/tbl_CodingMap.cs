@@ -11,7 +11,9 @@ namespace Taha.DatabaseInitilization.DataLayerMappings
                 .WithRequired(e => e.Coding)
                 .HasForeignKey(e => e.fldCodingID)
                 .WillCascadeOnDelete(false);
-            
+
+            //HasOptional(e => e.tbl_Product)
+            //    .WithRequired(e => e.tbl_Coding);
         }
 
     }

@@ -16,6 +16,12 @@ namespace Taha.DatabaseInitilization
         public DbSet<tbl_Detail> tbl_detail { get; set; }
         public DbSet<tbl_ProductDetailAssignment> tbl_ProductDetailAssignment { get; set; }
 
+
+        public DbSet<tbl_Product_X> tbl_A { get; set; }
+        public DbSet<tbl_Coding_X> tbl_B { get; set; }
+
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
@@ -25,6 +31,11 @@ namespace Taha.DatabaseInitilization
             modelBuilder.Configurations.Add(new tbl_CategoryMap());
             modelBuilder.Configurations.Add(new tbl_PlaceMap());
             modelBuilder.Configurations.Add(new tbl_CodingMap());
+
+
+
+            modelBuilder.Configurations.Add(new tbl_Product_XMap());
+            modelBuilder.Configurations.Add(new tbl_Coding_XMap());
 
         }
     }
