@@ -99,7 +99,6 @@
     <Compile Include="Controllers\CarouselSlideController.cs" />
     <Compile Include="Controllers\PlaceController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
-    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

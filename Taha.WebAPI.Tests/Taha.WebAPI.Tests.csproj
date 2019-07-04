@@ -70,7 +70,6 @@
     <Compile Include="APIControllerTest\CarouselSlideTest.cs" />
     <Compile Include="APIControllerTest\CategoryTest.cs" />
     <Compile Include="APIControllerTest\PlaceTest.cs" />
-    <Compile Include="APIControllerTest\MenuTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

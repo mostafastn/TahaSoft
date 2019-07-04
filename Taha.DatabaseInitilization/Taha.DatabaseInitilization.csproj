@@ -51,22 +51,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataLayerMappings\tbl_ProductMap.cs" />
+    <Compile Include="DataLayerMappings\tbl_DetailMap.cs" />
+    <Compile Include="DataLayerMappings\tbl_CodingMap.cs" />
     <Compile Include="DataLayerMappings\tbl_PlaceMap.cs" />
     <Compile Include="DataLayerMappings\tbl_CategoryMap.cs" />
-    <Compile Include="DataLayerMappings\LineItemMap.cs" />
-    <Compile Include="DataLayerMappings\TBL_MenuMap.cs" />
-    <Compile Include="DataLayerMappings\ShippingAddressMap.cs" />
     <Compile Include="Domains\tbl_CarouselSlide.cs" />
+    <Compile Include="Domains\tbl_Coding.cs" />
+    <Compile Include="Domains\tbl_ProductDetailAssignment.cs" />
+    <Compile Include="Domains\tbl_Detail.cs" />
+    <Compile Include="Domains\tbl_Product.cs" />
     <Compile Include="Domains\tbl_Place.cs" />
     <Compile Include="Domains\tbl_Category.cs" />
-    <Compile Include="Domains\Customer.cs" />
-    <Compile Include="Domains\LineItem.cs" />
-    <Compile Include="Domains\Order.cs" />
-    <Compile Include="Domains\Payment.cs" />
-    <Compile Include="Domains\Person.cs" />
-    <Compile Include="Domains\Product.cs" />
-    <Compile Include="Domains\ShippingAddress.cs" />
-    <Compile Include="Domains\TBL_Menu.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TahaDatabaseContext.cs" />

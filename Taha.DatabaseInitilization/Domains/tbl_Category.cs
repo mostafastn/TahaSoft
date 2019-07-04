@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Taha.Framework.Entity;
 
 namespace Taha.DatabaseInitilization.Domains
 {
+    [Table("Store.tbl_Category")]
     public class tbl_Category : BaseEntity
     {
         #region Constructor
@@ -18,11 +20,11 @@ namespace Taha.DatabaseInitilization.Domains
 
 
         [Required]
-        [MaxLength(50)]
-        public string fldName { get; set; }
+        public int fldPeriority { get; set; }
 
         [Required]
-        public int fldPeriority { get; set; }
+        [MaxLength(50)]
+        public string fldName { get; set; }
 
         public Guid? fldParentID { get; set; }
 
