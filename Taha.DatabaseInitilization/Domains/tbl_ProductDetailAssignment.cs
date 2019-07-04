@@ -16,8 +16,7 @@ namespace Taha.DatabaseInitilization.Domains
         [Required]
         public Guid fldDetailID { get; set; }
         
-
-        public virtual tbl_Coding Coding { get; }
         public virtual tbl_Detail Detail { get; }
+        public virtual tbl_Coding Coding_X { get; }
     }
 }

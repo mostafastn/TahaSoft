@@ -6,12 +6,10 @@ using Taha.Framework.Entity;
 
 namespace Taha.DatabaseInitilization.Domains
 {
-    [Table("Store.tbl_Coding")]
+    [Table("Store.tbl_Coding_X")]
     public class tbl_Coding : BaseEntity
     {
-        
-        public virtual tbl_Product tbl_Product { get; }
-
+        public virtual tbl_Product Product { get; set; }
         public virtual ICollection<tbl_ProductDetailAssignment> ProductDetailAssignment { get; set; }
     }
 }

@@ -7,8 +7,9 @@ namespace Taha.DatabaseInitilization.DataLayerMappings
     {
         public tbl_ProductMap()
         {
-            HasOptional(e => e.tbl_Coding)
-                .WithRequired(e => e.tbl_Product);
+            HasOptional(e => e.Coding)
+                .WithRequired(e => e.Product);
         }
+
     }
 }
