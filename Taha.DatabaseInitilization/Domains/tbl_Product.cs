@@ -22,6 +22,25 @@ namespace Taha.DatabaseInitilization.Domains
         [Required]
         public decimal fldDiscount { get; set; }
 
+        /// <summary>
+        /// image assginment most use
+        /// </summary>
+        //public string Image { get; set; }
+
+        /// <summary>
+        /// coding Visits most use
+        /// </summary>
+        //public int VisitsCount { get; set; }
+
+        /// <summary>
+        /// coding most use
+        /// </summary>
+        //public bool Available { get; set; }
+        /// <summary>
+        /// coding most use
+        /// </summary>
+        //public int AvailableCount { get; set; }
+
 
         public virtual tbl_Category Category { get; }
         public virtual tbl_Coding Coding { get; set; }
