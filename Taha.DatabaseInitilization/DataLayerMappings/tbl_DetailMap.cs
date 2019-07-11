@@ -7,7 +7,7 @@ namespace Taha.DatabaseInitilization.DataLayerMappings
     {
         public tbl_DetailMap()
         {
-            HasMany(e => e.tbl_ProductDetailAssignment)
+            HasMany(e => e.DetailAssignment)
                 .WithRequired(e => e.Detail)
                 .HasForeignKey(e => e.fldDetailID)
                 .WillCascadeOnDelete(false);

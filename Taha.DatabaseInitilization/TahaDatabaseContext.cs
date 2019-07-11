@@ -7,22 +7,32 @@ namespace Taha.DatabaseInitilization
 {
     public class TahaDatabaseContext : BaseContext<TahaDatabaseContext, Migrations.Configuration>
     {
+        #region Main Object
 
         public DbSet<tbl_Category> tbl_Category { get; set; }
         public DbSet<tbl_Place> tbl_Place { get; set; }
         public DbSet<tbl_CarouselSlide> tbl_CarouselSlide { get; set; }
-        public DbSet<tbl_Detail> tbl_detail { get; set; }
-        public DbSet<tbl_ProductDetailAssignment> tbl_ProductDetailAssignment { get; set; }
-        public DbSet<tbl_Image> tbl_Image { get; set; }
-        public DbSet<tbl_ImageAssignment> tbl_ImageAssignment { get; set; }
-
-
         public DbSet<tbl_Product> tbl_Produc { get; set; }
         public DbSet<tbl_Store> tbl_Store { get; set; }
+
+        public DbSet<tbl_Detail> tbl_detail { get; set; }
+        public DbSet<tbl_Image> tbl_Image { get; set; }
+
+        #endregion
+
+        #region Relation of Objects
         public DbSet<tbl_Coding> tbl_Coding { get; set; }
 
+        #endregion
 
+        #region ObjectAssignment
 
+        public DbSet<tbl_DetailAssignment> tbl_DetailAssignment { get; set; }
+        public DbSet<tbl_ImageAssignment> tbl_ImageAssignment { get; set; }
+
+        #endregion
+
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

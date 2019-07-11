@@ -64,7 +64,7 @@
     <Compile Include="Domains\tbl_Product.cs" />
     <Compile Include="Domains\tbl_Coding.cs" />
     <Compile Include="Domains\tbl_CarouselSlide.cs" />
-    <Compile Include="Domains\tbl_ProductDetailAssignment.cs" />
+    <Compile Include="Domains\tbl_DetailAssignment.cs" />
     <Compile Include="Domains\tbl_Detail.cs" />
     <Compile Include="Domains\tbl_Place.cs" />
     <Compile Include="Domains\tbl_Category.cs" />

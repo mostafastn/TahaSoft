@@ -12,7 +12,7 @@ namespace Taha.DatabaseInitilization.Domains
 
         public tbl_Detail()
         {
-            tbl_ProductDetailAssignment = new HashSet<tbl_ProductDetailAssignment>();
+            DetailAssignment = new HashSet<tbl_DetailAssignment>();
         }
 
         [Required]
@@ -22,6 +22,6 @@ namespace Taha.DatabaseInitilization.Domains
         [Required]
         public string fldDescription { get; set; }
 
-        public virtual ICollection<tbl_ProductDetailAssignment> tbl_ProductDetailAssignment { get; set; }
+        public virtual ICollection<tbl_DetailAssignment> DetailAssignment { get; set; }
     }
 }
