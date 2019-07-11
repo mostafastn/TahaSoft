@@ -10,6 +10,7 @@ namespace Taha.DatabaseInitilization.Domains
     public class tbl_Coding : BaseEntity
     {
         public virtual tbl_Product Product { get; set; }
+        public virtual tbl_Store Store { get; set; }
         public virtual ICollection<tbl_ProductDetailAssignment> ProductDetailAssignment { get; set; }
     }
 }

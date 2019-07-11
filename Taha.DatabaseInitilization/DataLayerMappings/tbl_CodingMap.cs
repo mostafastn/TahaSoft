@@ -8,7 +8,7 @@ namespace Taha.DatabaseInitilization.DataLayerMappings
         public tbl_CodingMap()
         {
             HasMany(e => e.ProductDetailAssignment)
-                .WithRequired(e => e.Coding_X)
+                .WithRequired(e => e.Coding)
                 .HasForeignKey(e => e.fldCodingID)
                 .WillCascadeOnDelete(false);
         }
