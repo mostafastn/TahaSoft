@@ -51,12 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataLayerMappings\tbl_ImageMap.cs" />
     <Compile Include="DataLayerMappings\tbl_StoretMap.cs" />
     <Compile Include="DataLayerMappings\tbl_ProductMap.cs" />
     <Compile Include="DataLayerMappings\tbl_CodingMap.cs" />
     <Compile Include="DataLayerMappings\tbl_DetailMap.cs" />
     <Compile Include="DataLayerMappings\tbl_PlaceMap.cs" />
     <Compile Include="DataLayerMappings\tbl_CategoryMap.cs" />
+    <Compile Include="Domains\tbl_Image.cs" />
+    <Compile Include="Domains\tbl_ImageAssignment.cs" />
     <Compile Include="Domains\tbl_Store.cs" />
     <Compile Include="Domains\tbl_Product.cs" />
     <Compile Include="Domains\tbl_Coding.cs" />

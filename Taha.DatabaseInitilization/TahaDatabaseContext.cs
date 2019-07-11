@@ -13,6 +13,8 @@ namespace Taha.DatabaseInitilization
         public DbSet<tbl_CarouselSlide> tbl_CarouselSlide { get; set; }
         public DbSet<tbl_Detail> tbl_detail { get; set; }
         public DbSet<tbl_ProductDetailAssignment> tbl_ProductDetailAssignment { get; set; }
+        public DbSet<tbl_Image> tbl_Image { get; set; }
+        public DbSet<tbl_ImageAssignment> tbl_ImageAssignment { get; set; }
 
 
         public DbSet<tbl_Product> tbl_Produc { get; set; }
@@ -23,8 +25,9 @@ namespace Taha.DatabaseInitilization
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            
+
             modelBuilder.Configurations.Add(new tbl_DetailMap());
+            modelBuilder.Configurations.Add(new tbl_ImageMap());
             modelBuilder.Configurations.Add(new tbl_CategoryMap());
             modelBuilder.Configurations.Add(new tbl_PlaceMap());
 
