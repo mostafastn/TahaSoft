@@ -6,7 +6,7 @@ using Taha.Framework.Entity;
 
 namespace Taha.DatabaseInitilization.Domains
 {
-    [Table("Store.tbl_ProductDetailAssignment")]
+    [Table("Store.tbl_DetailAssignment")]
     public class tbl_DetailAssignment : BaseEntity
     {
 
