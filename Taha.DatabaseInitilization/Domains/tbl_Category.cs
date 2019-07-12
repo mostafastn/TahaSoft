@@ -14,6 +14,8 @@ namespace Taha.DatabaseInitilization.Domains
         {
             // this is necessary otherwise EF will throw null object reference error. you could also put ?? operator check for more interactive solution.  
             ChilList = new HashSet<tbl_Category>();
+
+            CategoryAssignment = new HashSet<tbl_CategoryAssignment>();
         }
 
         #endregion
@@ -32,6 +34,8 @@ namespace Taha.DatabaseInitilization.Domains
         public virtual ICollection<tbl_Category> ChilList { get; }
 
         public virtual ICollection<tbl_Product> Product { get; set; }
+
+        public virtual ICollection<tbl_CategoryAssignment> CategoryAssignment { get; set; }
 
     }
 }

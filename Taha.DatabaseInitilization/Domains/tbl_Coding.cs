@@ -13,5 +13,6 @@ namespace Taha.DatabaseInitilization.Domains
         public virtual tbl_Store Store { get; set; }
         public virtual ICollection<tbl_DetailAssignment> DetailAssignment { get; set; }
         public virtual ICollection<tbl_ImageAssignment> ImageAssignment { get; set; }
+        public virtual ICollection<tbl_CategoryAssignment> CategoryAssignment { get; set; }
     }
 }
