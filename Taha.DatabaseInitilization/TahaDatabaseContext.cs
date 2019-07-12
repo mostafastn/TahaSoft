@@ -14,6 +14,8 @@ namespace Taha.DatabaseInitilization
         public DbSet<tbl_CarouselSlide> tbl_CarouselSlide { get; set; }
         public DbSet<tbl_Product> tbl_Produc { get; set; }
         public DbSet<tbl_Store> tbl_Store { get; set; }
+        public DbSet<tbl_Cart> tbl_Cart { get; set; }
+        public DbSet<tbl_Customer> tbl_Customer { get; set; }
 
         public DbSet<tbl_Detail> tbl_detail { get; set; }
         public DbSet<tbl_Image> tbl_Image { get; set; }
@@ -29,6 +31,7 @@ namespace Taha.DatabaseInitilization
 
         public DbSet<tbl_DetailAssignment> tbl_DetailAssignment { get; set; }
         public DbSet<tbl_ImageAssignment> tbl_ImageAssignment { get; set; }
+        public DbSet<tbl_CategoryAssignment> tbl_CategoryAssignment { get; set; }
 
         #endregion
 
@@ -43,6 +46,7 @@ namespace Taha.DatabaseInitilization
 
             modelBuilder.Configurations.Add(new tbl_ProductMap());
             modelBuilder.Configurations.Add(new tbl_StoreMap());
+            modelBuilder.Configurations.Add(new tbl_CustomerMap());
             modelBuilder.Configurations.Add(new tbl_CodingMap());
 
         }

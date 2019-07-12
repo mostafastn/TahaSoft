@@ -45,6 +45,11 @@ namespace Taha.DatabaseInitilization.Domains
         public virtual tbl_Category Category { get; }
 
         /// <summary>
+        /// each Product was in many cart
+        /// </summary>
+        public virtual ICollection<tbl_Cart> Cart { get; set; }
+
+        /// <summary>
         /// Image are in Coding
         /// </summary>
         public virtual tbl_Coding Coding { get; set; }

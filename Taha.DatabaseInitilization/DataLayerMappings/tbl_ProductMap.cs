@@ -9,6 +9,11 @@ namespace Taha.DatabaseInitilization.DataLayerMappings
         {
             HasOptional(e => e.Coding)
                 .WithRequired(e => e.Product);
+
+            HasMany(e => e.Cart)
+                .WithRequired(e => e.Product)
+                .HasForeignKey(e => e.fldProductID)
+                .WillCascadeOnDelete(false);
         }
 
     }
