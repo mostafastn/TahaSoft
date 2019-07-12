@@ -22,11 +22,7 @@ namespace Taha.DatabaseInitilization.Domains
         [Required]
         public decimal fldDiscount { get; set; }
 
-        /// <summary>
-        /// image assginment most use
-        /// </summary>
-        //public string Image { get; set; }
-
+        
         /// <summary>
         /// coding Visits most use
         /// </summary>
@@ -41,8 +37,17 @@ namespace Taha.DatabaseInitilization.Domains
         /// </summary>
         //public int AvailableCount { get; set; }
 
-
+           
+        /// <summary>
+        /// each product was in one only one category and
+        /// cannot have to or more category 
+        /// </summary>
         public virtual tbl_Category Category { get; }
+
+        /// <summary>
+        /// Image are in Coding
+        /// </summary>
         public virtual tbl_Coding Coding { get; set; }
+        
     }
 }

@@ -18,23 +18,17 @@ namespace Taha.DatabaseInitilization.Domains
 
         [Required]
         public string Link { get; set; }
+        
 
         /// <summary>
-        /// image assginment most use
+        /// ProductMenu && Image are in Coding with assignment
         /// </summary>
-        //public string Image { get; set; }
+        public virtual tbl_Coding Coding { get; set; }
+
 
         /// <summary>
         /// coding Visits most use
         /// </summary>
         //public int VisitsCount { get; set; }
-        
-        /// <summary>
-        /// coding most use
-        /// </summary>
-        //public int ProductMenu { get; set; }
-
-            
-        public virtual tbl_Coding Coding { get; set; }
     }
 }
