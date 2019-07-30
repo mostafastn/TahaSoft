@@ -22,12 +22,12 @@ namespace Taha.DatabaseInitilization.Domains
         [Required]
         public decimal fldDiscount { get; set; }
 
-        
+        // ToDo :: add this entityes
+
         /// <summary>
         /// coding Visits most use
         /// </summary>
         //public int VisitsCount { get; set; }
-
         /// <summary>
         /// coding most use
         /// </summary>
