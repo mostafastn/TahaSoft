@@ -17,7 +17,7 @@ namespace Taha.DatabaseInitilization.Domains
         public string fldIntroductionSummary { get; set; }
 
         [Required]
-        public string Link { get; set; }
+        public string fldLink { get; set; }
         
 
         /// <summary>
