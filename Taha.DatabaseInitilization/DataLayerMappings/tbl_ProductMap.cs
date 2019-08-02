@@ -10,7 +10,12 @@ namespace Taha.DatabaseInitilization.DataLayerMappings
             HasOptional(e => e.Coding)
                 .WithRequired(e => e.Product);
 
-            HasMany(e => e.Cart)
+            HasMany(e => e.CartItem)
+                .WithRequired(e => e.Product)
+                .HasForeignKey(e => e.fldProductID)
+                .WillCascadeOnDelete(false);
+
+            HasMany(e => e.ReceiptItem)
                 .WithRequired(e => e.Product)
                 .HasForeignKey(e => e.fldProductID)
                 .WillCascadeOnDelete(false);

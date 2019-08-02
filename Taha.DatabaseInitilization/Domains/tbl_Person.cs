@@ -6,12 +6,12 @@ using Taha.Framework.Entity;
 
 namespace Taha.DatabaseInitilization.Domains
 {
-    [Table("Store.tbl_Customer")]
-    public class tbl_Customer : BaseEntity
+    [Table("Common.tbl_Person")]
+    public class tbl_Person : BaseEntity
     {
-        public tbl_Customer()
+        public tbl_Person()
         {
-            Cart = new HashSet<tbl_Cart>();
+            //Cart = new HashSet<tbl_Cart>();
         }
 
         [Required]
@@ -21,19 +21,19 @@ namespace Taha.DatabaseInitilization.Domains
         public string fldLastName { get; set; }
 
         [Required]
-        public string fldSSN { get; set; }
+        public string SSN { get; set; }
 
         [Required]
-        public string fldPhone { get; set; }
+        public string Phone { get; set; }
 
         [Required]
-        public string fldEmail { get; set; }
+        public string Email { get; set; }
 
         [Required]
-        public string fldAddress { get; set; }
-        
-        public virtual ICollection<tbl_Cart> Cart { get; set; }
+        public string Address { get; set; }
 
+        //public virtual ICollection<tbl_Cart> Cart { get; set; }
+        public virtual tbl_User User { get; set; }
 
     }
 }

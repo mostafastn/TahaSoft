@@ -9,6 +9,9 @@ namespace Taha.DatabaseInitilization
     {
         #region Main Object
 
+        public DbSet<tbl_Person> Tbl_Persons { get; set; }
+        public DbSet<tbl_User> Tbl_Users { get; set; }
+
         public DbSet<tbl_Category> tbl_Category { get; set; }
         public DbSet<tbl_Place> tbl_Place { get; set; }
         public DbSet<tbl_CarouselSlide> tbl_CarouselSlide { get; set; }
@@ -39,6 +42,9 @@ namespace Taha.DatabaseInitilization
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
+            modelBuilder.Configurations.Add(new tbl_PersonMap());
+            modelBuilder.Configurations.Add(new tbl_CartMap());
+            modelBuilder.Configurations.Add(new tbl_ReceiptMap());
             modelBuilder.Configurations.Add(new tbl_DetailMap());
             modelBuilder.Configurations.Add(new tbl_ImageMap());
             modelBuilder.Configurations.Add(new tbl_CategoryMap());
@@ -48,7 +54,6 @@ namespace Taha.DatabaseInitilization
             modelBuilder.Configurations.Add(new tbl_StoreMap());
             modelBuilder.Configurations.Add(new tbl_CustomerMap());
             modelBuilder.Configurations.Add(new tbl_CodingMap());
-
         }
     }
 }

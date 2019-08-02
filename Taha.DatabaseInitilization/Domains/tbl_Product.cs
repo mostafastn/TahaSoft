@@ -47,7 +47,12 @@ namespace Taha.DatabaseInitilization.Domains
         /// <summary>
         /// each Product was in many cart
         /// </summary>
-        public virtual ICollection<tbl_Cart> Cart { get; set; }
+        public virtual ICollection<tbl_CartItem> CartItem { get; set; }
+
+        /// <summary>
+        /// each product was in many ReceiptItem
+        /// </summary>
+        public virtual ICollection<tbl_ReceiptItem> ReceiptItem { get; set; }
 
         /// <summary>
         /// Image are in Coding
