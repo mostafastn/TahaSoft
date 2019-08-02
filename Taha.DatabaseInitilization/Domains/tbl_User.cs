@@ -28,6 +28,6 @@ namespace Taha.DatabaseInitilization.Domains
 
         public virtual tbl_Person Person { get; set; }
 
-
+        public virtual ICollection<tbl_Receipt> Receipt { get; set; }
     }
 }

@@ -55,6 +55,7 @@
     <Compile Include="DataLayerMappings\tbl_ImageMap.cs" />
     <Compile Include="DataLayerMappings\tbl_CustomerMap.cs" />
     <Compile Include="DataLayerMappings\tbl_CartMap.cs" />
+    <Compile Include="DataLayerMappings\tbl_UserMap.cs" />
     <Compile Include="DataLayerMappings\tbl_ReceiptMap.cs" />
     <Compile Include="DataLayerMappings\tbl_StoretMap.cs" />
     <Compile Include="DataLayerMappings\tbl_ProductMap.cs" />

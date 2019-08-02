@@ -49,7 +49,7 @@ namespace Taha.DatabaseInitilization
             modelBuilder.Configurations.Add(new tbl_ImageMap());
             modelBuilder.Configurations.Add(new tbl_CategoryMap());
             modelBuilder.Configurations.Add(new tbl_PlaceMap());
-
+            modelBuilder.Configurations.Add(new tbl_UserMap());
             modelBuilder.Configurations.Add(new tbl_ProductMap());
             modelBuilder.Configurations.Add(new tbl_StoreMap());
             modelBuilder.Configurations.Add(new tbl_CustomerMap());
