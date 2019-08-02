@@ -9,6 +9,11 @@ namespace Taha.DatabaseInitilization.Domains
     [Table("Store.tbl_Product")]
     public class tbl_Product : BaseEntity
     {
+        public tbl_Product()
+        {
+            CartItem = new HashSet<tbl_CartItem>();
+            ReceiptItem = new HashSet<tbl_ReceiptItem>();
+        }
         [Required]
         public Guid fldCategoryID { get; set; }
 

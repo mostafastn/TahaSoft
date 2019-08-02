@@ -11,7 +11,7 @@ namespace Taha.DatabaseInitilization.Domains
     {
         public tbl_User()
         {
-
+            Receipt = new HashSet<tbl_Receipt>();
         }
 
         [Required]

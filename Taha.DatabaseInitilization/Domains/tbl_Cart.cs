@@ -9,6 +9,11 @@ namespace Taha.DatabaseInitilization.Domains
     [Table("Store.tbl_Cart")]
     public class tbl_Cart : BaseEntity
     {
+        public tbl_Cart()
+        {
+            // this is necessary otherwise EF will throw null object reference error. you could also put ?? operator check for more interactive solution.  
+            CartItem = new HashSet<tbl_CartItem>();
+        }
         [Required]
         public Guid fldProductID { get; set; }
 
