@@ -9,6 +9,9 @@ namespace Taha.DatabaseInitilization.DataLayerMappings
         {
             HasOptional(e => e.User)
                 .WithRequired(e => e.Person);
+
+            HasOptional(e => e.Customer)
+                .WithRequired(e => e.Person);
         }
 
     }

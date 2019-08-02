@@ -34,6 +34,7 @@ namespace Taha.DatabaseInitilization.Domains
 
         //public virtual ICollection<tbl_Cart> Cart { get; set; }
         public virtual tbl_User User { get; set; }
+        public virtual tbl_Customer Customer { get; set; }
 
     }
 }

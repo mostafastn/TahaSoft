@@ -15,25 +15,9 @@ namespace Taha.DatabaseInitilization.Domains
         }
 
         [Required]
-        public string fldFirstName { get; set; }
-        
-        [Required]
-        public string fldLastName { get; set; }
+        public Guid fldPersonID { get; set; }
 
-        [Required]
-        public string fldSSN { get; set; }
-
-        [Required]
-        public string fldPhone { get; set; }
-
-        [Required]
-        public string fldEmail { get; set; }
-
-        [Required]
-        public string fldAddress { get; set; }
-        
+        public virtual tbl_Person Person { get; set; }
         public virtual ICollection<tbl_Cart> Cart { get; set; }
-
-
     }
 }
