@@ -59,7 +59,6 @@
     <Compile Include="Repositorys\PlaceRepository.cs" />
     <Compile Include="Repositorys\CategoryRepository.cs" />
     <Compile Include="GenericRepository.cs" />
-    <Compile Include="Models\TreeMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
