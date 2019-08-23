@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIControllerTest\CategoryAssignmentTest.cs" />
+    <Compile Include="APIControllerTest\ImageTest.cs" />
     <Compile Include="APIControllerTest\StoreTest.cs" />
     <Compile Include="APIControllerTest\CarouselSlideTest.cs" />
     <Compile Include="APIControllerTest\CategoryTest.cs" />

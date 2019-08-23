@@ -52,12 +52,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\CategoryAssignment.cs" />
     <Compile Include="Models\Store.cs" />
     <Compile Include="Models\CarouselSlide.cs" />
     <Compile Include="Models\Place.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Repositorys\CategoryAssignmentRepository.cs" />
+    <Compile Include="Repositorys\ImageRepository.cs" />
     <Compile Include="Repositorys\StoreRepository.cs" />
     <Compile Include="Repositorys\CarouselSlideRepository.cs" />
     <Compile Include="Repositorys\PlaceRepository.cs" />
