@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CodingController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\CarouselSlideController.cs" />
     <Compile Include="Controllers\PlaceController.cs" />
