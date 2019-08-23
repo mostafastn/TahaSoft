@@ -18,13 +18,17 @@ namespace Taha.DatabaseInitilization.Domains
 
         [Required]
         public string fldLink { get; set; }
-        
+
 
         /// <summary>
         /// ProductMenu && Image are in Coding with assignment
         /// </summary>
-        public virtual tbl_Coding Coding { get; set; }
+        //public virtual tbl_Coding Coding { get; set; }
 
+        /// <summary>
+        /// after delete Coding
+        /// </summary>
+        public virtual ICollection<tbl_DetailAssignment> DetailAssignment { get; set; }
 
         /// <summary>
         /// coding Visits most use

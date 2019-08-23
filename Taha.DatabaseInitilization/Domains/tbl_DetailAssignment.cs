@@ -18,5 +18,10 @@ namespace Taha.DatabaseInitilization.Domains
         
         public virtual tbl_Detail Detail { get; }
         public virtual tbl_Coding Coding { get; }
+
+        /// <summary>
+        /// after delete Coding
+        /// </summary>
+        public virtual tbl_Store Store { get; }
     }
 }
