@@ -96,8 +96,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ImageAssignmentController.cs" />
     <Compile Include="Controllers\CategoryAssignmentController .cs" />
-    <Compile Include="Controllers\CategoryController - Copy.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\CarouselSlideController.cs" />
     <Compile Include="Controllers\PlaceController.cs" />

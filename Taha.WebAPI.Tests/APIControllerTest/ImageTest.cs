@@ -46,60 +46,60 @@ namespace Taha.WebAPI.Tests.APIControllerTest
             Assert.IsNotNull(response);
         }
 
-        //[TestMethod]
-        //public void Test_2_Update()
-        //{
-        //    //Act
+        [TestMethod]
+        public void Test_2_Update()
+        {
+            //Act
 
-        //    var categoryResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
-        //    var categorys = categoryResult.Content.ToList();
+            var imageResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
+            var images= imageResult.Content.ToList();
 
-        //    categorys.ForEach(t => { t.Name = t.Name + " Updated "; });
+            images.ForEach(t => { t.AlternativeText = t.AlternativeText+ " Updated "; });
 
-        //    var response = baseController.Update(categorys) as OkNegotiatedContentResult<IEnumerable<Category>>;
+            var response = baseController.Update(images) as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
 
-        //    //Assert
-        //    Assert.IsNotNull(response);
-        //}
+            //Assert
+            Assert.IsNotNull(response);
+        }
 
-        //[TestMethod]
-        //public void Test_3_GetAll()
-        //{
-        //    // Act
+        [TestMethod]
+        public void Test_3_GetAll()
+        {
+            // Act
 
-        //    var categoryResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
+            var imageResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
 
-        //    // Assert
-        //    Assert.IsNotNull(categoryResult);
-        //}
+            // Assert
+            Assert.IsNotNull(imageResult);
+        }
 
-        //[TestMethod]
-        //public void Test_4_GetByID()
-        //{
-        //    // Act
+        [TestMethod]
+        public void Test_4_GetByID()
+        {
+            // Act
 
-        //    var _categorys = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
-        //    var categorys = _categorys.Content.ToList();
+            var _images = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
+            var imagess = _images.Content.ToList();
 
-        //    var categoryResult = baseController.GetByID(categorys[0].ID) as OkNegotiatedContentResult<Category>;
+            var imageResult = baseController.GetByID(imagess[0].ID) as OkNegotiatedContentResult<apiModel.Image>;
 
-        //    // Assert
-        //    Assert.IsNotNull(categoryResult);
-        //}
+            // Assert
+            Assert.IsNotNull(imageResult);
+        }
 
-        //[TestMethod]
-        //public void Test_5_Delete()
-        //{
-        //    //Act
-        //    var getAllResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
+        [TestMethod]
+        public void Test_5_Delete()
+        {
+            //Act
+            var getAllResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
 
-        //    var categoryIDs = getAllResult.Content.Select(t => t.ID).ToList();
+            var imageIDs = getAllResult.Content.Select(t => t.ID).ToList();
 
-        //    var deleteResult = baseController.Delete(categoryIDs) as OkNegotiatedContentResult<IEnumerable<Guid>>;
+            var deleteResult = baseController.Delete(imageIDs) as OkNegotiatedContentResult<IEnumerable<Guid>>;
 
-        //    //Assert
-        //    Assert.IsNotNull(getAllResult);
-        //}
+            //Assert
+            Assert.IsNotNull(getAllResult);
+        }
 
     }
 }
