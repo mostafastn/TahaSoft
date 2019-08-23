@@ -9,6 +9,15 @@ namespace Taha.DatabaseInitilization.Domains
     [Table("Store.tbl_Store")]
     public class tbl_Store : BaseEntity
     {
+        public tbl_Store()
+        {
+            // this is necessary otherwise EF will throw null object reference error. you could also put ?? operator check for more interactive solution.  
+            DetailAssignment = new HashSet<tbl_DetailAssignment>();
+            CategoryAssignment = new HashSet<tbl_CategoryAssignment>();
+            ImageAssignment = new HashSet<tbl_ImageAssignment>();
+        }
+
+
         [Required]
         [MaxLength(50)]
         public string fldName { get; set; }
@@ -25,11 +34,10 @@ namespace Taha.DatabaseInitilization.Domains
         /// </summary>
         //public virtual tbl_Coding Coding { get; set; }
 
-        /// <summary>
-        /// after delete Coding
-        /// </summary>
-        public virtual ICollection<tbl_DetailAssignment> DetailAssignment { get; set; }
 
+        public virtual ICollection<tbl_DetailAssignment> DetailAssignment { get; set; }
+        public virtual ICollection<tbl_CategoryAssignment> CategoryAssignment { get; set; }
+        public virtual ICollection<tbl_ImageAssignment> ImageAssignment { get; set; }
         /// <summary>
         /// coding Visits most use
         /// </summary>

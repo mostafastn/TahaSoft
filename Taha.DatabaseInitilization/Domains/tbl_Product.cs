@@ -11,6 +11,10 @@ namespace Taha.DatabaseInitilization.Domains
     {
         public tbl_Product()
         {
+            // this is necessary otherwise EF will throw null object reference error. you could also put ?? operator check for more interactive solution.  
+            DetailAssignment = new HashSet<tbl_DetailAssignment>();
+            ImageAssignment = new HashSet<tbl_ImageAssignment>();
+
             CartItem = new HashSet<tbl_CartItem>();
             ReceiptItem = new HashSet<tbl_ReceiptItem>();
         }
@@ -59,10 +63,7 @@ namespace Taha.DatabaseInitilization.Domains
         /// </summary>
         public virtual ICollection<tbl_ReceiptItem> ReceiptItem { get; set; }
 
-        /// <summary>
-        /// Image are in Coding
-        /// </summary>
-        public virtual tbl_Coding Coding { get; set; }
-        
+        public virtual ICollection<tbl_DetailAssignment> DetailAssignment { get; set; }
+        public virtual ICollection<tbl_ImageAssignment> ImageAssignment { get; set; }
     }
 }

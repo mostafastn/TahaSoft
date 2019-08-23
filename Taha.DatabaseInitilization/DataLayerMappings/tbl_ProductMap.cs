@@ -7,9 +7,6 @@ namespace Taha.DatabaseInitilization.DataLayerMappings
     {
         public tbl_ProductMap()
         {
-            HasOptional(e => e.Coding)
-                .WithRequired(e => e.Product);
-
             HasMany(e => e.CartItem)
                 .WithRequired(e => e.Product)
                 .HasForeignKey(e => e.fldProductID)
@@ -18,6 +15,16 @@ namespace Taha.DatabaseInitilization.DataLayerMappings
             HasMany(e => e.ReceiptItem)
                 .WithRequired(e => e.Product)
                 .HasForeignKey(e => e.fldProductID)
+                .WillCascadeOnDelete(false);
+            
+            HasMany(e => e.DetailAssignment)
+                .WithRequired(e => e.Product)
+                .HasForeignKey(e => e.fldCodingID)
+                .WillCascadeOnDelete(false);
+
+            HasMany(e => e.ImageAssignment)
+                .WithRequired(e => e.Product)
+                .HasForeignKey(e => e.fldCodingID)
                 .WillCascadeOnDelete(false);
         }
 

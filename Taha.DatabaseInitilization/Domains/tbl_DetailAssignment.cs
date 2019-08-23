@@ -17,11 +17,15 @@ namespace Taha.DatabaseInitilization.Domains
         public Guid fldDetailID { get; set; }
         
         public virtual tbl_Detail Detail { get; }
-        public virtual tbl_Coding Coding { get; }
+        //public virtual tbl_Coding Coding { get; }
 
         /// <summary>
         /// after delete Coding
         /// </summary>
         public virtual tbl_Store Store { get; }
+        /// <summary>
+        /// after delete Coding
+        /// </summary>
+        public virtual tbl_Product Product { get; }
     }
 }

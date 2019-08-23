@@ -59,7 +59,6 @@
     <Compile Include="DataLayerMappings\tbl_ReceiptMap.cs" />
     <Compile Include="DataLayerMappings\tbl_StoretMap.cs" />
     <Compile Include="DataLayerMappings\tbl_ProductMap.cs" />
-    <Compile Include="DataLayerMappings\tbl_CodingMap.cs" />
     <Compile Include="DataLayerMappings\tbl_DetailMap.cs" />
     <Compile Include="DataLayerMappings\tbl_PlaceMap.cs" />
     <Compile Include="DataLayerMappings\tbl_CategoryMap.cs" />
@@ -75,7 +74,6 @@
     <Compile Include="Domains\tbl_Cart.cs" />
     <Compile Include="Domains\tbl_Store.cs" />
     <Compile Include="Domains\tbl_Product.cs" />
-    <Compile Include="Domains\tbl_Coding.cs" />
     <Compile Include="Domains\tbl_CarouselSlide.cs" />
     <Compile Include="Domains\tbl_DetailAssignment.cs" />
     <Compile Include="Domains\tbl_Detail.cs" />

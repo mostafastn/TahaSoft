@@ -26,7 +26,7 @@ namespace Taha.DatabaseInitilization
         #endregion
 
         #region Relation of Objects
-        public DbSet<tbl_Coding> tbl_Coding { get; set; }
+        //public DbSet<tbl_Coding> tbl_Coding { get; set; }
 
         #endregion
 
@@ -53,7 +53,7 @@ namespace Taha.DatabaseInitilization
             modelBuilder.Configurations.Add(new tbl_ProductMap());
             modelBuilder.Configurations.Add(new tbl_StoreMap());
             modelBuilder.Configurations.Add(new tbl_CustomerMap());
-            modelBuilder.Configurations.Add(new tbl_CodingMap());
+            //modelBuilder.Configurations.Add(new tbl_CodingMap());
         }
     }
 }
