@@ -11,7 +11,6 @@ namespace Taha.DatabaseInitilization.DataLayerMappings
                 .WithOptional(e => e.Parent)
                 .HasForeignKey(e => e.fldParentID);
 
-
             HasMany(e => e.Product)
                 .WithRequired(e => e.Category)
                 .HasForeignKey(e => e.fldCategoryID)
@@ -21,6 +20,7 @@ namespace Taha.DatabaseInitilization.DataLayerMappings
                 .WithRequired(e => e.Category)
                 .HasForeignKey(e => e.fldCategoryID)
                 .WillCascadeOnDelete(false);
+            
         }
     }
 }

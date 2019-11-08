@@ -33,9 +33,9 @@ namespace Taha.WebAPI.Tests.APIControllerTest
             //Act
             var categoryAssignments = new List<CategoryAssignment>()
             {
-                new CategoryAssignment() { ID = Guid.NewGuid(),CategoryID = Guid.Parse("5a934814-665b-49b7-83e4-27efbc1c351b"), CodingID = Guid.Parse("a725c83b-237c-4d8b-98df-c2351bbd72a0")},
-                new CategoryAssignment() { ID = Guid.NewGuid(),CategoryID = Guid.Parse("ba0dc723-21cb-4c55-8ab9-9333bd5692b7"), CodingID = Guid.Parse("a725c83b-237c-4d8b-98df-c2351bbd72a0")},
-                new CategoryAssignment() { ID = Guid.NewGuid(),CategoryID = Guid.Parse("f47b0cee-1f9d-413d-831e-1bf8f0b1f778"), CodingID = Guid.Parse("a725c83b-237c-4d8b-98df-c2351bbd72a0")},
+                new CategoryAssignment() { ID = Guid.NewGuid(),CategoryID = Guid.Parse("157f57e0-b219-4527-983a-146207756826"), CodingID = Guid.Parse("a725c83b-237c-4d8b-98df-c2351bbd72a0")},
+                new CategoryAssignment() { ID = Guid.NewGuid(),CategoryID = Guid.Parse("5a40ba1e-ccf5-4dd3-81ed-52df64573b64"), CodingID = Guid.Parse("a725c83b-237c-4d8b-98df-c2351bbd72a0")},
+                new CategoryAssignment() { ID = Guid.NewGuid(),CategoryID = Guid.Parse("fb5669bf-e741-4652-9a7e-873a359ff3df"), CodingID = Guid.Parse("a725c83b-237c-4d8b-98df-c2351bbd72a0")},
             };
 
             var response = baseController.Insert(categoryAssignments) as OkNegotiatedContentResult<IEnumerable<CategoryAssignment>>;

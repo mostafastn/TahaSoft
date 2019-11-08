@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataLayerMappings\tbl_CodingMap.cs" />
     <Compile Include="DataLayerMappings\tbl_PersonMap.cs" />
     <Compile Include="DataLayerMappings\tbl_ImageMap.cs" />
     <Compile Include="DataLayerMappings\tbl_CustomerMap.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="DataLayerMappings\tbl_PlaceMap.cs" />
     <Compile Include="DataLayerMappings\tbl_CategoryMap.cs" />
     <Compile Include="Domains\tbl_CartItem.cs" />
+    <Compile Include="Domains\tbl_Coding.cs" />
     <Compile Include="Domains\tbl_ReceiptItem.cs" />
     <Compile Include="Domains\tbl_User.cs" />
     <Compile Include="Domains\tbl_Person.cs" />

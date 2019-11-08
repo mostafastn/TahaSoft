@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Coding.cs" />
     <Compile Include="Models\ImageAssignment.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\CategoryAssignment.cs" />
@@ -59,12 +60,13 @@
     <Compile Include="Models\CarouselSlide.cs" />
     <Compile Include="Models\Place.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Repositorys\CodingRepository.cs" />
     <Compile Include="Repositorys\ImageAssignmentRepository.cs" />
     <Compile Include="Repositorys\CategoryAssignmentRepository.cs" />
     <Compile Include="Repositorys\ImageRepository.cs" />
+    <Compile Include="Repositorys\PlaceRepository.cs" />
     <Compile Include="Repositorys\StoreRepository.cs" />
     <Compile Include="Repositorys\CarouselSlideRepository.cs" />
-    <Compile Include="Repositorys\PlaceRepository.cs" />
     <Compile Include="Repositorys\CategoryRepository.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

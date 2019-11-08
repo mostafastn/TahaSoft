@@ -18,6 +18,8 @@ namespace Taha.DatabaseInitilization.Domains
 
         public virtual tbl_Category Category { get; }
         
-        public virtual tbl_Store Store { get; }
+        //public virtual tbl_Store Store { get; }
+
+        //public virtual tbl_Coding Coding { get; }
     }
 }

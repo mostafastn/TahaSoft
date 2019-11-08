@@ -25,6 +25,12 @@ namespace Taha.DatabaseInitilization
 
         #endregion
 
+        #region tbl_CodingMap
+
+        public DbSet<tbl_Coding> tbl_Coding { get; set; }
+
+        #endregion
+
         #region ObjectAssignment
 
         public DbSet<tbl_DetailAssignment> tbl_DetailAssignment { get; set; }
@@ -35,17 +41,19 @@ namespace Taha.DatabaseInitilization
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new tbl_CodingMap());
+
             modelBuilder.Configurations.Add(new tbl_PersonMap());
-            modelBuilder.Configurations.Add(new tbl_CartMap());
+            //modelBuilder.Configurations.Add(new tbl_CartMap());
             modelBuilder.Configurations.Add(new tbl_ReceiptMap());
-            modelBuilder.Configurations.Add(new tbl_DetailMap());
+            //modelBuilder.Configurations.Add(new tbl_DetailMap());
             modelBuilder.Configurations.Add(new tbl_ImageMap());
             modelBuilder.Configurations.Add(new tbl_CategoryMap());
             modelBuilder.Configurations.Add(new tbl_PlaceMap());
             modelBuilder.Configurations.Add(new tbl_UserMap());
-            modelBuilder.Configurations.Add(new tbl_ProductMap());
-            modelBuilder.Configurations.Add(new tbl_StoreMap());
-            modelBuilder.Configurations.Add(new tbl_CustomerMap());
+            //modelBuilder.Configurations.Add(new tbl_ProductMap());
+            //modelBuilder.Configurations.Add(new tbl_StoreMap());
+            //modelBuilder.Configurations.Add(new tbl_CustomerMap());
         }
     }
 }
