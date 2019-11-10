@@ -28,8 +28,8 @@ namespace Taha.DatabaseInitilization.Domains
         /// </summary>
         public string fldDescription { get; set; }
 
-        public virtual ICollection<tbl_CartItem> CartItem { get; }
-        public virtual tbl_Customer Customer { get; }
+        public virtual ICollection<tbl_CartItem> CartItem { get; set; }
+        public virtual tbl_Customer Customer { get; set; }
 
 
     }

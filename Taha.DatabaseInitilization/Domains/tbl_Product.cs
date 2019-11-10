@@ -51,7 +51,7 @@ namespace Taha.DatabaseInitilization.Domains
         /// each product was in one only one category and
         /// cannot have to or more category 
         /// </summary>
-        public virtual tbl_Category Category { get; }
+        public virtual tbl_Category Category { get; set; }
 
         /// <summary>
         /// each Product was in many cart

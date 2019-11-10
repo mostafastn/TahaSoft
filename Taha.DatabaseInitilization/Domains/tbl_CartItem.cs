@@ -39,7 +39,7 @@ namespace Taha.DatabaseInitilization.Domains
         public string fldDescription  { get; set; }
         
 
-        public virtual tbl_Cart Cart { get; }
-        public virtual tbl_Product Product { get; }
+        public virtual tbl_Cart Cart { get; set; }
+        public virtual tbl_Product Product { get; set; }
     }
 }

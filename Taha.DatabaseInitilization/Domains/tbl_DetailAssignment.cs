@@ -16,15 +16,15 @@ namespace Taha.DatabaseInitilization.Domains
         [Required]
         public Guid fldDetailID { get; set; }
         
-        public virtual tbl_Detail Detail { get; }
+        public virtual tbl_Detail Detail { get; set; }
        
         /// <summary>
         /// after delete Coding
         /// </summary>
-        public virtual tbl_Store Store { get; }
+        public virtual tbl_Store Store { get; set; }
         /// <summary>
         /// after delete Coding
         /// </summary>
-        public virtual tbl_Product Product { get; }
+        public virtual tbl_Product Product { get; set; }
     }
 }

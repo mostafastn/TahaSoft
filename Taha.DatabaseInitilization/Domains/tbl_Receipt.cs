@@ -27,7 +27,7 @@ namespace Taha.DatabaseInitilization.Domains
         /// </summary>
         public Guid? fldUserID { get; set; }
         
-        public virtual tbl_User User { get; }
+        public virtual tbl_User User { get; set; }
 
         public virtual ICollection<tbl_ReceiptItem> ReceiptItem { get; set; }
         

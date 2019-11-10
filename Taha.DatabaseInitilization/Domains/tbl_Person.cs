@@ -21,16 +21,16 @@ namespace Taha.DatabaseInitilization.Domains
         public string fldLastName { get; set; }
 
         [Required]
-        public string SSN { get; set; }
+        public string fldSSN { get; set; }
 
         [Required]
-        public string Phone { get; set; }
+        public string fldPhone { get; set; }
 
         [Required]
-        public string Email { get; set; }
+        public string fldEmail { get; set; }
 
         [Required]
-        public string Address { get; set; }
+        public string fldAddress { get; set; }
 
         //public virtual ICollection<tbl_Cart> Cart { get; set; }
         public virtual tbl_User User { get; set; }

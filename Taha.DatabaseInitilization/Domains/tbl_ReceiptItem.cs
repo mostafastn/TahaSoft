@@ -41,8 +41,8 @@ namespace Taha.DatabaseInitilization.Domains
         /// </summary>
         public int fldWarehouseReceipNo { get; set; }
 
-        public virtual tbl_Receipt Receipt { get; }
-        public virtual tbl_Product Product { get; }
+        public virtual tbl_Receipt Receipt { get; set; }
+        public virtual tbl_Product Product { get; set; }
         
         
     }

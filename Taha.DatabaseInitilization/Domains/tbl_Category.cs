@@ -30,8 +30,8 @@ namespace Taha.DatabaseInitilization.Domains
 
         public Guid? fldParentID { get; set; }
 
-        public virtual tbl_Category Parent { get; }
-        public virtual ICollection<tbl_Category> ChilList { get; }
+        public virtual tbl_Category Parent { get; set; }
+        public virtual ICollection<tbl_Category> ChilList { get; set; }
 
         public virtual ICollection<tbl_Product> Product { get; set; }
 
