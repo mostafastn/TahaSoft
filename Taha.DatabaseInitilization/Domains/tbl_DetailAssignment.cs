@@ -21,7 +21,7 @@ namespace Taha.DatabaseInitilization.Domains
         /// <summary>
         /// after delete Coding
         /// </summary>
-        public virtual tbl_Store Store { get; set; }
+        //public virtual tbl_Store Store { get; set; }
         /// <summary>
         /// after delete Coding
         /// </summary>

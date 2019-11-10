@@ -38,12 +38,13 @@ namespace Taha.DatabaseInitilization
         public DbSet<tbl_CategoryAssignment> tbl_CategoryAssignment { get; set; }
 
         #endregion
-        
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new tbl_CodingMap());
 
             modelBuilder.Configurations.Add(new tbl_PersonMap());
+            modelBuilder.Configurations.Add(new tbl_CustomerMap());
             modelBuilder.Configurations.Add(new tbl_CartMap());
             modelBuilder.Configurations.Add(new tbl_ReceiptMap());
             modelBuilder.Configurations.Add(new tbl_DetailMap());
@@ -53,7 +54,6 @@ namespace Taha.DatabaseInitilization
             modelBuilder.Configurations.Add(new tbl_UserMap());
             modelBuilder.Configurations.Add(new tbl_ProductMap());
             modelBuilder.Configurations.Add(new tbl_StoreMap());
-            modelBuilder.Configurations.Add(new tbl_CustomerMap());
         }
     }
 }
