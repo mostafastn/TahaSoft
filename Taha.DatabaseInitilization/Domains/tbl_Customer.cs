@@ -14,9 +14,6 @@ namespace Taha.DatabaseInitilization.Domains
             Cart = new HashSet<tbl_Cart>();
         }
 
-        [Required]
-        public Guid fldPersonID { get; set; }
-
         public virtual tbl_Person Person { get; set; }
         public virtual ICollection<tbl_Cart> Cart { get; set; }
     }

@@ -7,8 +7,10 @@ namespace Taha.DatabaseInitilization.DataLayerMappings
     {
         public tbl_PersonMap()
         {
-            HasOptional(e => e.User)
-                .WithRequired(e => e.Person);
+            HasMany(e => e.User)
+                .WithRequired(e => e.Person)
+                .HasForeignKey(e=>e.fldPersonID)
+                .WillCascadeOnDelete(false);
 
             HasOptional(e => e.Customer)
                 .WithRequired(e => e.Person);

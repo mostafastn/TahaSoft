@@ -12,6 +12,7 @@ namespace Taha.DatabaseInitilization.Domains
         public tbl_Person()
         {
             //Cart = new HashSet<tbl_Cart>();
+            User = new HashSet<tbl_User>();
         }
 
         [Required]
@@ -33,7 +34,7 @@ namespace Taha.DatabaseInitilization.Domains
         public string fldAddress { get; set; }
 
         //public virtual ICollection<tbl_Cart> Cart { get; set; }
-        public virtual tbl_User User { get; set; }
+        public virtual ICollection<tbl_User> User { get; set; }
         public virtual tbl_Customer Customer { get; set; }
 
     }
