@@ -16,16 +16,6 @@ namespace Taha.DatabaseInitilization.DataLayerMappings
                 .WithRequired(e => e.Product)
                 .HasForeignKey(e => e.fldProductID)
                 .WillCascadeOnDelete(false);
-            
-            HasMany(e => e.DetailAssignment)
-                .WithRequired(e => e.Product)
-                .HasForeignKey(e => e.fldCodingID)
-                .WillCascadeOnDelete(false);
-
-            HasMany(e => e.ImageAssignment)
-                .WithRequired(e => e.Product)
-                .HasForeignKey(e => e.fldCodingID)
-                .WillCascadeOnDelete(false);
         }
 
     }

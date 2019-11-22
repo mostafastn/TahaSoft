@@ -16,13 +16,7 @@ namespace Taha.DatabaseInitilization.Domains
         [Required]
         public Guid fldImageID { get; set; }
 
-        //public virtual tbl_Coding Coding { get; set; }
-
         public virtual tbl_Image Image { get; set; }
-       
-        public virtual tbl_Product Product { get; set; }
-
-        //public virtual tbl_Store Store { get; set; }
 
     }
 }

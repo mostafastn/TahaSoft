@@ -17,9 +17,6 @@ namespace Taha.DatabaseInitilization.Domains
         public Guid fldCategoryID { get; set; }
 
         public virtual tbl_Category Category { get; set; }
-
-        //public virtual tbl_Store Store { get; set;}
-
-        //public virtual tbl_Coding Coding { get; set; }
+        
     }
 }

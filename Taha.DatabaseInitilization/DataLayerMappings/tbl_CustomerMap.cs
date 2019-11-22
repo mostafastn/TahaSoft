@@ -8,7 +8,7 @@ namespace Taha.DatabaseInitilization.DataLayerMappings
         public tbl_CustomerMap()
         {
             HasMany(e => e.Cart)
-                .WithRequired(e => e.Customer)
+                .WithOptional(e => e.Customer)
                 .HasForeignKey(e => e.fldCustomerID)
                 .WillCascadeOnDelete(false);
         }
