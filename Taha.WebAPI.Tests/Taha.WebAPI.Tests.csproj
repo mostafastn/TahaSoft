@@ -68,8 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIControllerTest\CodingTest.cs" />
+    <Compile Include="APIControllerTest\DetailAssignmentTest.cs" />
     <Compile Include="APIControllerTest\ImageAssignmentTest.cs" />
     <Compile Include="APIControllerTest\CategoryAssignmentTest.cs" />
+    <Compile Include="APIControllerTest\DetailTest.cs" />
     <Compile Include="APIControllerTest\ImageTest.cs" />
     <Compile Include="APIControllerTest\PlaceTest.cs" />
     <Compile Include="APIControllerTest\StoreTest.cs" />

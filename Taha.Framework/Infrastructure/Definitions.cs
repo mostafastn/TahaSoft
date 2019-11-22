@@ -13,10 +13,9 @@ namespace Taha.Framework.Infrastructure
     public enum ObjectType
     {
         Company = 1,
-        Category=2,
-        Story = 3,
-        Product = 4,
-        Detail = 5,
-        Image = 6
+        Story = 2,
+        Product = 3,
+        Detail = 4,
+        Image = 5
     }
 }

@@ -17,7 +17,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
     public class CodingTest
     {
         private CodingController baseController;
-        private CategoryController categoryController;
+        private StoreController storeController;
 
         public CodingTest()
         {
@@ -28,7 +28,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
                 Configuration = new HttpConfiguration()
             };
 
-            categoryController = new CategoryController
+            storeController = new StoreController
             {
                 Request = new HttpRequestMessage(),
                 Configuration = new HttpConfiguration()
@@ -39,18 +39,18 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_1_Insert()
         {
             //Act
-            var _category = categoryController.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
-            var category = _category.Content.ToList();
-            if (category == null)
-                Assert.IsNotNull(category);
+            var _store = storeController.GetAll() as OkNegotiatedContentResult<IEnumerable<Store>>;
+            var store = _store.Content.ToList();
+            if (store == null)
+                Assert.IsNotNull(store);
 
-            var categoryResult = categoryController.GetByID(category[0].ID) as OkNegotiatedContentResult<Category>;
+            var storeResult = storeController.GetByID(store[0].ID) as OkNegotiatedContentResult<Store>;
             var coding = new List<Coding>()
             {
                 new Coding()
                 {
-                    ID = categoryResult.Content.ID,
-                    ObjectType = ObjectType.Category,
+                    ID = storeResult.Content.ID,
+                    ObjectType = ObjectType.Story,
                 }
             };
 
@@ -60,60 +60,60 @@ namespace Taha.WebAPI.Tests.APIControllerTest
             Assert.IsNotNull(response);
         }
 
-        //[TestMethod]
-        //public void Test_2_Update()
-        //{
-        //    //Act
+        [TestMethod]
+        public void Test_2_Update()
+        {
+            //Act
 
-        //    var storeResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Store>>;
-        //    var stores = storeResult.Content.ToList();
+            var codingResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Coding>>;
+            var codings = codingResult.Content.ToList();
 
-        //    stores.ForEach(t => { t.IntroductionSummary = t.IntroductionSummary + " Updated "; });
+            codings.ForEach(t => { t.ObjectType= ObjectType.Story ; });
 
-        //    var response = baseController.Update(stores) as OkNegotiatedContentResult<IEnumerable<Store>>;
+            var response = baseController.Update(codings) as OkNegotiatedContentResult<IEnumerable<Coding>>;
 
-        //    //Assert
-        //    Assert.IsNotNull(response);
-        //}
+            //Assert
+            Assert.IsNotNull(response);
+        }
 
-        //[TestMethod]
-        //public void Test_3_GetAll()
-        //{
-        //    // Act
+        [TestMethod]
+        public void Test_3_GetAll()
+        {
+            // Act
 
-        //    var storeResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Store>>;
+            var codingResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Coding>>;
 
-        //    // Assert
-        //    Assert.IsNotNull(storeResult);
-        //}
+            // Assert
+            Assert.IsNotNull(codingResult);
+        }
 
-        //[TestMethod]
-        //public void Test_4_GetByID()
-        //{
-        //    // Act
+        [TestMethod]
+        public void Test_4_GetByID()
+        {
+            // Act
 
-        //    var _Stores = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Store>>;
-        //    var stores = _Stores.Content.ToList();
+            var _Coding = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Coding>>;
+            var codings = _Coding.Content.ToList();
 
-        //    var storeResult = baseController.GetByID(stores[0].ID) as OkNegotiatedContentResult<Store>;
+            var codingResult = baseController.GetByID(codings[0].ID) as OkNegotiatedContentResult<Coding>;
 
-        //    // Assert
-        //    Assert.IsNotNull(storeResult);
-        //}
+            // Assert
+            Assert.IsNotNull(codingResult);
+        }
 
-        //[TestMethod]
-        //public void Test_5_Delete()
-        //{
-        //    //Act
-        //    var getAllResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Store>>;
+        [TestMethod]
+        public void Test_5_Delete()
+        {
+            //Act
+            var getAllResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Coding>>;
 
-        //    var storeIDs = getAllResult.Content.Select(t => t.ID).ToList();
+            var codingIDs = getAllResult.Content.Select(t => t.ID).ToList();
 
-        //    var deleteResult = baseController.Delete(storeIDs) as OkNegotiatedContentResult<IEnumerable<Guid>>;
+            var deleteResult = baseController.Delete(codingIDs) as OkNegotiatedContentResult<IEnumerable<Coding>>;
 
-        //    //Assert
-        //    Assert.IsNotNull(getAllResult);
-        //}
+            //Assert
+            Assert.IsNotNull(getAllResult);
+        }
 
     }
 }

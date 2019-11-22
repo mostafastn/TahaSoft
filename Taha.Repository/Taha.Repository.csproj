@@ -53,6 +53,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Coding.cs" />
+    <Compile Include="Models\Detail.cs" />
+    <Compile Include="Models\DetailAssignment.cs" />
     <Compile Include="Models\ImageAssignment.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\CategoryAssignment.cs" />
@@ -61,8 +63,10 @@
     <Compile Include="Models\Place.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Repositorys\CodingRepository.cs" />
+    <Compile Include="Repositorys\DetailAssignmentRepository.cs" />
     <Compile Include="Repositorys\ImageAssignmentRepository.cs" />
     <Compile Include="Repositorys\CategoryAssignmentRepository.cs" />
+    <Compile Include="Repositorys\DetailRepository.cs" />
     <Compile Include="Repositorys\ImageRepository.cs" />
     <Compile Include="Repositorys\PlaceRepository.cs" />
     <Compile Include="Repositorys\StoreRepository.cs" />
