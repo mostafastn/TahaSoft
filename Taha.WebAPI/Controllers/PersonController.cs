@@ -4,7 +4,7 @@ using Taha.Repository.Repositorys;
 
 namespace Taha.WebAPI.Controllers
 {
-    public class ProductController : BaseController<ProductRepository, Product>
+    public class PersonController : BaseController<PersonRepository, Person>
     {
        
     }

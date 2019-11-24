@@ -102,7 +102,9 @@
     <Compile Include="Controllers\CategoryAssignmentController .cs" />
     <Compile Include="Controllers\DetailController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PlaceController.cs" />
+    <Compile Include="Controllers\PersonController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\CarouselSlideController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />

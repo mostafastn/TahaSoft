@@ -58,6 +58,8 @@
     <Compile Include="Models\ImageAssignment.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\CategoryAssignment.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Store.cs" />
     <Compile Include="Models\CarouselSlide.cs" />
     <Compile Include="Models\Place.cs" />
@@ -68,7 +70,9 @@
     <Compile Include="Repositorys\CategoryAssignmentRepository.cs" />
     <Compile Include="Repositorys\DetailRepository.cs" />
     <Compile Include="Repositorys\ImageRepository.cs" />
+    <Compile Include="Repositorys\ProductRepository.cs" />
     <Compile Include="Repositorys\PlaceRepository.cs" />
+    <Compile Include="Repositorys\PersonRepository.cs" />
     <Compile Include="Repositorys\StoreRepository.cs" />
     <Compile Include="Repositorys\CarouselSlideRepository.cs" />
     <Compile Include="Repositorys\CategoryRepository.cs" />

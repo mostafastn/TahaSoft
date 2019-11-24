@@ -73,7 +73,9 @@
     <Compile Include="APIControllerTest\CategoryAssignmentTest.cs" />
     <Compile Include="APIControllerTest\DetailTest.cs" />
     <Compile Include="APIControllerTest\ImageTest.cs" />
+    <Compile Include="APIControllerTest\ProductTest.cs" />
     <Compile Include="APIControllerTest\PlaceTest.cs" />
+    <Compile Include="APIControllerTest\PersonTest.cs" />
     <Compile Include="APIControllerTest\StoreTest.cs" />
     <Compile Include="APIControllerTest\CarouselSlideTest.cs" />
     <Compile Include="APIControllerTest\CategoryTest.cs" />
