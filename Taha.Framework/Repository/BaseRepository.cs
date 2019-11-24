@@ -166,7 +166,7 @@ namespace Taha.Framework.Repository
                     else
                     {
                         curentContext.SaveChanges();
-                        result.Result = null;
+                        result.Result = value;
                         result.succeed = true;
                     }
                 }
