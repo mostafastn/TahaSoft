@@ -16,6 +16,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
     public class ProductTest
     {
         private ProductController baseController;
+        private CategoryController categoryController;
 
         public ProductTest()
         {
@@ -25,17 +26,37 @@ namespace Taha.WebAPI.Tests.APIControllerTest
                 Request = new HttpRequestMessage(),
                 Configuration = new HttpConfiguration()
             };
+
+            //Arrange
+            categoryController = new CategoryController
+            {
+                Request = new HttpRequestMessage(),
+                Configuration = new HttpConfiguration()
+            };
         }
 
         [TestMethod]
         public void CRUDTest()
         {
+            var mineCategoryId = Guid.NewGuid();
+            var categorys = new List<Category>()
+            {
+                new Category() { ID = mineCategoryId , Name = "Main category", Periority = 0},
+                new Category() { ID = Guid.NewGuid(),Name = "categoryTest A", Periority = 1,ParentID = mineCategoryId },
+                new Category() { ID = Guid.NewGuid(),Name = "categoryTest B", Periority = 2,ParentID = mineCategoryId },
+                new Category() { ID = Guid.NewGuid(),Name = "categoryTest C", Periority = 3,ParentID = mineCategoryId },
+            };
+            var categoryInsertRresponse = categoryController.Insert(categorys) as OkNegotiatedContentResult<IEnumerable<Category>>;
+            var categoryList = categoryInsertRresponse.Content.ToList();
+            if (categoryList == null)
+                Assert.IsNotNull(categoryList);
+
             //Act
             var products = new List<Product>()
             {
-                new Product() { ID = Guid.NewGuid(),CategoryID = Guid.Parse("86fd1246-059e-4398-b537-04341ec77a34"), Name= "Name A", Price= 10000 , Discount= 10},
-                new Product() { ID = Guid.NewGuid(),CategoryID = Guid.Parse("86fd1246-059e-4398-b537-04341ec77a34"), Name= "Name A", Price= 10000 , Discount= 10},
-                new Product() { ID = Guid.NewGuid(),CategoryID = Guid.Parse("86fd1246-059e-4398-b537-04341ec77a34"), Name= "Name A", Price= 10000 , Discount= 10},
+                new Product() { ID = Guid.NewGuid(),CategoryID = categoryList[1].ID, Name= "Name A", Price= 10000 , Discount= 10},
+                new Product() { ID = Guid.NewGuid(),CategoryID = categoryList[1].ID, Name= "Name A", Price= 10000 , Discount= 10},
+                new Product() { ID = Guid.NewGuid(),CategoryID = categoryList[1].ID, Name= "Name A", Price= 10000 , Discount= 10},
             };
 
             var insertRresponse = baseController.Insert(products) as OkNegotiatedContentResult<IEnumerable<Product>>;
