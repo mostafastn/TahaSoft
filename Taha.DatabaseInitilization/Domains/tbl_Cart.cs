@@ -26,6 +26,7 @@ namespace Taha.DatabaseInitilization.Domains
         /// <summary>
         /// شرح خرید
         /// </summary>
+        [MaxLength(500)]
         public string fldDescription { get; set; }
 
         public virtual ICollection<tbl_CartItem> CartItem { get; set; }

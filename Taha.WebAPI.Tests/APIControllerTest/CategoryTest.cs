@@ -12,12 +12,12 @@ using Taha.Repository.Models;
 
 namespace Taha.WebAPI.Tests.APIControllerTest
 {
-    [TestClass]
-    public class CategoryTest
-    {
-        private CategoryController baseController;
 
-        public CategoryTest()
+    internal class CategoryImplementaion
+    {
+        private static CategoryController baseController;
+
+        static CategoryImplementaion()
         {
             //Arrange
             baseController = new CategoryController
@@ -26,11 +26,8 @@ namespace Taha.WebAPI.Tests.APIControllerTest
                 Configuration = new HttpConfiguration()
             };
         }
-
-        [TestMethod]
-        public void Test_1_Insert()
+        internal static IHttpActionResult insert()
         {
-            //Act
             var mineCategoryId = Guid.NewGuid();
             var categorys = new List<Category>()
             {
@@ -39,9 +36,50 @@ namespace Taha.WebAPI.Tests.APIControllerTest
                 new Category() { ID = Guid.NewGuid(),Name = "categoryTest B", Periority = 2,ParentID = mineCategoryId },
                 new Category() { ID = Guid.NewGuid(),Name = "categoryTest C", Periority = 3,ParentID = mineCategoryId },
             };
+            var response = baseController.Insert(categorys);
+            return response;
+        }
+        internal static IHttpActionResult update()
+        {
+            var categoryResult = GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
+            var categorys = categoryResult.Content.ToList();
 
-            var response = baseController.Insert(categorys) as OkNegotiatedContentResult<IEnumerable<Category>>;
+            categorys.ForEach(t => { t.Name = t.Name + " Updated "; });
 
+            var response = baseController.Update(categorys);
+            return response;
+        }
+        internal static IHttpActionResult GetAll()
+        {
+            insert();
+            var response = baseController.GetAll();
+            return response;
+        }
+        internal static IHttpActionResult GetByID()
+        {
+            var _categorys = GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
+            var categorys = _categorys.Content.ToList();
+
+            var response = baseController.GetByID(categorys[0].ID);
+            return response;
+        }
+        internal static IHttpActionResult Delete()
+        {
+            var _categorys = GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
+            var categoryIDs = _categorys.Content.Select(t => t.ID).ToList();
+            var response = baseController.Delete(categoryIDs);
+            return response;
+        }
+    }
+
+    [TestClass]
+    public class CategoryTest
+    {
+        [TestMethod]
+        public void Test_1_Insert()
+        {
+            //Act
+            var response = CategoryImplementaion.insert() as OkNegotiatedContentResult<IEnumerable<Category>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -50,14 +88,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_2_Update()
         {
             //Act
-
-            var categoryResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
-            var categorys = categoryResult.Content.ToList();
-
-            categorys.ForEach(t => { t.Name = t.Name + " Updated "; });
-
-            var response = baseController.Update(categorys) as OkNegotiatedContentResult<IEnumerable<Category>>;
-
+            var response = CategoryImplementaion.update() as OkNegotiatedContentResult<IEnumerable<Category>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -65,40 +96,28 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         [TestMethod]
         public void Test_3_GetAll()
         {
-            // Act
-
-            var categoryResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
-
-            // Assert
-            Assert.IsNotNull(categoryResult);
+            //Act
+            var response = CategoryImplementaion.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
+            //Assert
+            Assert.IsNotNull(response);
         }
 
         [TestMethod]
         public void Test_4_GetByID()
         {
-            // Act
-
-            var _categorys = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
-            var categorys = _categorys.Content.ToList();
-
-            var categoryResult = baseController.GetByID(categorys[0].ID) as OkNegotiatedContentResult<Category>;
-
-            // Assert
-            Assert.IsNotNull(categoryResult);
+            //Act
+            var response = CategoryImplementaion.GetByID() as OkNegotiatedContentResult<Category>;
+            //Assert
+            Assert.IsNotNull(response);
         }
 
         [TestMethod]
         public void Test_5_Delete()
         {
             //Act
-            var getAllResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
-
-            var categoryIDs = getAllResult.Content.Select(t => t.ID).ToList();
-
-            var deleteResult = baseController.Delete(categoryIDs) as OkNegotiatedContentResult<IEnumerable<Guid>>;
-
+            var response = CategoryImplementaion.Delete() as OkNegotiatedContentResult<IEnumerable<Guid>>;
             //Assert
-            Assert.IsNotNull(getAllResult);
+            Assert.IsNotNull(response);
         }
 
     }
