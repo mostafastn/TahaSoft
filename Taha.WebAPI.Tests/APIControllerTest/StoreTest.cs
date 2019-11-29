@@ -12,12 +12,11 @@ using Taha.Repository.Models;
 
 namespace Taha.WebAPI.Tests.APIControllerTest
 {
-    [TestClass]
-    public class StoreTest
+    internal class StoreImplementaion
     {
-        private StoreController baseController;
+        private static StoreController baseController;
 
-        public StoreTest()
+        static StoreImplementaion()
         {
             //Arrange
             baseController = new StoreController
@@ -26,20 +25,58 @@ namespace Taha.WebAPI.Tests.APIControllerTest
                 Configuration = new HttpConfiguration()
             };
         }
+        internal static IHttpActionResult Insert()
+        {
+            var Stores = new List<Store>()
+            {
+                new Store() { ID = Guid.NewGuid(),Name = "StoreTest A", IntroductionSummary= "IntroductionSummary A", Link = "Link A"},
+                new Store() { ID = Guid.NewGuid(),Name = "StoreTest B", IntroductionSummary= "IntroductionSummary B", Link = "Link B"},
+                new Store() { ID = Guid.NewGuid(),Name = "StoreTest C", IntroductionSummary= "IntroductionSummary C", Link = "Link C"},
+            };
+            var response = baseController.Insert(Stores);
+            return response;
+        }
+        internal static IHttpActionResult Update()
+        {
+            var StoreResult = GetAll() as OkNegotiatedContentResult<IEnumerable<Store>>;
+            var Stores = StoreResult.Content.ToList();
 
+            Stores.ForEach(t => { t.Name = t.Name + " Updated "; });
+
+            var response = baseController.Update(Stores);
+            return response;
+        }
+        internal static IHttpActionResult GetAll()
+        {
+            Insert();
+            var response = baseController.GetAll();
+            return response;
+        }
+        internal static IHttpActionResult GetByID()
+        {
+            var _Stores = GetAll() as OkNegotiatedContentResult<IEnumerable<Store>>;
+            var Stores = _Stores.Content.ToList();
+
+            var response = baseController.GetByID(Stores[0].ID);
+            return response;
+        }
+        internal static IHttpActionResult Delete()
+        {
+            var _Stores = GetAll() as OkNegotiatedContentResult<IEnumerable<Store>>;
+            var StoreIDs = _Stores.Content.Select(t => t.ID).ToList();
+            var response = baseController.Delete(StoreIDs);
+            return response;
+        }
+    }
+
+    [TestClass]
+    public class StoreTest
+    {
         [TestMethod]
         public void Test_1_Insert()
         {
             //Act
-            var stores = new List<Store>()
-            {
-                new Store() { ID = Guid.NewGuid(),Name = "Store A", IntroductionSummary = "IntroductionSummary 1", Link = "Link A"},
-                new Store() { ID = Guid.NewGuid(),Name = "Store B", IntroductionSummary = "IntroductionSummary 2", Link = "Link B"},
-                new Store() { ID = Guid.NewGuid(),Name = "Store C", IntroductionSummary = "IntroductionSummary 3", Link = "Link C"},
-            };
-
-            var response = baseController.Insert(stores) as OkNegotiatedContentResult<IEnumerable<Store>>;
-
+            var response = StoreImplementaion.Insert() as OkNegotiatedContentResult<IEnumerable<Store>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -48,14 +85,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_2_Update()
         {
             //Act
-
-            var storeResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Store>>;
-            var stores = storeResult.Content.ToList();
-
-            stores.ForEach(t => { t.IntroductionSummary = t.IntroductionSummary + " Updated "; });
-
-            var response = baseController.Update(stores) as OkNegotiatedContentResult<IEnumerable<Store>>;
-
+            var response = StoreImplementaion.Update() as OkNegotiatedContentResult<IEnumerable<Store>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -64,9 +94,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_3_GetAll()
         {
             // Act
-
-            var storeResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Store>>;
-
+            var storeResult = StoreImplementaion.GetAll() as OkNegotiatedContentResult<IEnumerable<Store>>;
             // Assert
             Assert.IsNotNull(storeResult);
         }
@@ -75,12 +103,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_4_GetByID()
         {
             // Act
-
-            var _Stores = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Store>>;
-            var stores = _Stores.Content.ToList();
-
-            var storeResult = baseController.GetByID(stores[0].ID) as OkNegotiatedContentResult<Store>;
-
+            var storeResult = StoreImplementaion.GetByID() as OkNegotiatedContentResult<Store>;
             // Assert
             Assert.IsNotNull(storeResult);
         }
@@ -89,14 +112,9 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_5_Delete()
         {
             //Act
-            var getAllResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Store>>;
-
-            var storeIDs = getAllResult.Content.Select(t => t.ID).ToList();
-
-            var deleteResult = baseController.Delete(storeIDs) as OkNegotiatedContentResult<IEnumerable<Guid>>;
-
+            var deleteResult = StoreImplementaion.Delete() as OkNegotiatedContentResult<IEnumerable<Guid>>;
             //Assert
-            Assert.IsNotNull(getAllResult);
+            Assert.IsNotNull(deleteResult);
         }
 
     }

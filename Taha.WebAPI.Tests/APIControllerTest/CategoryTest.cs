@@ -26,7 +26,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
                 Configuration = new HttpConfiguration()
             };
         }
-        internal static IHttpActionResult insert()
+        internal static IHttpActionResult Insert()
         {
             var mineCategoryId = Guid.NewGuid();
             var categorys = new List<Category>()
@@ -39,7 +39,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
             var response = baseController.Insert(categorys);
             return response;
         }
-        internal static IHttpActionResult update()
+        internal static IHttpActionResult Update()
         {
             var categoryResult = GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
             var categorys = categoryResult.Content.ToList();
@@ -51,7 +51,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         }
         internal static IHttpActionResult GetAll()
         {
-            insert();
+            Insert();
             var response = baseController.GetAll();
             return response;
         }
@@ -79,7 +79,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_1_Insert()
         {
             //Act
-            var response = CategoryImplementaion.insert() as OkNegotiatedContentResult<IEnumerable<Category>>;
+            var response = CategoryImplementaion.Insert() as OkNegotiatedContentResult<IEnumerable<Category>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -88,7 +88,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_2_Update()
         {
             //Act
-            var response = CategoryImplementaion.update() as OkNegotiatedContentResult<IEnumerable<Category>>;
+            var response = CategoryImplementaion.Update() as OkNegotiatedContentResult<IEnumerable<Category>>;
             //Assert
             Assert.IsNotNull(response);
         }

@@ -12,6 +12,64 @@ using Taha.Repository.Models;
 
 namespace Taha.WebAPI.Tests.APIControllerTest
 {
+    internal class CarouselSlideImplementaion
+    {
+        private static CarouselSlideController baseController;
+
+        static CarouselSlideImplementaion()
+        {
+            //Arrange
+            baseController = new CarouselSlideController
+            {
+                Request = new HttpRequestMessage(),
+                Configuration = new HttpConfiguration()
+            };
+        }
+        internal static IHttpActionResult insert()
+        {
+            var CarouselSlides = new List<CarouselSlide>()
+            {
+                new CarouselSlide() { ID = Guid.NewGuid(),AlternateText = "CarouselSlideTest A", SourceAddress = "1", Active = true},
+                new CarouselSlide() { ID = Guid.NewGuid(),AlternateText = "CarouselSlideTest B", SourceAddress = "2", Active = false},
+                new CarouselSlide() { ID = Guid.NewGuid(),AlternateText = "CarouselSlideTest C", SourceAddress = "3", Active = false},
+            };
+
+            var response = baseController.Insert(CarouselSlides);
+            return response;
+        }
+        internal static IHttpActionResult update()
+        {
+            var carouselSlideResult = GetAll() as OkNegotiatedContentResult<IEnumerable<CarouselSlide>>;
+            var carouselSlides = carouselSlideResult.Content.ToList();
+
+            carouselSlides.ForEach(t => { t.AlternateText = t.AlternateText + " Updated "; });
+
+            var response = baseController.Update(carouselSlides);
+            return response;
+        }
+        internal static IHttpActionResult GetAll()
+        {
+            insert();
+            var response = baseController.GetAll();
+            return response;
+        }
+        internal static IHttpActionResult GetByID()
+        {
+            var _carouselSlides = GetAll() as OkNegotiatedContentResult<IEnumerable<CarouselSlide>>;
+            var carouselSlides = _carouselSlides.Content.ToList();
+
+            var response = baseController.GetByID(carouselSlides[0].ID);
+            return response;
+        }
+        internal static IHttpActionResult Delete()
+        {
+            var _carouselSlides = GetAll() as OkNegotiatedContentResult<IEnumerable<CarouselSlide>>;
+            var carouselSlideIDs = _carouselSlides.Content.Select(t => t.ID).ToList();
+            var response = baseController.Delete(carouselSlideIDs);
+            return response;
+        }
+    }
+
     [TestClass]
     public class CarouselSlideTest
     {
@@ -31,15 +89,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_1_Insert()
         {
             //Act
-            var CarouselSlides = new List<CarouselSlide>()
-            {
-                new CarouselSlide() { ID = Guid.NewGuid(),AlternateText = "CarouselSlideTest A", SourceAddress = "1", Active = true},
-                new CarouselSlide() { ID = Guid.NewGuid(),AlternateText = "CarouselSlideTest B", SourceAddress = "2", Active = false},
-                new CarouselSlide() { ID = Guid.NewGuid(),AlternateText = "CarouselSlideTest C", SourceAddress = "3", Active = false},
-            };
-
-            var response = baseController.Insert(CarouselSlides) as OkNegotiatedContentResult<IEnumerable<CarouselSlide>>;
-
+            var response = CarouselSlideImplementaion.insert() as OkNegotiatedContentResult<IEnumerable<CarouselSlide>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -48,14 +98,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_2_Update()
         {
             //Act
-
-            var CarouselSlideResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<CarouselSlide>>;
-            var CarouselSlides = CarouselSlideResult.Content.ToList();
-
-            CarouselSlides.ForEach(t => { t.AlternateText = t.AlternateText + " Updated "; });
-
-            var response = baseController.Update(CarouselSlides) as OkNegotiatedContentResult<IEnumerable<CarouselSlide>>;
-
+            var response = CarouselSlideImplementaion.update() as OkNegotiatedContentResult<IEnumerable<CarouselSlide>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -63,40 +106,28 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         [TestMethod]
         public void Test_3_GetAll()
         {
-            // Act
-
-            var CarouselSlideResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<CarouselSlide>>;
-
+            //Act
+            var response = CarouselSlideImplementaion.GetAll() as OkNegotiatedContentResult<IEnumerable<CarouselSlide>>;
             // Assert
-            Assert.IsNotNull(CarouselSlideResult);
+            Assert.IsNotNull(response);
         }
 
         [TestMethod]
         public void Test_4_GetByID()
         {
-            // Act
-
-            var _CarouselSlides = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<CarouselSlide>>;
-            var CarouselSlides = _CarouselSlides.Content.ToList();
-
-            var CarouselSlideResult = baseController.GetByID(CarouselSlides[0].ID) as OkNegotiatedContentResult<CarouselSlide>;
-
+            //Act
+            var response = CarouselSlideImplementaion.GetByID() as OkNegotiatedContentResult<CarouselSlide>;
             // Assert
-            Assert.IsNotNull(CarouselSlideResult);
+            Assert.IsNotNull(response);
         }
 
         [TestMethod]
         public void Test_5_Delete()
         {
             //Act
-            var getAllResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<CarouselSlide>>;
-
-            var CarouselSlideIDs = getAllResult.Content.Select(t => t.ID).ToList();
-
-            var deleteResult = baseController.Delete(CarouselSlideIDs) as OkNegotiatedContentResult<IEnumerable<Guid>>;
-
+            var response = CarouselSlideImplementaion.Delete() as OkNegotiatedContentResult<IEnumerable<Guid>>;
             //Assert
-            Assert.IsNotNull(getAllResult);
+            Assert.IsNotNull(response);
         }
 
     }

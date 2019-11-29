@@ -11,13 +11,11 @@ using apiModel = Taha.Repository.Models;
 
 namespace Taha.WebAPI.Tests.APIControllerTest
 {
-
-    [TestClass]
-    public class DetailTest
+    internal class DetailImplementaion
     {
-        private DetailController baseController;
+        private static DetailController baseController;
 
-        public DetailTest()
+        static DetailImplementaion()
         {
             //Arrange
             baseController = new DetailController
@@ -26,27 +24,59 @@ namespace Taha.WebAPI.Tests.APIControllerTest
                 Configuration = new HttpConfiguration()
             };
         }
+        internal static IHttpActionResult Insert()
+        {
+            var details = new List<apiModel.Detail>()
+            {
+                new apiModel.Detail(){ID = Guid.NewGuid(), Description = "Description Text A", Periority = 1, Caption = "Caption A"},
+                new apiModel.Detail(){ID = Guid.NewGuid(), Description = "Description Text B", Periority = 2, Caption = "Caption B"},
+                new apiModel.Detail(){ID = Guid.NewGuid(), Description = "Description Text C", Periority = 3, Caption = "Caption C"},
+                new apiModel.Detail(){ID = Guid.NewGuid(), Description = "Description Text D", Periority = 4, Caption = "Caption D"},
+            };
+            var response = baseController.Insert(details);
+            return response;
+        }
+        internal static IHttpActionResult Update()
+        {
+            var detailResult = GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Detail>>;
+            var details = detailResult.Content.ToList();
 
+            details.ForEach(t => { t.Caption = t.Caption + " Updated "; });
+
+            var response = baseController.Update(details);
+            return response;
+        }
+        internal static IHttpActionResult GetAll()
+        {
+            Insert();
+            var response = baseController.GetAll();
+            return response;
+        }
+        internal static IHttpActionResult GetByID()
+        {
+            var _details = GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Detail>>;
+            var Details = _details.Content.ToList();
+
+            var response = baseController.GetByID(Details[0].ID);
+            return response;
+        }
+        internal static IHttpActionResult Delete()
+        {
+            var _details = GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Detail>>;
+            var detailIDs = _details.Content.Select(t => t.ID).ToList();
+            var response = baseController.Delete(detailIDs);
+            return response;
+        }
+    }
+
+    [TestClass]
+    public class DetailTest
+    {
         [TestMethod]
         public void Test_1_Insert()
         {
             //Act
-
-            var details = new List<apiModel.Detail>()
-            {
-                new apiModel.Detail()
-                    {ID = Guid.NewGuid(), Description = "Description Text A", Periority = 1, Caption = "Caption A"},
-                new apiModel.Detail()
-                    {ID = Guid.NewGuid(), Description = "Description Text B", Periority = 2, Caption = "Caption B"},
-                new apiModel.Detail()
-                    {ID = Guid.NewGuid(), Description = "Description Text C", Periority = 3, Caption = "Caption C"},
-                new apiModel.Detail()
-                    {ID = Guid.NewGuid(), Description = "Description Text D", Periority = 4, Caption = "Caption D"},
-            };
-            
-
-            var response = baseController.Insert(details) as OkNegotiatedContentResult<IEnumerable<apiModel.Detail>>;
-
+            var response = DetailImplementaion.Insert() as OkNegotiatedContentResult<IEnumerable<apiModel.Detail>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -55,14 +85,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_2_Update()
         {
             //Act
-
-            var detailResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Detail>>;
-            var details = detailResult.Content.ToList();
-
-            details.ForEach(t => { t.Caption = t.Caption + " Updated "; });
-
-            var response = baseController.Update(details) as OkNegotiatedContentResult<IEnumerable<apiModel.Detail>>;
-
+            var response = DetailImplementaion.Update() as OkNegotiatedContentResult<IEnumerable<apiModel.Detail>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -71,9 +94,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_3_GetAll()
         {
             // Act
-
-            var detailResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Detail>>;
-
+            var detailResult = DetailImplementaion.GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Detail>>;
             // Assert
             Assert.IsNotNull(detailResult);
         }
@@ -82,12 +103,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_4_GetByID()
         {
             // Act
-
-            var _details = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Detail>>;
-            var details = _details.Content.ToList();
-
-            var detailResult = baseController.GetByID(details[0].ID) as OkNegotiatedContentResult<apiModel.Detail>;
-
+            var detailResult = DetailImplementaion.GetByID() as OkNegotiatedContentResult<apiModel.Detail>;
             // Assert
             Assert.IsNotNull(detailResult);
         }
@@ -96,14 +112,9 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_5_Delete()
         {
             //Act
-            var getAllResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Detail>>;
-
-            var detailIDs = getAllResult.Content.Select(t => t.ID).ToList();
-
-            var deleteResult = baseController.Delete(detailIDs) as OkNegotiatedContentResult<IEnumerable<Guid>>;
-
+            var deleteResult = DetailImplementaion.Delete() as OkNegotiatedContentResult<IEnumerable<Guid>>;
             //Assert
-            Assert.IsNotNull(getAllResult);
+            Assert.IsNotNull(deleteResult);
         }
 
     }
