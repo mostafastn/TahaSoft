@@ -12,12 +12,11 @@ using Taha.Repository.Models;
 
 namespace Taha.WebAPI.Tests.APIControllerTest
 {
-    [TestClass]
-    public class PlaceTest
+    internal class PlaceImplementaion
     {
-        private PlaceController baseController;
+        private static PlaceController baseController;
 
-        public PlaceTest()
+        static PlaceImplementaion()
         {
             //Arrange
             baseController = new PlaceController
@@ -26,22 +25,60 @@ namespace Taha.WebAPI.Tests.APIControllerTest
                 Configuration = new HttpConfiguration()
             };
         }
-
-        [TestMethod]
-        public void Test_1_Insert()
+        internal static IHttpActionResult Insert()
         {
-            //Act
             var minePlaceId = Guid.NewGuid();
-            var Places = new List<Place>()
+            var places = new List<Place>()
             {
                 new Place() { ID = minePlaceId , Name = "Main Place", Periority = 0},
                 new Place() { ID = Guid.NewGuid(),Name = "PlaceTest A", Periority = 1,ParentID = minePlaceId },
                 new Place() { ID = Guid.NewGuid(),Name = "PlaceTest B", Periority = 2,ParentID = minePlaceId },
                 new Place() { ID = Guid.NewGuid(),Name = "PlaceTest C", Periority = 3,ParentID = minePlaceId },
             };
+            var response = baseController.Insert(places);
+            return response;
+        }
+        internal static IHttpActionResult Update()
+        {
+            var placeResult = GetAll() as OkNegotiatedContentResult<IEnumerable<Place>>;
+            var places = placeResult.Content.ToList();
 
-            var response = baseController.Insert(Places) as OkNegotiatedContentResult<IEnumerable<Place>>;
+            places.ForEach(t => { t.Name = t.Name + " Updated "; });
 
+            var response = baseController.Update(places);
+            return response;
+        }
+        internal static IHttpActionResult GetAll()
+        {
+            Insert();
+            var response = baseController.GetAll();
+            return response;
+        }
+        internal static IHttpActionResult GetByID()
+        {
+            var _places = GetAll() as OkNegotiatedContentResult<IEnumerable<Place>>;
+            var places = _places.Content.ToList();
+
+            var response = baseController.GetByID(places[0].ID);
+            return response;
+        }
+        internal static IHttpActionResult Delete()
+        {
+            var _places = GetAll() as OkNegotiatedContentResult<IEnumerable<Place>>;
+            var placeIDs = _places.Content.Select(t => t.ID).ToList();
+            var response = baseController.Delete(placeIDs);
+            return response;
+        }
+    }
+
+    [TestClass]
+    public class PlaceTest
+    {
+        [TestMethod]
+        public void Test_1_Insert()
+        {
+            //Act
+            var response = PlaceImplementaion.Insert() as OkNegotiatedContentResult<IEnumerable<Place>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -50,14 +87,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_2_Update()
         {
             //Act
-
-            var PlaceResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Place>>;
-            var Places = PlaceResult.Content.ToList();
-
-            Places.ForEach(t => { t.Name = t.Name + " Updated "; });
-
-            var response = baseController.Update(Places) as OkNegotiatedContentResult<IEnumerable<Place>>;
-
+            var response = PlaceImplementaion.Update() as OkNegotiatedContentResult<IEnumerable<Place>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -66,9 +96,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_3_GetAll()
         {
             // Act
-
-            var PlaceResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Place>>;
-
+            var PlaceResult = PlaceImplementaion.GetAll() as OkNegotiatedContentResult<IEnumerable<Place>>;
             // Assert
             Assert.IsNotNull(PlaceResult);
         }
@@ -77,12 +105,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_4_GetByID()
         {
             // Act
-
-            var _Places = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Place>>;
-            var Places = _Places.Content.ToList();
-
-            var PlaceResult = baseController.GetByID(Places[0].ID) as OkNegotiatedContentResult<Place>;
-
+            var PlaceResult = PlaceImplementaion.GetByID() as OkNegotiatedContentResult<Place>;
             // Assert
             Assert.IsNotNull(PlaceResult);
         }
@@ -91,14 +114,9 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_5_Delete()
         {
             //Act
-            var getAllResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Place>>;
-
-            var PlaceIDs = getAllResult.Content.Select(t => t.ID).ToList();
-
-            var deleteResult = baseController.Delete(PlaceIDs) as OkNegotiatedContentResult<IEnumerable<Guid>>;
-
+            var deleteResult = PlaceImplementaion.Delete() as OkNegotiatedContentResult<IEnumerable<Guid>>;
             //Assert
-            Assert.IsNotNull(getAllResult);
+            Assert.IsNotNull(deleteResult);
         }
 
     }

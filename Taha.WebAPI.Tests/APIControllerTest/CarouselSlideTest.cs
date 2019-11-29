@@ -27,14 +27,14 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         }
         internal static IHttpActionResult insert()
         {
-            var CarouselSlides = new List<CarouselSlide>()
+            var carouselSlides = new List<CarouselSlide>()
             {
                 new CarouselSlide() { ID = Guid.NewGuid(),AlternateText = "CarouselSlideTest A", SourceAddress = "1", Active = true},
                 new CarouselSlide() { ID = Guid.NewGuid(),AlternateText = "CarouselSlideTest B", SourceAddress = "2", Active = false},
                 new CarouselSlide() { ID = Guid.NewGuid(),AlternateText = "CarouselSlideTest C", SourceAddress = "3", Active = false},
             };
 
-            var response = baseController.Insert(CarouselSlides);
+            var response = baseController.Insert(carouselSlides);
             return response;
         }
         internal static IHttpActionResult update()

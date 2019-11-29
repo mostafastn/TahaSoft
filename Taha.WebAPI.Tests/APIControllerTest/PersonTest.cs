@@ -12,12 +12,11 @@ using Taha.Repository.Models;
 
 namespace Taha.WebAPI.Tests.APIControllerTest
 {
-    [TestClass]
-    public class PersonTest
+    internal class PersonImplementaion
     {
-        private PersonController baseController;
+        private static PersonController baseController;
 
-        public PersonTest()
+        static PersonImplementaion()
         {
             //Arrange
             baseController = new PersonController
@@ -26,20 +25,58 @@ namespace Taha.WebAPI.Tests.APIControllerTest
                 Configuration = new HttpConfiguration()
             };
         }
-
-        [TestMethod]
-        public void Test_1_Insert()
+        internal static IHttpActionResult Insert()
         {
-            //Act
             var persons = new List<Person>()
             {
                 new Person() { ID = Guid.NewGuid(),FirstName = "FirstName A", LastName = "LastName A", SSN = "SSN A" , Phone = "Phone A" , Email ="Email A" , Address = "Address A"},
                 new Person() { ID = Guid.NewGuid(),FirstName = "FirstName B", LastName = "LastName B", SSN = "SSN B" , Phone = "Phone B" , Email ="Email B" , Address = "Address B"},
                 new Person() { ID = Guid.NewGuid(),FirstName = "FirstName C", LastName = "LastName C", SSN = "SSN C" , Phone = "Phone C" , Email ="Email C" , Address = "Address C"},
             };
+            var response = baseController.Insert(persons);
+            return response;
+        }
+        internal static IHttpActionResult Update()
+        {
+            var personResult = GetAll() as OkNegotiatedContentResult<IEnumerable<Person>>;
+            var persons = personResult.Content.ToList();
 
-            var response = baseController.Insert(persons) as OkNegotiatedContentResult<IEnumerable<Person>>;
+            persons.ForEach(t => { t.FirstName = t.FirstName + " Updated "; });
 
+            var response = baseController.Update(persons);
+            return response;
+        }
+        internal static IHttpActionResult GetAll()
+        {
+            Insert();
+            var response = baseController.GetAll();
+            return response;
+        }
+        internal static IHttpActionResult GetByID()
+        {
+            var _persons = GetAll() as OkNegotiatedContentResult<IEnumerable<Person>>;
+            var persons = _persons.Content.ToList();
+
+            var response = baseController.GetByID(persons[0].ID);
+            return response;
+        }
+        internal static IHttpActionResult Delete()
+        {
+            var _persons = GetAll() as OkNegotiatedContentResult<IEnumerable<Person>>;
+            var personIDs = _persons.Content.Select(t => t.ID).ToList();
+            var response = baseController.Delete(personIDs);
+            return response;
+        }
+    }
+
+    [TestClass]
+    public class PersonTest
+    {
+        [TestMethod]
+        public void Test_1_Insert()
+        {
+            //Act
+            var response = PersonImplementaion.Insert() as OkNegotiatedContentResult<IEnumerable<Person>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -48,14 +85,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_2_Update()
         {
             //Act
-
-            var personResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Person>>;
-            var persons = personResult.Content.ToList();
-
-            persons.ForEach(t => { t.FirstName = t.FirstName + " Updated "; });
-
-            var response = baseController.Update(persons) as OkNegotiatedContentResult<IEnumerable<Person>>;
-
+            var response = PersonImplementaion.Update() as OkNegotiatedContentResult<IEnumerable<Person>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -64,9 +94,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_3_GetAll()
         {
             // Act
-
-            var personResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Person>>;
-
+            var personResult = PersonImplementaion.GetAll() as OkNegotiatedContentResult<IEnumerable<Person>>;
             // Assert
             Assert.IsNotNull(personResult);
         }
@@ -75,12 +103,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_4_GetByID()
         {
             // Act
-
-            var _Persons = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Person>>;
-            var persons = _Persons.Content.ToList();
-
-            var personResult = baseController.GetByID(persons[0].ID) as OkNegotiatedContentResult<Person>;
-
+            var personResult = PersonImplementaion.GetByID() as OkNegotiatedContentResult<Person>;
             // Assert
             Assert.IsNotNull(personResult);
         }
@@ -89,14 +112,9 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_5_Delete()
         {
             //Act
-            var getAllResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Person>>;
-
-            var personIDs = getAllResult.Content.Select(t => t.ID).ToList();
-
-            var deleteResult = baseController.Delete(personIDs) as OkNegotiatedContentResult<IEnumerable<Person>>;
-
+            var deleteResult = PersonImplementaion.Delete() as OkNegotiatedContentResult<IEnumerable<Guid>>;
             //Assert
-            Assert.IsNotNull(getAllResult);
+            Assert.IsNotNull(deleteResult);
         }
 
     }

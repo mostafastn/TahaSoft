@@ -45,10 +45,10 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         }
         internal static IHttpActionResult Update()
         {
-            var DetailAssignmentResult = GetAll() as OkNegotiatedContentResult<IEnumerable<DetailAssignment>>;
-            var DetailAssignments = DetailAssignmentResult.Content.ToList();
+            var detailAssignmentResult = GetAll() as OkNegotiatedContentResult<IEnumerable<DetailAssignment>>;
+            var detailAssignments = detailAssignmentResult.Content.ToList();
 
-            var response = baseController.Update(DetailAssignments);
+            var response = baseController.Update(detailAssignments);
             return response;
         }
         internal static IHttpActionResult GetAll()
@@ -73,6 +73,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
             return response;
         }
     }
+
     [TestClass]
     public class DetailAssignmentTest
     {

@@ -11,13 +11,11 @@ using apiModel = Taha.Repository.Models;
 
 namespace Taha.WebAPI.Tests.APIControllerTest
 {
- 
-    [TestClass]
-    public class ImageTest
+    internal class ImageImplementaion
     {
-        private ImageController baseController;
+        private static ImageController baseController;
 
-        public ImageTest()
+        static ImageImplementaion()
         {
             //Arrange
             baseController = new ImageController
@@ -26,22 +24,58 @@ namespace Taha.WebAPI.Tests.APIControllerTest
                 Configuration = new HttpConfiguration()
             };
         }
+        internal static IHttpActionResult Insert()
+        {
+            var images = new List<apiModel.Image>()
+            {
+                new apiModel.Image(){ID = Guid.NewGuid(), AlternativeText = "AlternativeText A", Periority = 1, Path= "Path A"},
+                new apiModel.Image(){ID = Guid.NewGuid(), AlternativeText = "AlternativeText B", Periority = 2, Path= "Path B"},
+                new apiModel.Image(){ID = Guid.NewGuid(), AlternativeText = "AlternativeText C", Periority = 3, Path= "Path C"},
+                new apiModel.Image(){ID = Guid.NewGuid(), AlternativeText = "AlternativeText D", Periority = 4, Path= "Path D"},
+            };
+            var response = baseController.Insert(images);
+            return response;
+        }
+        internal static IHttpActionResult Update()
+        {
+            var imageResult = GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
+            var images = imageResult.Content.ToList();
 
+            images.ForEach(t => { t.AlternativeText = t.AlternativeText + " Updated "; });
+
+            var response = baseController.Update(images);
+            return response;
+        }
+        internal static IHttpActionResult GetAll()
+        {
+            Insert();
+            var response = baseController.GetAll();
+            return response;
+        }
+        internal static IHttpActionResult GetByID()
+        {
+            var _images = GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
+            var images = _images.Content.ToList();
+
+            var response = baseController.GetByID(images[0].ID);
+            return response;
+        }
+        internal static IHttpActionResult Delete()
+        {
+            var _images = GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
+            var imageIDs = _images.Content.Select(t => t.ID).ToList();
+            var response = baseController.Delete(imageIDs);
+            return response;
+        }
+    }
+    [TestClass]
+    public class ImageTest
+    {
         [TestMethod]
         public void Test_1_Insert()
         {
             //Act
-            
-            var images = new List<apiModel.Image>()
-            {
-                new apiModel.Image() { ID = Guid.NewGuid() , AlternativeText = "AlternativeText A", Periority = 0, Path = "Path A"},
-                new apiModel.Image() { ID = Guid.NewGuid() , AlternativeText = "AlternativeText B", Periority = 0, Path = "Path B"},
-                new apiModel.Image() { ID = Guid.NewGuid() , AlternativeText = "AlternativeText C", Periority = 0, Path = "Path C"},
-                new apiModel.Image() { ID = Guid.NewGuid() , AlternativeText = "AlternativeText D", Periority = 0, Path = "Path D"},
-            };
-
-            var response = baseController.Insert(images) as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
-
+            var response = ImageImplementaion.Insert() as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -50,14 +84,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_2_Update()
         {
             //Act
-
-            var imageResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
-            var images= imageResult.Content.ToList();
-
-            images.ForEach(t => { t.AlternativeText = t.AlternativeText+ " Updated "; });
-
-            var response = baseController.Update(images) as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
-
+            var response = ImageImplementaion.Update() as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -66,9 +93,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_3_GetAll()
         {
             // Act
-
-            var imageResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
-
+            var imageResult = ImageImplementaion.GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
             // Assert
             Assert.IsNotNull(imageResult);
         }
@@ -77,12 +102,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_4_GetByID()
         {
             // Act
-
-            var _images = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
-            var imagess = _images.Content.ToList();
-
-            var imageResult = baseController.GetByID(imagess[0].ID) as OkNegotiatedContentResult<apiModel.Image>;
-
+            var imageResult = ImageImplementaion.GetByID() as OkNegotiatedContentResult<apiModel.Image>;
             // Assert
             Assert.IsNotNull(imageResult);
         }
@@ -91,14 +111,9 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_5_Delete()
         {
             //Act
-            var getAllResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
-
-            var imageIDs = getAllResult.Content.Select(t => t.ID).ToList();
-
-            var deleteResult = baseController.Delete(imageIDs) as OkNegotiatedContentResult<IEnumerable<Guid>>;
-
+            var deleteResult = ImageImplementaion.Delete() as OkNegotiatedContentResult<IEnumerable<Guid>>;
             //Assert
-            Assert.IsNotNull(getAllResult);
+            Assert.IsNotNull(deleteResult);
         }
 
     }

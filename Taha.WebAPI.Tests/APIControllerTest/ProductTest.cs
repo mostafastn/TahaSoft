@@ -12,13 +12,11 @@ using Taha.Repository.Models;
 
 namespace Taha.WebAPI.Tests.APIControllerTest
 {
-    [TestClass]
-    public class ProductTest
+    internal class ProductImplementaion
     {
-        private ProductController baseController;
-        private CategoryController categoryController;
+        private static ProductController baseController;
 
-        public ProductTest()
+        static ProductImplementaion()
         {
             //Arrange
             baseController = new ProductController
@@ -26,85 +24,63 @@ namespace Taha.WebAPI.Tests.APIControllerTest
                 Request = new HttpRequestMessage(),
                 Configuration = new HttpConfiguration()
             };
-
-            //Arrange
-            categoryController = new CategoryController
-            {
-                Request = new HttpRequestMessage(),
-                Configuration = new HttpConfiguration()
-            };
         }
-
-        [TestMethod]
-        public void CRUDTest()
+        internal static IHttpActionResult Insert()
         {
-            var mineCategoryId = Guid.NewGuid();
-            var categorys = new List<Category>()
-            {
-                new Category() { ID = mineCategoryId , Name = "Main category", Periority = 0},
-                new Category() { ID = Guid.NewGuid(),Name = "categoryTest A", Periority = 1,ParentID = mineCategoryId },
-                new Category() { ID = Guid.NewGuid(),Name = "categoryTest B", Periority = 2,ParentID = mineCategoryId },
-                new Category() { ID = Guid.NewGuid(),Name = "categoryTest C", Periority = 3,ParentID = mineCategoryId },
-            };
-            var categoryInsertRresponse = categoryController.Insert(categorys) as OkNegotiatedContentResult<IEnumerable<Category>>;
-            var categoryList = categoryInsertRresponse.Content.ToList();
-            if (categoryList == null)
-                Assert.IsNotNull(categoryList);
+            var categoryResult = CategoryImplementaion.GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
+            var categorieList = categoryResult.Content.ToList();
 
-            //Act
             var products = new List<Product>()
             {
-                new Product() { ID = Guid.NewGuid(),CategoryID = categoryList[1].ID, Name= "Name A", Price= 10000 , Discount= 10},
-                new Product() { ID = Guid.NewGuid(),CategoryID = categoryList[1].ID, Name= "Name A", Price= 10000 , Discount= 10},
-                new Product() { ID = Guid.NewGuid(),CategoryID = categoryList[1].ID, Name= "Name A", Price= 10000 , Discount= 10},
+                new Product() { ID = Guid.NewGuid(),CategoryID = categorieList[0].ID, Name= "Name A", Price= 10000 , Discount= 10},
+                new Product() { ID = Guid.NewGuid(),CategoryID = categorieList[0].ID, Name= "Name A", Price= 10000 , Discount= 10},
+                new Product() { ID = Guid.NewGuid(),CategoryID = categorieList[0].ID, Name= "Name A", Price= 10000 , Discount= 10},
             };
 
-            var insertRresponse = baseController.Insert(products) as OkNegotiatedContentResult<IEnumerable<Product>>;
-            var insertList = insertRresponse.Content.ToList();
-            if (insertList == null)
-                Assert.IsNotNull(insertList);
-
-            insertList.ForEach(t => { t.Name = t.Name + " Updated "; });
-            var updateResponse = baseController.Update(insertList) as OkNegotiatedContentResult<IEnumerable<Product>>;
-            var updateList = updateResponse.Content.ToList();
-            if (updateList == null)
-                Assert.IsNotNull(updateList);
-
-            var getAllResponse = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Product>>;
-            var getAllList = updateResponse.Content.ToList();
-            if (getAllList == null)
-                Assert.IsNotNull(getAllList);
-
-            var getByIDResponse = baseController.GetByID(products[0].ID) as OkNegotiatedContentResult<Product>;
-            var product = getByIDResponse.Content;
-            if (product == null)
-                Assert.IsNotNull(product);
-
-            var productIDs = getAllList.Select(t => t.ID).ToList();
-
-            var deleteResponse = baseController.Delete(productIDs) as OkNegotiatedContentResult<IEnumerable<Guid>>;
-            var deleteList = deleteResponse.Content.ToList();
-
-            Assert.IsNotNull(deleteList);
-
-            //Assert
-
+            var response = baseController.Insert(products);
+            return response;
         }
+        internal static IHttpActionResult Update()
+        {
+            var productResult = GetAll() as OkNegotiatedContentResult<IEnumerable<Product>>;
+            var products = productResult.Content.ToList();
 
+            products.ForEach(t => { t.Name = t.Name + " Updated "; });
 
+            var response = baseController.Update(products);
+            return response;
+        }
+        internal static IHttpActionResult GetAll()
+        {
+            Insert();
+            var response = baseController.GetAll();
+            return response;
+        }
+        internal static IHttpActionResult GetByID()
+        {
+            var _products = GetAll() as OkNegotiatedContentResult<IEnumerable<Product>>;
+            var products = _products.Content.ToList();
+
+            var response = baseController.GetByID(products[0].ID);
+            return response;
+        }
+        internal static IHttpActionResult Delete()
+        {
+            var _products = GetAll() as OkNegotiatedContentResult<IEnumerable<Product>>;
+            var productIDs = _products.Content.Select(t => t.ID).ToList();
+            var response = baseController.Delete(productIDs);
+            return response;
+        }
+    }
+
+    [TestClass]
+    public class ProductTest
+    {
         [TestMethod]
         public void Test_1_Insert()
         {
             //Act
-            var products = new List<Product>()
-            {
-                new Product() { ID = Guid.NewGuid(),CategoryID = Guid.Parse("daf2dafe-392d-4a85-bf05-6946b88f8262"), Name= "Name A", Price= 10000 , Discount= 10},
-                new Product() { ID = Guid.NewGuid(),CategoryID = Guid.Parse("daf2dafe-392d-4a85-bf05-6946b88f8262"), Name= "Name A", Price= 10000 , Discount= 10},
-                new Product() { ID = Guid.NewGuid(),CategoryID = Guid.Parse("daf2dafe-392d-4a85-bf05-6946b88f8262"), Name= "Name A", Price= 10000 , Discount= 10},
-            };
-
-            var response = baseController.Insert(products) as OkNegotiatedContentResult<IEnumerable<Product>>;
-
+            var response = ProductImplementaion.Insert() as OkNegotiatedContentResult<IEnumerable<Product>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -113,14 +89,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_2_Update()
         {
             //Act
-
-            var productResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Product>>;
-            var products = productResult.Content.ToList();
-
-            products.ForEach(t => { t.Name = t.Name + " Updated "; });
-
-            var response = baseController.Update(products) as OkNegotiatedContentResult<IEnumerable<Product>>;
-
+            var response = ProductImplementaion.Update() as OkNegotiatedContentResult<IEnumerable<Product>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -129,9 +98,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_3_GetAll()
         {
             // Act
-
-            var productResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Product>>;
-
+            var productResult = ProductImplementaion.GetAll() as OkNegotiatedContentResult<IEnumerable<Product>>;
             // Assert
             Assert.IsNotNull(productResult);
         }
@@ -140,12 +107,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_4_GetByID()
         {
             // Act
-
-            var _Products = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Product>>;
-            var products = _Products.Content.ToList();
-
-            var productResult = baseController.GetByID(products[0].ID) as OkNegotiatedContentResult<Product>;
-
+            var productResult = ProductImplementaion.GetByID() as OkNegotiatedContentResult<Product>;
             // Assert
             Assert.IsNotNull(productResult);
         }
@@ -154,14 +116,9 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_5_Delete()
         {
             //Act
-            var getAllResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<Product>>;
-
-            var productIDs = getAllResult.Content.Select(t => t.ID).ToList();
-
-            var deleteResult = baseController.Delete(productIDs) as OkNegotiatedContentResult<IEnumerable<Product>>;
-
+            var deleteResult = ProductImplementaion.Delete() as OkNegotiatedContentResult<IEnumerable<Guid>>;
             //Assert
-            Assert.IsNotNull(getAllResult);
+            Assert.IsNotNull(deleteResult);
         }
 
     }

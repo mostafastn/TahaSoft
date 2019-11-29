@@ -8,16 +8,15 @@ using System.Linq;
 using System.Web.UI.WebControls;
 using System.Web.Http.Results;
 using Taha.Repository.Models;
-
+using apiModel = Taha.Repository.Models;
 
 namespace Taha.WebAPI.Tests.APIControllerTest
 {
-    [TestClass]
-    public class ImageAssignmentTest
+    internal class ImageAssignmentImplementaion
     {
-        private ImageAssignmentController baseController;
+        private static ImageAssignmentController baseController;
 
-        public ImageAssignmentTest()
+        static ImageAssignmentImplementaion()
         {
             //Arrange
             baseController = new ImageAssignmentController
@@ -26,20 +25,63 @@ namespace Taha.WebAPI.Tests.APIControllerTest
                 Configuration = new HttpConfiguration()
             };
         }
+        internal static IHttpActionResult Insert()
+        {
+            var imageResult = ImageImplementaion.GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Image>>;
+            var imageList = imageResult.Content.ToList();
 
+            var codingResult = CodingImplementaion.GetAll() as OkNegotiatedContentResult<IEnumerable<Coding>>;
+            var codingList = codingResult.Content.ToList();
+
+            var ImageAssignments = imageList.Select(t => new ImageAssignment
+            {
+                ID = Guid.NewGuid(),
+                ImageID = t.ID,
+                CodingID = codingList[0].ID,
+            }).ToList();
+
+            var response = baseController.Insert(ImageAssignments);
+            return response;
+        }
+        internal static IHttpActionResult Update()
+        {
+            var imageAssignmentResult = GetAll() as OkNegotiatedContentResult<IEnumerable<ImageAssignment>>;
+            var imageAssignments = imageAssignmentResult.Content.ToList();
+
+            var response = baseController.Update(imageAssignments);
+            return response;
+        }
+        internal static IHttpActionResult GetAll()
+        {
+            Insert();
+            var response = baseController.GetAll();
+            return response;
+        }
+        internal static IHttpActionResult GetByID()
+        {
+            var _imageAssignments = GetAll() as OkNegotiatedContentResult<IEnumerable<ImageAssignment>>;
+            var imageAssignments = _imageAssignments.Content.ToList();
+
+            var response = baseController.GetByID(imageAssignments[0].ID);
+            return response;
+        }
+        internal static IHttpActionResult Delete()
+        {
+            var _imageAssignments = GetAll() as OkNegotiatedContentResult<IEnumerable<ImageAssignment>>;
+            var imageAssignmentIDs = _imageAssignments.Content.Select(t => t.ID).ToList();
+            var response = baseController.Delete(imageAssignmentIDs);
+            return response;
+        }
+    }
+
+    [TestClass]
+    public class ImageAssignmentTest
+    {
         [TestMethod]
         public void Test_1_Insert()
         {
             //Act
-            var ImageAssignments = new List<ImageAssignment>()
-            {
-                new ImageAssignment() { ID = Guid.NewGuid(),ImageID = Guid.Parse("48ec2d28-57be-4071-9aea-ce06ca22f98d"), CodingID = Guid.Parse("a725c83b-237c-4d8b-98df-c2351bbd72a0")},
-                new ImageAssignment() { ID = Guid.NewGuid(),ImageID = Guid.Parse("48ec2d28-57be-4071-9aea-ce06ca22f98d"), CodingID = Guid.Parse("a725c83b-237c-4d8b-98df-c2351bbd72a0")},
-                new ImageAssignment() { ID = Guid.NewGuid(),ImageID = Guid.Parse("48ec2d28-57be-4071-9aea-ce06ca22f98d"), CodingID = Guid.Parse("a725c83b-237c-4d8b-98df-c2351bbd72a0")},
-            };
-
-            var response = baseController.Insert(ImageAssignments) as OkNegotiatedContentResult<IEnumerable<ImageAssignment>>;
-
+            var response = ImageAssignmentImplementaion.Insert() as OkNegotiatedContentResult<IEnumerable<ImageAssignment>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -48,14 +90,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_2_Update()
         {
             //Act
-
-            var ImageAssignmentResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<ImageAssignment>>;
-            var stores = ImageAssignmentResult.Content.ToList();
-
-            stores.ForEach(t => { t.ImageID = t.ImageID; });
-
-            var response = baseController.Update(stores) as OkNegotiatedContentResult<IEnumerable<ImageAssignment>>;
-
+            var response = ImageAssignmentImplementaion.Update() as OkNegotiatedContentResult<IEnumerable<ImageAssignment>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -64,9 +99,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_3_GetAll()
         {
             // Act
-
-            var ImageAssignmentResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<ImageAssignment>>;
-
+            var ImageAssignmentResult = ImageAssignmentImplementaion.GetAll() as OkNegotiatedContentResult<IEnumerable<ImageAssignment>>;
             // Assert
             Assert.IsNotNull(ImageAssignmentResult);
         }
@@ -75,12 +108,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_4_GetByID()
         {
             // Act
-
-            var _ImageAssignments = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<ImageAssignment>>;
-            var ImageAssignments = _ImageAssignments.Content.ToList();
-
-            var ImageAssignmentResult = baseController.GetByID(ImageAssignments[0].ID) as OkNegotiatedContentResult<ImageAssignment>;
-
+            var ImageAssignmentResult = ImageAssignmentImplementaion.GetByID() as OkNegotiatedContentResult<ImageAssignment>;
             // Assert
             Assert.IsNotNull(ImageAssignmentResult);
         }
@@ -89,14 +117,9 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_5_Delete()
         {
             //Act
-            var getAllResult = baseController.GetAll() as OkNegotiatedContentResult<IEnumerable<ImageAssignment>>;
-
-            var ImageAssignmentIDs = getAllResult.Content.Select(t => t.ID).ToList();
-
-            var deleteResult = baseController.Delete(ImageAssignmentIDs) as OkNegotiatedContentResult<IEnumerable<ImageAssignment>>;
-
+            var deleteResult = ImageAssignmentImplementaion.Delete() as OkNegotiatedContentResult<IEnumerable<Guid>>;
             //Assert
-            Assert.IsNotNull(getAllResult);
+            Assert.IsNotNull(deleteResult);
         }
 
     }

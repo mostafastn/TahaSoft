@@ -55,9 +55,9 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         internal static IHttpActionResult GetByID()
         {
             var _details = GetAll() as OkNegotiatedContentResult<IEnumerable<apiModel.Detail>>;
-            var Details = _details.Content.ToList();
+            var details = _details.Content.ToList();
 
-            var response = baseController.GetByID(Details[0].ID);
+            var response = baseController.GetByID(details[0].ID);
             return response;
         }
         internal static IHttpActionResult Delete()
