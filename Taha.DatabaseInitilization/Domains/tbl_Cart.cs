@@ -14,8 +14,6 @@ namespace Taha.DatabaseInitilization.Domains
             // this is necessary otherwise EF will throw null object reference error. you could also put ?? operator check for more interactive solution.  
             CartItem = new HashSet<tbl_CartItem>();
         }
-        [Required]
-        public Guid fldProductID { get; set; }
 
         /// <summary>
         /// an order may by have Customer or not

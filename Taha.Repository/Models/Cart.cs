@@ -10,8 +10,6 @@ namespace Taha.Repository.Models
         [Required]
         [MaxLength(500)]
         public string Description { get; set; }
-
-        public Guid ProductID { get; set; }
         public Guid? CustomerID { get; set; }
     }
 }

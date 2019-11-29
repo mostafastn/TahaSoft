@@ -14,7 +14,6 @@ namespace Taha.Repository.Repositorys
             var tblMenus = values.Select(t => new tbl_Cart()
             {
                 fldID = t.ID,
-                fldProductID = t.ProductID,
                 fldCustomerID = t.CustomerID,
                 fldDescription = t.Description
             });
@@ -27,7 +26,6 @@ namespace Taha.Repository.Repositorys
             var menus = values.Select(t => new Cart()
             {
                 ID = t.fldID,
-                ProductID = t.fldProductID,
                 CustomerID = t.fldCustomerID,
                 Description = t.fldDescription
             });
