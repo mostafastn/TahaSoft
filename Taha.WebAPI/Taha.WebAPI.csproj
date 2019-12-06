@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\CodingController.cs" />
     <Compile Include="Controllers\DetailAssignmentController.cs" />
     <Compile Include="Controllers\ImageAssignmentController.cs" />
