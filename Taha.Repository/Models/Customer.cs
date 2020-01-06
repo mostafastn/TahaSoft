@@ -8,9 +8,8 @@ using Taha.Framework.Infrastructure;
 
 namespace Taha.Repository.Models
 {
-    public class Customer
+    public class Customer : Product
     {
-        [Required]
-        public Guid ID { get; set; }
+        
     }
 }
