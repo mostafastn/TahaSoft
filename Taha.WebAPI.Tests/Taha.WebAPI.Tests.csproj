@@ -67,6 +67,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIControllerTest\CartItemTest.cs" />
     <Compile Include="APIControllerTest\CartTest.cs" />
     <Compile Include="APIControllerTest\CustomerTest.cs" />
     <Compile Include="APIControllerTest\CodingTest.cs" />

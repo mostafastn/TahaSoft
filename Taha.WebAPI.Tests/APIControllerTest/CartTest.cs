@@ -43,12 +43,12 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         }
         internal static IHttpActionResult Update()
         {
-            var customerResult = GetAll() as OkNegotiatedContentResult<IEnumerable<Cart>>;
-            var customers = customerResult.Content.ToList();
+            var cartResult = GetAll() as OkNegotiatedContentResult<IEnumerable<Cart>>;
+            var carts = cartResult.Content.ToList();
 
-            customers.ForEach(t => { t.Description = t.Description + " Updated "; });
+            carts.ForEach(t => { t.Description = t.Description + " Updated "; });
 
-            var response = baseController.Update(customers);
+            var response = baseController.Update(carts);
             return response;
         }
         internal static IHttpActionResult GetAll()

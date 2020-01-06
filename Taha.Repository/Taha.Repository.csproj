@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Coding.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Models\CarouselSlide.cs" />
     <Compile Include="Models\Place.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Repositorys\CartItemRepository.cs" />
     <Compile Include="Repositorys\CartRepository.cs" />
     <Compile Include="Repositorys\CustomerRepository.cs" />
     <Compile Include="Repositorys\CodingRepository.cs" />

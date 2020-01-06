@@ -31,6 +31,7 @@ namespace Taha.DatabaseInitilization.Domains
         /// <summary>
         /// count of items in an order
         /// </summary>
+        [Required]
         public int fldQty { get; set; }
 
         /// <summary>
