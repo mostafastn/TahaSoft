@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIControllerTest\CartItemTest.cs" />
+    <Compile Include="APIControllerTest\ReceiptTest.cs" />
     <Compile Include="APIControllerTest\CartTest.cs" />
     <Compile Include="APIControllerTest\UserTest.cs" />
     <Compile Include="APIControllerTest\CustomerTest.cs" />
