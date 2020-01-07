@@ -7,20 +7,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
 using System.Web.Http.Results;
+using Taha.Framework.Infrastructure;
 using Taha.Repository.Models;
 
 
 namespace Taha.WebAPI.Tests.APIControllerTest
 {
-
-    internal class ReceiptImplementaion
+    internal class ReceiptItemImplementaion
     {
-        private static ReceiptController baseController;
+        private static ReceiptItemController baseController;
 
-        static ReceiptImplementaion()
+        static ReceiptItemImplementaion()
         {
             //Arrange
-            baseController = new ReceiptController
+            baseController = new ReceiptItemController
             {
                 Request = new HttpRequestMessage(),
                 Configuration = new HttpConfiguration()
@@ -28,25 +28,32 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         }
         internal static IHttpActionResult Insert()
         {
-            var userResult = UserImplementaion.GetAll() as OkNegotiatedContentResult<IEnumerable<User>>;
-            var userList = userResult.Content.ToList();
+            var receiptResult = ReceiptImplementaion.GetAll() as OkNegotiatedContentResult<IEnumerable<Receipt>>;
+            var receiptList = receiptResult.Content.ToList();
 
-            var products = new List<Receipt>()
+            var productResult = ProductImplementaion.GetAll() as OkNegotiatedContentResult<IEnumerable<Product>>;
+            var productList = productResult.Content.ToList();
+
+            var receipts = productList.Select(t => new ReceiptItem()
             {
-                new Receipt() { ID = Guid.NewGuid(), Qty = 5, Price = 1000 , UserID = userList[0].ID},
-                new Receipt() { ID = Guid.NewGuid(), Qty = 5, Price = 1000 , UserID = userList[0].ID},
-                new Receipt() { ID = Guid.NewGuid(), Qty = 5, Price = 1000 , UserID = userList[0].ID},
-            };
+                ID = Guid.NewGuid(),
+                ReceiptID = receiptList[0].ID,
+                ProductID = t.ID,
+                Qty = 10,
+                Price = 1000,
+                Description = "Description",
+                Accepted = true,
+                Considerations = "Considerations",
+                WarehouseReceipNo = 123
+            }).ToList();
 
-            var response = baseController.Insert(products);
+            var response = baseController.Insert(receipts);
             return response;
         }
         internal static IHttpActionResult Update()
         {
-            var receiptResult = GetAll() as OkNegotiatedContentResult<IEnumerable<Receipt>>;
+            var receiptResult = GetAll() as OkNegotiatedContentResult<IEnumerable<ReceiptItem>>;
             var receipts = receiptResult.Content.ToList();
-
-            receipts.ForEach(t => { t.Qty *= 2; });
 
             var response = baseController.Update(receipts);
             return response;
@@ -59,7 +66,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         }
         internal static IHttpActionResult GetByID()
         {
-            var _receipts = GetAll() as OkNegotiatedContentResult<IEnumerable<Receipt>>;
+            var _receipts = GetAll() as OkNegotiatedContentResult<IEnumerable<ReceiptItem>>;
             var receipts = _receipts.Content.ToList();
 
             var response = baseController.GetByID(receipts[0].ID);
@@ -67,23 +74,21 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         }
         internal static IHttpActionResult Delete()
         {
-            ReceiptItemImplementaion.Delete();
-
-            var _receipts = GetAll() as OkNegotiatedContentResult<IEnumerable<Receipt>>;
+            var _receipts = GetAll() as OkNegotiatedContentResult<IEnumerable<ReceiptItem>>;
             var receiptIDs = _receipts.Content.Select(t => t.ID).ToList();
             var response = baseController.Delete(receiptIDs);
             return response;
         }
     }
-
     [TestClass]
-    public class ReceiptTest
+    public class ReceiptItemTest
     {
+       
         [TestMethod]
         public void Test_1_Insert()
         {
             //Act
-            var response = ReceiptImplementaion.Insert() as OkNegotiatedContentResult<IEnumerable<Receipt>>;
+            var response = ReceiptItemImplementaion.Insert() as OkNegotiatedContentResult<IEnumerable<ReceiptItem>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -92,7 +97,7 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_2_Update()
         {
             //Act
-            var response = ReceiptImplementaion.Update() as OkNegotiatedContentResult<IEnumerable<Receipt>>;
+            var response = ReceiptItemImplementaion.Update() as OkNegotiatedContentResult<IEnumerable<ReceiptItem>>;
             //Assert
             Assert.IsNotNull(response);
         }
@@ -101,27 +106,28 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         public void Test_3_GetAll()
         {
             // Act
-            var productResult = ReceiptImplementaion.GetAll() as OkNegotiatedContentResult<IEnumerable<Receipt>>;
+            var response = ReceiptItemImplementaion.GetAll() as OkNegotiatedContentResult<IEnumerable<ReceiptItem>>;
             // Assert
-            Assert.IsNotNull(productResult);
+            Assert.IsNotNull(response);
         }
 
         [TestMethod]
         public void Test_4_GetByID()
         {
             // Act
-            var productResult = ReceiptImplementaion.GetByID() as OkNegotiatedContentResult<Receipt>;
+            var response = ReceiptItemImplementaion.GetByID() as OkNegotiatedContentResult<ReceiptItem>;
             // Assert
-            Assert.IsNotNull(productResult);
+            Assert.IsNotNull(response);
         }
 
         [TestMethod]
         public void Test_5_Delete()
         {
             //Act
-            var deleteResult = ReceiptImplementaion.Delete() as OkNegotiatedContentResult<IEnumerable<Guid>>;
+            var response = ReceiptItemImplementaion.Delete() as OkNegotiatedContentResult<IEnumerable<Guid>>;
             //Assert
-            Assert.IsNotNull(deleteResult);
+            Assert.IsNotNull(response);
         }
+
     }
 }
