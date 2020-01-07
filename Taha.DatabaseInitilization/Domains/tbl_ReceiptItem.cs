@@ -19,7 +19,7 @@ namespace Taha.DatabaseInitilization.Domains
         public decimal fldPrice { get; set; }
 
         /// <summary>
-        /// count of items in an Receipt
+        /// count of items in a Record
         /// </summary>
         public int fldQty { get; set; }
 

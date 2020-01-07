@@ -105,6 +105,7 @@
     <Compile Include="Controllers\CategoryAssignmentController .cs" />
     <Compile Include="Controllers\DetailController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PlaceController.cs" />
     <Compile Include="Controllers\PersonController.cs" />

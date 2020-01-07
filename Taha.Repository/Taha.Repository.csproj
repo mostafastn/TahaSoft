@@ -61,6 +61,7 @@
     <Compile Include="Models\ImageAssignment.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\CategoryAssignment.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Store.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Repositorys\CategoryAssignmentRepository.cs" />
     <Compile Include="Repositorys\DetailRepository.cs" />
     <Compile Include="Repositorys\ImageRepository.cs" />
+    <Compile Include="Repositorys\UserRepository.cs" />
     <Compile Include="Repositorys\ProductRepository.cs" />
     <Compile Include="Repositorys\PlaceRepository.cs" />
     <Compile Include="Repositorys\PersonRepository.cs" />
