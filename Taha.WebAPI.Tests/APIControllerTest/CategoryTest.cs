@@ -65,6 +65,8 @@ namespace Taha.WebAPI.Tests.APIControllerTest
         }
         internal static IHttpActionResult Delete()
         {
+            ProductImplementaion.Delete();
+
             var _categorys = GetAll() as OkNegotiatedContentResult<IEnumerable<Category>>;
             var categoryIDs = _categorys.Content.Select(t => t.ID).ToList();
             var response = baseController.Delete(categoryIDs);
