@@ -78,6 +78,7 @@
     <Compile Include="DataLayerMappings\tbl_CategoryMap.cs" />
     <Compile Include="Domains\tbl_CartItem.cs" />
     <Compile Include="Domains\tbl_Coding.cs" />
+    <Compile Include="Domains\tbl_AboutUS.cs" />
     <Compile Include="Domains\tbl_ReceiptItem.cs" />
     <Compile Include="Domains\tbl_User.cs" />
     <Compile Include="Domains\tbl_Person.cs" />

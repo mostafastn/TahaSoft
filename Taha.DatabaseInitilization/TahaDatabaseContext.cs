@@ -23,6 +23,7 @@ namespace Taha.DatabaseInitilization
         public DbSet<tbl_Detail> tbl_detail { get; set; }
         public DbSet<tbl_Image> tbl_Image { get; set; }
 
+        public DbSet<tbl_AboutUS> tbl_AboutUS { get; set; }
         #endregion
 
         #region tbl_CodingMap
